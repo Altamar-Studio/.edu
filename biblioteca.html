@@ -57,6 +57,15 @@
             margin-left: 2px;
         }
         @keyframes blink { 50% { opacity: 0; } }
+
+        /* Animación Fade In */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
     </style>
 </head>
 <body class="antialiased selection:bg-black selection:text-white flex flex-col min-h-screen">
@@ -98,33 +107,33 @@
             
             <aside class="w-full md:w-64 flex-shrink-0">
                 <div class="sticky top-32 flex flex-row md:flex-col gap-2 overflow-x-auto no-scrollbar pb-4 md:pb-0">
-                    <button onclick="filterDocs('UV')" id="btn-UV" class="w-full text-left px-5 py-3 rounded-2xl font-bold text-sm transition-all tab-active flex items-center justify-between group flex-shrink-0">
+                    <button onclick="filterDocs('UV')" id="btn-UV" class="w-auto md:w-full text-left px-4 py-2.5 md:px-5 md:py-3 rounded-xl md:rounded-2xl font-bold text-xs md:text-sm transition-all tab-active flex items-center justify-between group flex-shrink-0 whitespace-nowrap">
                         Universidad Veracruzana
-                        <span class="material-symbols-outlined text-[16px] opacity-50 group-hover:opacity-100">chevron_right</span>
+                        <span class="material-symbols-outlined text-[16px] opacity-50 group-hover:opacity-100 hidden md:block">chevron_right</span>
                     </button>
-                    <button onclick="filterDocs('EXANI')" id="btn-EXANI" class="w-full text-left px-5 py-3 rounded-2xl font-bold text-sm transition-all tab-inactive flex items-center justify-between group flex-shrink-0 border border-black/10">
+                    <button onclick="filterDocs('EXANI')" id="btn-EXANI" class="w-auto md:w-full text-left px-4 py-2.5 md:px-5 md:py-3 rounded-xl md:rounded-2xl font-bold text-xs md:text-sm transition-all tab-inactive flex items-center justify-between group flex-shrink-0 border border-black/10 whitespace-nowrap">
                         Guías Generales EXANI-II
-                        <span class="material-symbols-outlined text-[16px] opacity-0 group-hover:opacity-50">folder</span>
+                        <span class="material-symbols-outlined text-[16px] opacity-0 group-hover:opacity-50 hidden md:block">folder</span>
                     </button>
-                    <button onclick="filterDocs('IPN')" id="btn-IPN" class="w-full text-left px-5 py-3 rounded-2xl font-bold text-sm transition-all tab-inactive flex items-center justify-between group flex-shrink-0">
+                    <button onclick="filterDocs('IPN')" id="btn-IPN" class="w-auto md:w-full text-left px-4 py-2.5 md:px-5 md:py-3 rounded-xl md:rounded-2xl font-bold text-xs md:text-sm transition-all tab-inactive flex items-center justify-between group flex-shrink-0 whitespace-nowrap">
                         IPN
-                        <span class="material-symbols-outlined text-[16px] opacity-0 group-hover:opacity-50">chevron_right</span>
+                        <span class="material-symbols-outlined text-[16px] opacity-0 group-hover:opacity-50 hidden md:block">chevron_right</span>
                     </button>
-                    <button onclick="filterDocs('UNAM')" id="btn-UNAM" class="w-full text-left px-5 py-3 rounded-2xl font-bold text-sm transition-all tab-inactive flex items-center justify-between group flex-shrink-0">
+                    <button onclick="filterDocs('UNAM')" id="btn-UNAM" class="w-auto md:w-full text-left px-4 py-2.5 md:px-5 md:py-3 rounded-xl md:rounded-2xl font-bold text-xs md:text-sm transition-all tab-inactive flex items-center justify-between group flex-shrink-0 whitespace-nowrap">
                         UNAM
-                        <span class="material-symbols-outlined text-[16px] opacity-0 group-hover:opacity-50">chevron_right</span>
+                        <span class="material-symbols-outlined text-[16px] opacity-0 group-hover:opacity-50 hidden md:block">chevron_right</span>
                     </button>
-                    <button onclick="filterDocs('UAM')" id="btn-UAM" class="w-full text-left px-5 py-3 rounded-2xl font-bold text-sm transition-all tab-inactive flex items-center justify-between group flex-shrink-0">
+                    <button onclick="filterDocs('UAM')" id="btn-UAM" class="w-auto md:w-full text-left px-4 py-2.5 md:px-5 md:py-3 rounded-xl md:rounded-2xl font-bold text-xs md:text-sm transition-all tab-inactive flex items-center justify-between group flex-shrink-0 whitespace-nowrap">
                         UAM
-                        <span class="material-symbols-outlined text-[16px] opacity-0 group-hover:opacity-50">chevron_right</span>
+                        <span class="material-symbols-outlined text-[16px] opacity-0 group-hover:opacity-50 hidden md:block">chevron_right</span>
                     </button>
-                    <button onclick="filterDocs('BUAP')" id="btn-BUAP" class="w-full text-left px-5 py-3 rounded-2xl font-bold text-sm transition-all tab-inactive flex items-center justify-between group flex-shrink-0">
+                    <button onclick="filterDocs('BUAP')" id="btn-BUAP" class="w-auto md:w-full text-left px-4 py-2.5 md:px-5 md:py-3 rounded-xl md:rounded-2xl font-bold text-xs md:text-sm transition-all tab-inactive flex items-center justify-between group flex-shrink-0 whitespace-nowrap">
                         BUAP
-                        <span class="material-symbols-outlined text-[16px] opacity-0 group-hover:opacity-50">chevron_right</span>
+                        <span class="material-symbols-outlined text-[16px] opacity-0 group-hover:opacity-50 hidden md:block">chevron_right</span>
                     </button>
-                    <button onclick="filterDocs('CHAPINGO')" id="btn-CHAPINGO" class="w-full text-left px-5 py-3 rounded-2xl font-bold text-sm transition-all tab-inactive flex items-center justify-between group flex-shrink-0">
+                    <button onclick="filterDocs('CHAPINGO')" id="btn-CHAPINGO" class="w-auto md:w-full text-left px-4 py-2.5 md:px-5 md:py-3 rounded-xl md:rounded-2xl font-bold text-xs md:text-sm transition-all tab-inactive flex items-center justify-between group flex-shrink-0 whitespace-nowrap">
                         CHAPINGO
-                        <span class="material-symbols-outlined text-[16px] opacity-0 group-hover:opacity-50">chevron_right</span>
+                        <span class="material-symbols-outlined text-[16px] opacity-0 group-hover:opacity-50 hidden md:block">chevron_right</span>
                     </button>
                 </div>
             </aside>
@@ -177,49 +186,49 @@
                 universidad: 'UV',
                 titulo: 'Repositorio Oficial UV',
                 tipo: 'Directorio Drive',
-                descripcion: 'Accede a la colección completa para la Universidad Veracruzana. Incluye las guías EXANI-II 2026, temarios específicos por área académica y bancos de reactivos de años anteriores.',
+                descripcion: 'Repositorio oficial para el examen de ingreso a la Universidad Veracruzana. Contiene material de estudio enfocado en los módulos específicos por facultad, exámenes simulacro basados en el formato EXANI-II de CENEVAL y bancos de preguntas reales recopilados de convocatorias anteriores.',
                 linkDrive: 'https://drive.google.com/drive/folders/1fadx7rgdolGqM7ktUZJL7kqnRmvlCRtl?usp=drive_link'
             },
             {
                 universidad: 'EXANI',
                 titulo: 'Material General EXANI-II',
                 tipo: 'Directorio Drive',
-                descripcion: 'Recursos universales alineados a la estructura CENEVAL. Ideal para reforzar Pensamiento Matemático, Redacción Indirecta y Comprensión Lectora.',
+                descripcion: 'Colección de recursos generales para presentar la prueba EXANI-II de CENEVAL en cualquier universidad del país. Refuerza tus habilidades fundamentales en Pensamiento Matemático, Comprensión Lectora y Redacción Indirecta con guías resueltas y explicadas paso a paso.',
                 linkDrive: 'https://drive.google.com/drive/folders/1fadx7rgdolGqM7ktUZJL7kqnRmvlCRtl?usp=drive_link'
             },
             {
                 universidad: 'IPN',
                 titulo: 'Repositorio Oficial IPN',
                 tipo: 'Directorio Drive',
-                descripcion: 'Material exclusivo para el "Burro Blanco". Contiene la Guía Oficial de Nivel Superior, formularios de ciencias exactas y exámenes simulacro por área de conocimiento.',
+                descripcion: 'Bóveda oficial de preparación para el Instituto Politécnico Nacional. Accede a la Guía Oficial de Nivel Superior resuelta, compendios avanzados de física, química y matemáticas, y simulacros tipo IPN organizados por área de conocimiento (Ingeniería, Medico-Biológicas y Sociales).',
                 linkDrive: 'https://drive.google.com/drive/folders/1MvZCuI-9lOcwqhCOmHxzIwsltaqNX37u?usp=drive_link'
             },
             {
                 universidad: 'UNAM',
                 titulo: 'Repositorio Oficial UNAM',
                 tipo: 'Directorio Drive',
-                descripcion: 'La bóveda más grande de la máxima casa de estudios. Guías actualizadas para las Áreas 1, 2, 3 y 4, junto con material de apoyo histórico.',
+                descripcion: 'El archivo más completo para el Concurso de Selección a Licenciatura de la UNAM. Encuentra las guías oficiales más recientes para las Áreas 1, 2, 3 y 4, resúmenes estratégicos de alta densidad y exámenes de años pasados para asegurar tu lugar en la máxima casa de estudios.',
                 linkDrive: 'https://drive.google.com/drive/folders/1Y0otcVEmalmSdjnYKznEzv1_FPK-YaZn?usp=drive_link'
             },
             {
                 universidad: 'UAM',
                 titulo: 'Repositorio Oficial UAM',
                 tipo: 'Directorio Drive',
-                descripcion: 'Prepárate para el examen de la "Casa abierta al tiempo". Guías de estudio divididas por divisiones académicas (CBI, CBS, CSH, CAD).',
+                descripcion: 'Material de estudio oficial para el Examen de Selección de la UAM. Organizado detalladamente por divisiones académicas: Ciencias Básicas e Ingeniería (CBI), Ciencias Biológicas y de la Salud (CBS) y Ciencias Sociales y Humanidades (CSH), incluyendo secciones de razonamiento verbal y matemático.',
                 linkDrive: 'https://drive.google.com/drive/folders/1lSAXT46YEN61t4Qd4mZZISe335rjcuSM?usp=drive_link'
             },
             {
                 universidad: 'BUAP',
                 titulo: 'Repositorio Oficial BUAP',
                 tipo: 'Directorio Drive',
-                descripcion: 'Material enfocado en la Prueba de Admisión y Diagnóstico (PAD) y los exámenes EGA-I. Recursos específicos para la Benemérita de Puebla.',
+                descripcion: 'Repositorio especializado para el Examen General de Admisión (EGA-I) de la BUAP. Contiene pruebas de práctica, guías oficiales de razonamiento y material enfocado específicamente en los criterios de evaluación y diagnóstico de la Benemérita Universidad Autónoma de Puebla.',
                 linkDrive: 'https://drive.google.com/drive/folders/1kbNs2deAx3pnzvaY8neFbFfVfzooAHYg?usp=drive_link'
             },
             {
                 universidad: 'CHAPINGO',
                 titulo: 'Repositorio Oficial Chapingo',
                 tipo: 'Directorio Drive',
-                descripcion: 'Guías y temarios especializados para el ingreso a Preparatoria Agrícola y Propedéutico de la UACh.',
+                descripcion: 'Recursos exclusivos para preparar con éxito el examen de admisión a la Universidad Autónoma Chapingo. Incluye guías oficiales, cuestionarios de práctica y temarios desarrollados específicamente para el ingreso a la Preparatoria Agrícola y al Propedéutico Universitario.',
                 linkDrive: 'https://drive.google.com/drive/folders/1sJDC8LYRcYYWCPEX6-aM-Xs1HL6x_Qya?usp=drive_link'
             }
         ];
@@ -240,7 +249,7 @@
             'CHAPINGO': 'Universidad Autónoma Chapingo'
         };
 
-        // Función de Efecto Máquina de Escribir
+        // Función de Efecto Máquina de Escribir (mantenida por compatibilidad)
         function typeWriter(elementId, text, speed = 30) {
             const element = document.getElementById(elementId);
             if (!element) return;
@@ -292,9 +301,9 @@
             } else {
                 emptyState.classList.add('hidden');
                 
-                // Renderizado del HTML
+                // Renderizado del HTML con texto pre-cargado para máxima fluidez y legibilidad móvil
                 grid.innerHTML = docsFiltrados.map((doc, index) => `
-                    <div class="col-span-full bg-white rounded-[32px] border border-black/5 shadow-sm overflow-hidden flex flex-col md:flex-row transition-all hover:shadow-md">
+                    <div class="col-span-full bg-white rounded-[32px] border border-black/5 shadow-sm overflow-hidden flex flex-col md:flex-row transition-all hover:shadow-md animate-fade-in">
                         
                         <div class="p-8 md:p-12 flex-1 flex flex-col justify-center">
                             <div class="flex items-center gap-3 mb-6">
@@ -306,7 +315,7 @@
                             
                             <h3 class="text-3xl md:text-4xl text-serif font-bold mb-4 tracking-tight">${doc.titulo}</h3>
                             
-                            <p id="desc-${doc.universidad}-${index}" class="text-gray-500 font-medium leading-relaxed mb-10 max-w-xl min-h-[80px]"></p>
+                            <p id="desc-${doc.universidad}-${index}" class="text-gray-500 font-medium leading-relaxed mb-10 max-w-xl text-sm md:text-base">${doc.descripcion}</p>
                             
                             <div class="mt-auto">
                                 <button onclick="window.open('${doc.linkDrive}', '_blank')" class="inline-flex items-center gap-3 bg-black text-white px-8 py-4 rounded-full text-sm font-bold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all">
@@ -348,14 +357,6 @@
                         
                     </div>
                 `).join('');
-
-                // 5. Disparar la animación de escritura después de dibujar el HTML
-                docsFiltrados.forEach((doc, index) => {
-                    // Pequeño retraso para que se sienta más natural
-                    setTimeout(() => {
-                         typeWriter(`desc-${doc.universidad}-${index}`, doc.descripcion);
-                    }, 300);
-                });
             }
         }
 
