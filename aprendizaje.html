@@ -263,7 +263,7 @@
             </div>
 
             <!-- Interfaz del Chat (Dark Premium Aesthetic) -->
-            <div class="bg-[#0A0A0A] text-white rounded-[40px] border border-white/10 shadow-2xl overflow-hidden flex flex-col lg:flex-row h-[600px]">
+            <div class="bg-[#0A0A0A] text-white rounded-[40px] border border-white/10 shadow-2xl overflow-hidden flex flex-col lg:flex-row min-h-[700px] lg:h-[600px]">
                 
                 <!-- Sidebar de Contexto IA -->
                 <div class="w-full lg:w-1/4 bg-white/5 border-b lg:border-b-0 lg:border-r border-white/10 p-6 flex flex-col justify-between">
@@ -444,11 +444,31 @@
 
     <!-- Footer -->
     <footer class="bg-white py-20 px-6 border-t border-black/5 mt-auto">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 border-t border-black/5 pt-10">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 border-t border-black/5 pt-10 pb-20 md:pb-0">
             <div class="font-black tracking-tighter text-4xl opacity-5">EstudiandoAndo</div>
             <p class="text-xs opacity-40 font-bold tracking-tight">© EstudiandoAndo 2026. Todos los derechos reservados.</p>
         </div>
     </footer>
+
+    <!-- Barra de Navegación Móvil (Adaptable a celulares/tablets pequeñas) -->
+    <nav class="fixed bottom-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-xl border-t border-black/10 h-16 flex items-center justify-around px-2 md:hidden shadow-lg">
+        <a href="index.html" class="flex flex-col items-center gap-0.5 opacity-40 hover:opacity-100 transition-opacity">
+            <span class="material-symbols-outlined text-[20px]">home</span>
+            <span class="text-[9px] font-bold tracking-tight">Inicio</span>
+        </a>
+        <a href="biblioteca.html" class="flex flex-col items-center gap-0.5 opacity-40 hover:opacity-100 transition-opacity">
+            <span class="material-symbols-outlined text-[20px]">local_library</span>
+            <span class="text-[9px] font-bold tracking-tight">Biblioteca</span>
+        </a>
+        <a href="aprendizaje.html" class="flex flex-col items-center gap-0.5 opacity-100 text-black transition-opacity">
+            <span class="material-symbols-outlined text-[20px]">psychology</span>
+            <span class="text-[9px] font-bold tracking-tight">Aprendizaje</span>
+        </a>
+        <a href="noticias.html" class="flex flex-col items-center gap-0.5 opacity-40 hover:opacity-100 transition-opacity">
+            <span class="material-symbols-outlined text-[20px]">newspaper</span>
+            <span class="text-[9px] font-bold tracking-tight">Noticias</span>
+        </a>
+    </nav>
 
     <script>
         // LÓGICA DEL CHAT SIMULADO CON IA

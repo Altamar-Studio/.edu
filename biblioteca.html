@@ -81,7 +81,7 @@
         </nav>
     </header>
 
-    <main class="pt-32 flex-grow flex flex-col max-w-7xl mx-auto w-full px-6 mb-20">
+    <main class="pt-32 flex-grow flex flex-col max-w-7xl mx-auto w-full px-6 mb-20 pb-20 md:pb-0">
         
         <div class="mb-16 mt-8 border-b border-black/10 pb-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div>
@@ -147,6 +147,26 @@
 
         </div>
     </main>
+
+    <!-- Barra de Navegación Móvil (Adaptable a celulares/tablets pequeñas) -->
+    <nav class="fixed bottom-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-xl border-t border-black/10 h-16 flex items-center justify-around px-2 md:hidden shadow-lg">
+        <a href="index.html" class="flex flex-col items-center gap-0.5 opacity-40 hover:opacity-100 transition-opacity">
+            <span class="material-symbols-outlined text-[20px]">home</span>
+            <span class="text-[9px] font-bold tracking-tight">Inicio</span>
+        </a>
+        <a href="biblioteca.html" class="flex flex-col items-center gap-0.5 opacity-100 text-black transition-opacity">
+            <span class="material-symbols-outlined text-[20px]">local_library</span>
+            <span class="text-[9px] font-bold tracking-tight">Biblioteca</span>
+        </a>
+        <a href="aprendizaje.html" class="flex flex-col items-center gap-0.5 opacity-40 hover:opacity-100 transition-opacity">
+            <span class="material-symbols-outlined text-[20px]">psychology</span>
+            <span class="text-[9px] font-bold tracking-tight">Aprendizaje</span>
+        </a>
+        <a href="noticias.html" class="flex flex-col items-center gap-0.5 opacity-40 hover:opacity-100 transition-opacity">
+            <span class="material-symbols-outlined text-[20px]">newspaper</span>
+            <span class="text-[9px] font-bold tracking-tight">Noticias</span>
+        </a>
+    </nav>
 
     <script>
         /* ========================================================
