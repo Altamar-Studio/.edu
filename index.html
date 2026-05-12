@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>EstudiandoAndo | Tu ingreso con IA</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@400;500;600;700&family=Homemade+Apple&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet" />
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'ea-cream': '#F9F9F9',
+                        'ea-dark': '#0A0A0A',
+                        'ea-gray-light': '#F3F4F6',
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                        handwritten: ['"Homemade Apple"', 'cursive'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        .text-serif { font-family: 'Cormorant Garamond', serif; }
+        .text-handwritten { font-family: 'Homemade Apple', cursive; }
+        
+        .highlight-gray {
+            background-color: #E5E7EB;
+            padding: 0 6px;
+            border-radius: 4px;
+        }
+        
+        .btn-dark {
+            background-color: #0A0A0A;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        .btn-dark:hover {
+            background-color: #262626;
+            transform: translateY(-1px);
+        }
+        
+        .watermark-text {
+            font-size: 11vw;
+            line-height: 1;
+            color: rgba(0,0,0,0.02);
+            pointer-events: none;
+            user-select: none;
+            white-space: nowrap;
+        }
+
+        #live-news-content { transition: opacity 0.4s ease-in-out; }
+    </style>
+</head>
+<body class="bg-[#F9F9F9] text-ea-dark font-sans selection:bg-black selection:text-white">
+
+    <header class="fixed top-6 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
+        <nav class="pointer-events-auto w-full max-w-5xl h-16 bg-white/70 backdrop-blur-xl border border-black/10 rounded-full flex items-center justify-between px-6 shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all">
+            <div class="flex items-center gap-8">
+                <a class="flex items-center gap-2" href="#">
+                    <div class="bg-black text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">EA</div>
+                    <span class="font-bold tracking-tight hidden sm:block">EstudiandoAndo</span>
+                </a>
+                <div class="hidden md:flex items-center gap-6 text-sm font-medium opacity-60">
+                    <a class='hover:opacity-100 transition-opacity' href='biblioteca.html'>Biblioteca</a>
+                    <a class='hover:opacity-100 transition-opacity' href='aprendizaje.html'>Aprendizaje</a>
+                    <a class="hover:opacity-100 transition-opacity" href="noticias.html">Noticias</a>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <a class="text-sm font-medium opacity-60 hover:opacity-100 transition-opacity hidden sm:block" href="#">Iniciar sesión</a>
+                <a class="btn-dark px-5 py-2.5 rounded-full text-sm font-bold shadow-sm" href="#">Registrarse</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="pt-40">
+        <section class="max-w-4xl mx-auto text-center px-6 mb-20">
+            <div class="inline-flex items-center bg-gray-200 px-4 py-1.5 rounded-full text-[10px] font-bold text-black mb-10 tracking-widest uppercase shadow-sm">
+                CICLO 2026 ABIERTO →
+            </div>
+            
+            <h1 class="text-[3.5rem] md:text-7xl lg:text-[5.5rem] text-serif leading-[1.05] mb-8 font-medium tracking-tight">
+                Tu plataforma de estudio<br> para la <span class="text-handwritten text-5xl md:text-7xl lg:text-[6.5rem] italic">universidad</span>.
+            </h1>
+            
+            <p class="text-lg md:text-xl opacity-60 max-w-2xl mx-auto mb-12 font-medium">
+                El ecosistema definitivo de preparación autodidacta. Simuladores adaptativos con IA y material oficial para asegurar tu lugar en cualquier universidad de México.
+            </p>
+            
+            <div class="flex justify-center">
+               <a class='inline-flex items-center gap-2 bg-black text-white px-8 py-3.5 rounded-full text-sm font-bold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all' href='aprendizaje.html'>
+                    <span class="material-symbols-outlined text-[18px]">play_arrow</span>
+                    Probar Simulador Gratis
+                </a>
+            </div>
+        </section>
+
+	<style>
+            @keyframes infinite-scroll {
+                0% { transform: translateX(0); }
+                100% { transform: translateX(calc(-50%)); }
+            }
+            .animate-infinite-scroll {
+                display: flex;
+                width: max-content;
+                animation: infinite-scroll 45s linear infinite;
+            }
+            .animate-infinite-scroll:hover {
+                animation-play-state: paused;
+            }
+        </style>
+
+        <section class="mb-32 relative overflow-hidden">
+            <h4 class="text-center text-serif text-3xl mb-12 opacity-50 italic font-medium">Preparación de élite para los aspirantes de</h4>
+            
+            <div class="relative w-full overflow-hidden">
+                <div class="absolute left-0 top-0 bottom-0 w-24 md:w-48 bg-gradient-to-r from-[#F9F9F9] to-transparent z-10 pointer-events-none"></div>
+                <div class="absolute right-0 top-0 bottom-0 w-24 md:w-48 bg-gradient-to-l from-[#F9F9F9] to-transparent z-10 pointer-events-none"></div>
+                
+                <div class="animate-infinite-scroll gap-6 px-3">
+                    
+                    <div class="bg-white border border-black/5 rounded-[20px] px-8 py-6 flex items-center justify-center shadow-[0_2px_10px_rgb(0,0,0,0.02)] min-w-max transition-all hover:shadow-md cursor-default">
+                        <span class="text-xl font-bold tracking-tight opacity-70">Universidad Veracruzana</span>
+                    </div>
+                    <div class="bg-white border border-black/5 rounded-[20px] px-8 py-6 flex items-center justify-center shadow-[0_2px_10px_rgb(0,0,0,0.02)] min-w-max transition-all hover:shadow-md cursor-default">
+                        <span class="text-xl font-bold tracking-tight opacity-70">Instituto Politécnico Nacional</span>
+                    </div>
+                    <div class="bg-white border border-black/5 rounded-[20px] px-8 py-6 flex items-center justify-center shadow-[0_2px_10px_rgb(0,0,0,0.02)] min-w-max transition-all hover:shadow-md cursor-default">
+                        <span class="text-xl font-bold tracking-tight opacity-70">Universidad Nacional Autónoma de México</span>
+                    </div>
+                    <div class="bg-white border border-black/5 rounded-[20px] px-8 py-6 flex items-center justify-center shadow-[0_2px_10px_rgb(0,0,0,0.02)] min-w-max transition-all hover:shadow-md cursor-default">
+                        <span class="text-xl font-bold tracking-tight opacity-70">Universidad Autónoma Metropolitana</span>
+                    </div>
+                    <div class="bg-white border border-black/5 rounded-[20px] px-8 py-6 flex items-center justify-center shadow-[0_2px_10px_rgb(0,0,0,0.02)] min-w-max transition-all hover:shadow-md cursor-default">
+                        <span class="text-xl font-bold tracking-tight opacity-70">Benemérita Univ. Autónoma de Puebla</span>
+                    </div>
+                    <div class="bg-white border border-black/5 rounded-[20px] px-8 py-6 flex items-center justify-center shadow-[0_2px_10px_rgb(0,0,0,0.02)] min-w-max transition-all hover:shadow-md cursor-default">
+                        <span class="text-xl font-bold tracking-tight opacity-70">Universidad Autónoma Chapingo</span>
+                    </div>
+
+                    <div class="bg-white border border-black/5 rounded-[20px] px-8 py-6 flex items-center justify-center shadow-[0_2px_10px_rgb(0,0,0,0.02)] min-w-max transition-all hover:shadow-md cursor-default">
+                        <span class="text-xl font-bold tracking-tight opacity-70">Universidad Veracruzana</span>
+                    </div>
+                    <div class="bg-white border border-black/5 rounded-[20px] px-8 py-6 flex items-center justify-center shadow-[0_2px_10px_rgb(0,0,0,0.02)] min-w-max transition-all hover:shadow-md cursor-default">
+                        <span class="text-xl font-bold tracking-tight opacity-70">Instituto Politécnico Nacional</span>
+                    </div>
+                    <div class="bg-white border border-black/5 rounded-[20px] px-8 py-6 flex items-center justify-center shadow-[0_2px_10px_rgb(0,0,0,0.02)] min-w-max transition-all hover:shadow-md cursor-default">
+                        <span class="text-xl font-bold tracking-tight opacity-70">Universidad Nacional Autónoma de México</span>
+                    </div>
+                    <div class="bg-white border border-black/5 rounded-[20px] px-8 py-6 flex items-center justify-center shadow-[0_2px_10px_rgb(0,0,0,0.02)] min-w-max transition-all hover:shadow-md cursor-default">
+                        <span class="text-xl font-bold tracking-tight opacity-70">Universidad Autónoma Metropolitana</span>
+                    </div>
+                    <div class="bg-white border border-black/5 rounded-[20px] px-8 py-6 flex items-center justify-center shadow-[0_2px_10px_rgb(0,0,0,0.02)] min-w-max transition-all hover:shadow-md cursor-default">
+                        <span class="text-xl font-bold tracking-tight opacity-70">Benemérita Univ. Autónoma de Puebla</span>
+                    </div>
+                    <div class="bg-white border border-black/5 rounded-[20px] px-8 py-6 flex items-center justify-center shadow-[0_2px_10px_rgb(0,0,0,0.02)] min-w-max transition-all hover:shadow-md cursor-default">
+                        <span class="text-xl font-bold tracking-tight opacity-70">Universidad Autónoma Chapingo</span>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="max-w-6xl mx-auto px-6 mb-32">
+            
+            <div class="mb-16 text-center max-w-2xl mx-auto flex flex-col items-center">
+                <h3 class="text-3xl md:text-4xl text-serif mb-4 font-medium tracking-tight">El estudio autodidacta ya no es solitario.</h3>
+                <p class="text-base md:text-lg opacity-60 mb-8 font-medium leading-relaxed">
+                    Únete a una red nacional de aspirantes. Comparte métodos de estudio, resuelve dudas complejas en tiempo real y mantén la motivación al máximo apoyándote en quienes tienen el mismo objetivo que tú.
+                </p>
+                <a href="#" class="inline-flex items-center gap-2 bg-white border border-black/10 px-8 py-3.5 rounded-full text-sm font-bold shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all text-black">
+                    Explorar la Comunidad
+                    <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                </a>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 items-center bg-white/50 p-8 rounded-[40px] border border-black/5 shadow-sm">
+                
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-black/5 transform hover:-rotate-1 transition-transform cursor-default">
+                    <div class="flex gap-2 mb-6">
+                        <div class="w-3 h-3 rounded-full bg-gray-200"></div>
+                        <div class="w-3 h-3 rounded-full bg-gray-200"></div>
+                        <div class="w-3 h-3 rounded-full bg-gray-200"></div>
+                    </div>
+                    <div class="space-y-4">
+                        <h4 class="text-black font-bold text-sm">Foro de Aspirantes</h4>
+                        
+                        <div class="mt-4 p-4 border border-black/5 rounded-xl bg-[#F9F9F9]">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center text-[10px] font-bold">MR</div>
+                                <div>
+                                    <p class="text-xs font-bold text-black">Mateo R.</p>
+                                    <p class="text-[9px] opacity-40 uppercase tracking-widest font-bold">Aspirante UV</p>
+                                </div>
+                            </div>
+                            <p class="text-sm font-medium opacity-80 leading-relaxed">¿Alguien tiene un tip para resolver las sucesiones numéricas más rápido? En el simulador me toman mucho tiempo. ⏳</p>
+                        </div>
+                        
+                        <div class="pl-6">
+                            <div class="p-4 border border-black/5 rounded-xl bg-white shadow-sm relative">
+                                <div class="absolute -left-3 top-6 w-3 h-px bg-gray-200"></div>
+                                <div class="flex items-center gap-3 mb-2">
+                                    <div class="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center text-[8px] font-bold">AL</div>
+                                    <div class="flex items-center gap-2">
+                                        <p class="text-xs font-bold text-black">Ana L.</p>
+                                        <span class="text-[8px] bg-green-100 text-green-700 px-1.5 py-0.5 rounded font-bold uppercase tracking-wider">Admitida IPN</span>
+                                    </div>
+                                </div>
+                                <p class="text-xs font-medium opacity-70 leading-relaxed">¡Sí! Busca el patrón en las diferencias de segundo nivel. Te comparto mis apuntes por mensaje directo. 📚</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-8 rounded-3xl shadow-lg border border-black/10 transform hover:rotate-1 transition-transform cursor-default relative">
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-black text-white px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest flex items-center gap-1 shadow-md">
+                        ✨ Opiniones
+                    </div>
+                    <div class="flex gap-2 mb-6">
+                        <div class="w-3 h-3 rounded-full bg-red-400"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-400"></div>
+                    </div>
+                    <div class="space-y-4">
+                        <h3 class="text-xl font-bold">Respaldo entre estudiantes</h3>
+                        <p class="text-[10px] font-bold opacity-50 uppercase tracking-widest">Experiencias Reales</p>
+                        
+                        <div class="space-y-4 mt-4">
+                            <div class="p-4 border border-black/5 rounded-xl bg-[#F9F9F9] hover:bg-white hover:shadow-sm transition-all">
+                                <div class="flex gap-1 mb-2 text-yellow-400 text-[10px]">
+                                    ★ ★ ★ ★ ★
+                                </div>
+                                <p class="text-xs font-medium opacity-80 leading-relaxed italic">"Encontrar resúmenes específicos para mi carrera hechos por otros compañeros me ahorró semanas de búsqueda en Google."</p>
+                                <div class="flex items-center justify-between mt-3">
+                                    <p class="text-[10px] font-bold text-black">— Carlos T.</p>
+                                    <span class="text-[8px] opacity-40 uppercase font-bold tracking-wider">Aspirante BUAP</span>
+                                </div>
+                            </div>
+                            
+                            <div class="p-4 border border-black/5 rounded-xl bg-[#F9F9F9] hover:bg-white hover:shadow-sm transition-all">
+                                <div class="flex gap-1 mb-2 text-yellow-400 text-[10px]">
+                                    ★ ★ ★ ★ ★
+                                </div>
+                                <p class="text-xs font-medium opacity-80 leading-relaxed italic">"La mejor comunidad de estudio. Siempre hay alguien dispuesto a explicarte si no entiendes la justificación de un simulador."</p>
+                                <div class="flex items-center justify-between mt-3">
+                                    <p class="text-[10px] font-bold text-black">— Valeria M.</p>
+                                    <span class="text-[8px] opacity-40 uppercase font-bold tracking-wider">Aspirante UNAM</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <span id="ecosistema"></span>
+
+        <section class="max-w-6xl mx-auto px-6 mb-16">
+            <h2 class="text-center text-serif text-5xl mb-16 font-medium tracking-tight">Nuestro modelo de Aprendizaje</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                
+                <div class="bg-white p-12 rounded-[40px] border border-black/5 hover:border-black/20 transition-all shadow-sm">
+                    <h3 class="text-3xl text-serif mb-6 leading-tight">
+                        Simuladores a la medida para <span class="highlight-gray font-sans font-bold text-lg">cada</span> universidad.
+                    </h3>
+                    <div class="bg-[#F9F9F9] rounded-xl p-6 border border-black/5">
+                        <div class="flex gap-2 mb-4">
+                            <span class="material-symbols-outlined text-[18px]">speed</span>
+                            <p class="font-bold text-sm tracking-tight">Estructura Oficial</p>
+                        </div>
+                        <p class="opacity-60 text-sm font-medium leading-relaxed">No importa la institución a la que apliques. Nuestro motor ajusta la dificultad, los temas y la cantidad exacta de reactivos correspondientes a tu examen específico para una práctica 100% real.</p>
+                        <a class='inline-flex items-center gap-1 text-sm font-bold border-b border-black pb-0.5 hover:opacity-70 transition-opacity mt-4' href='/aprendizaje'>
+                        Iniciar Prueba <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                    </a>
+                    </div>
+                </div>
+
+                <div class="bg-black text-white p-12 rounded-[40px] border border-black hover:shadow-xl transition-all shadow-md">
+                    <h3 class="text-3xl text-serif mb-6 leading-tight text-white">
+                        Con Mac, nuestra IA instructora, integrada en tu <span class="highlight-gray font-sans font-bold text-lg text-black bg-white">aprendizaje</span>.
+                    </h3>
+                    <div class="bg-white/10 rounded-xl p-6 border border-white/10">
+                        <div class="flex gap-2 mb-4">
+                            <span class="material-symbols-outlined text-[18px]">smart_toy</span>
+                            <p class="font-bold text-sm tracking-tight">Hola, soy Mac.</p>
+                        </div>
+                        <p class="text-gray-300 text-sm font-medium leading-relaxed">Olvídate de estudiar con dudas. Obtén explicaciones detalladas y apoyo paso a paso en cualquier materia. Accede a Mac únicamente con registrarte gratis en la plataforma.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="max-w-6xl mx-auto px-6 mb-32 flex flex-col md:flex-row items-center gap-16">
+            
+            <div class="flex-1 pr-0 md:pr-12">
+                <h2 class="text-5xl text-serif leading-tight mb-6 font-medium">Mantente siempre un paso adelante.</h2>
+                <p class="text-lg opacity-60 mb-6 leading-relaxed font-medium">
+                    Olvídate de revisar decenas de páginas oficiales buscando fechas. Nuestro centro de noticias se actualiza constantemente para mantener informada a la comunidad con los datos oficiales más recientes.
+                </p>
+                <p class="text-lg opacity-60 mb-10 leading-relaxed font-medium">
+                    Recibe notificaciones instantáneas sobre convocatorias, publicación de resultados y programa eventos críticos directamente en tu calendario para que nunca pierdas una fecha límite.
+                </p>
+                
+                <a href="noticias.html" class="inline-flex items-center gap-2 bg-white border border-black/10 px-8 py-3.5 rounded-full text-sm font-bold shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all text-black">
+                    <span class="material-symbols-outlined text-[18px]">calendar_month</span>
+                    Explorar Noticiero
+                </a>
+            </div>
+            
+            <div class="flex-1 w-full bg-[#F9F9F9] p-8 md:p-12 rounded-[40px] md:rounded-[64px] border border-black/5 relative overflow-hidden">
+                
+                <div class="space-y-6 relative z-10">
+                    
+                    <div class="bg-white p-6 rounded-3xl shadow-sm border border-black/5 hover:-translate-y-1 transition-transform">
+                        <div class="flex justify-between items-center mb-6 border-b border-gray-100 pb-4">
+                            <div class="flex items-center gap-2">
+                                <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-black">Feed en vivo</span>
+                            </div>
+                            <span class="material-symbols-outlined text-gray-400 text-lg">campaign</span>
+                        </div>
+                        <div id="live-news-content" class="min-h-[80px]">
+                            </div>
+                    </div>
+
+                    <div class="bg-black text-white p-6 rounded-3xl shadow-lg border border-black transform translate-x-4 md:translate-x-8 hover:-translate-y-1 transition-transform">
+                        <div class="flex items-start gap-4">
+                            <div class="bg-white/10 p-3 rounded-2xl flex-shrink-0">
+                                <span class="material-symbols-outlined text-white">event_available</span>
+                            </div>
+                            <div>
+                                <p class="text-[10px] font-bold opacity-50 uppercase tracking-widest mb-1">Evento Detectado</p>
+                                <h4 class="font-bold text-sm mb-1 tracking-tight">Registro de Aspirantes UNAM 2026</h4>
+                                <p class="text-[11px] text-gray-400 mb-4 font-medium leading-relaxed">Se ha detectado una nueva fecha crítica en tu panel de interés.</p>
+                                <button class="bg-white text-black text-xs font-bold px-5 py-2.5 rounded-full hover:bg-gray-200 transition-colors shadow-sm w-full md:w-auto text-center">
+                                    Añadir a Google Calendar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="absolute -right-20 -bottom-20 w-64 h-64 bg-gray-200/50 rounded-full blur-3xl pointer-events-none"></div>
+            </div>
+            
+        </section>
+
+        <section class="max-w-7xl mx-auto px-6 py-20">
+            <div class="bg-black rounded-[40px] md:rounded-[80px] py-24 px-8 md:px-12 text-center text-white overflow-hidden relative shadow-2xl">
+                
+                <div class="absolute inset-0 flex items-center justify-center opacity-5 select-none pointer-events-none">
+                    <span class="text-[20vw] font-bold text-white tracking-tighter">GRATUITA</span>
+                </div>
+                
+                <h2 class="text-4xl md:text-6xl text-serif mb-8 leading-tight font-medium relative z-10">
+                    Educación de élite, <br>siempre <span class="italic text-handwritten text-5xl md:text-7xl">gratuita</span>.
+                </h2>
+                
+                <p class="text-lg md:text-xl opacity-70 max-w-3xl mx-auto font-medium leading-relaxed relative z-10">
+                    EstudiandoAndo nació con una misión inquebrantable: democratizar el acceso a la educación superior en México. Creemos que la preparación de alto rendimiento con Inteligencia Artificial no debería ser un privilegio. Todos nuestros simuladores, la biblioteca virtual y tu tutor personal están y estarán siempre a tu disposición sin ningún costo. 
+                    <br><br>
+                    Tu único límite debe ser tu dedicación.
+                </p>
+                
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-white py-20 px-6 border-t border-black/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-12 mb-20">
+                <div class="col-span-2 md:col-span-1">
+                    <div class="bg-black text-white w-10 h-10 rounded flex items-center justify-center font-bold text-sm mb-6">EA</div>
+                    <p class="text-xs opacity-50 font-medium leading-relaxed max-w-xs">
+                        Elevando el estándar de la educación digital en México. Preparación de alto rendimiento.
+                    </p>
+                </div>
+                <div>
+                    <h5 class="text-[10px] font-bold opacity-40 uppercase tracking-widest mb-6">Plataforma</h5>
+                    <ul class="space-y-4 text-sm font-medium opacity-60">
+                        <li><a class="hover:opacity-100 transition-opacity" href="simulador.html">Simuladores IA</a></li>
+                        <li><a class="hover:opacity-100 transition-opacity" href="#">Tutoría Privada</a></li>
+                        <li><a class="hover:opacity-100 transition-opacity" href="#">Biblioteca</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="text-[10px] font-bold opacity-40 uppercase tracking-widest mb-6">Compañía</h5>
+                    <ul class="space-y-4 text-sm font-medium opacity-60">
+                        <li><a class="hover:opacity-100 transition-opacity" href="#">Sobre Nosotros</a></li>
+                        <li><a class="hover:opacity-100 transition-opacity" href="#">Blog / Noticias</a></li>
+                        <li><a class="hover:opacity-100 transition-opacity" href="#">Contacto</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="text-[10px] font-bold opacity-40 uppercase tracking-widest mb-6">Legal</h5>
+                    <ul class="space-y-4 text-sm font-medium opacity-60">
+                        <li><a class="hover:opacity-100 transition-opacity" href="#">Privacidad</a></li>
+                        <li><a class="hover:opacity-100 transition-opacity" href="#">Términos</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6 border-t border-black/5 pt-10">
+                <div class="watermark-text font-black tracking-tighter hidden md:block">EstudiandoAndo</div>
+                <p class="text-xs opacity-40 font-bold tracking-tight">© EstudiandoAndo 2026. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const newsData = [
+            { uni: 'UNAM', time: 'Hace 2h', title: 'Convocatoria 2026', text: 'Fechas oficiales publicadas.' },
+            { uni: 'IPN', time: 'Hace 5h', title: 'Examen Oficial', text: 'Resultados de la segunda vuelta.' },
+            { uni: 'UV', time: 'Hace 1d', title: 'Guía EXANI-II', text: 'Descarga el temario actualizado.' }
+        ];
+        
+        let newsIdx = 0;
+        
+        function rotateNews() {
+            const el = document.getElementById('live-news-content');
+            if(!el) return;
+            
+            el.style.opacity = 0;
+            
+            setTimeout(() => {
+                const news = newsData[newsIdx];
+                el.innerHTML = `
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="text-[9px] font-bold bg-gray-200 px-2 py-0.5 rounded text-black tracking-widest uppercase">${news.uni}</span>
+                        <span class="text-[9px] font-bold opacity-40 uppercase">${news.time}</span>
+                    </div>
+                    <p class="font-bold text-sm mb-1 leading-tight tracking-tight">${news.title}</p>
+                    <p class="text-[11px] opacity-60 font-medium">${news.text}</p>
+                `;
+                el.style.opacity = 1;
+                newsIdx = (newsIdx + 1) % newsData.length;
+            }, 400); // 400ms de desvanecimiento
+        }
+        
+        // Ejecutar primera vez y luego cada 4 segundos
+        rotateNews();
+        setInterval(rotateNews, 4000);
+    </script>
+</body>
+</html>
