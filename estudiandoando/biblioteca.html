@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Biblioteca Virtual | EstudiandoAndo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&family=Homemade+Apple&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet" />
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'ea-bg': '#F9F9F9',
+                        'ea-dark': '#0A0A0A',
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                        handwritten: ['"Homemade Apple"', 'cursive'], // Nueva fuente añadida
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #F9F9F9; color: #0A0A0A; }
+        .text-serif { font-family: 'Cormorant Garamond', serif; }
+        .text-handwritten { font-family: 'Homemade Apple', cursive; }
+        
+        /* Scrollbar invisible */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .tab-active { background-color: #0A0A0A; color: white; }
+        .tab-inactive { color: #6B7280; }
+        .tab-inactive:hover { background-color: #F3F4F6; color: #0A0A0A; }
+
+        /* NUEVAS ANIMACIONES */
+        
+        /* Levitación suave para la zona derecha */
+        @keyframes float-slow {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+        }
+        .animate-float-slow {
+             animation: float-slow 6s ease-in-out infinite;
+        }
+
+        /* Cursor parpadeante para el efecto máquina de escribir */
+        .typing-cursor::after {
+            content: '|';
+            animation: blink 1s step-end infinite;
+            opacity: 1;
+            margin-left: 2px;
+        }
+        @keyframes blink { 50% { opacity: 0; } }
+    </style>
+</head>
+<body class="antialiased selection:bg-black selection:text-white flex flex-col min-h-screen">
+
+    <header class="fixed top-6 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
+        <nav class="pointer-events-auto w-full max-w-5xl h-16 bg-white/70 backdrop-blur-xl border border-black/10 rounded-full flex items-center justify-between px-6 shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all">
+            <div class="flex items-center gap-8">
+                <a class='flex items-center gap-2' href='index.html'>
+                    <div class="bg-black text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">EA</div>
+                    <span class="font-bold tracking-tight hidden sm:block">EstudiandoAndo</span>
+                </a>
+                <div class="hidden md:flex items-center gap-6 text-sm font-medium opacity-60">
+                    <a class='text-black font-bold opacity-100' href='biblioteca.html'>Biblioteca</a>
+                    <a class="hover:opacity-100 transition-opacity" href="aprendizaje.html">Aprendizaje</a>
+                    <a class="hover:opacity-100 transition-opacity" href="noticias.html">Noticias</a>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <a class="text-sm font-medium opacity-60 hover:opacity-100 transition-opacity hidden sm:block" href="#">Iniciar sesión</a>
+                <a class="bg-black text-white px-5 py-2.5 rounded-full text-sm font-bold shadow-sm hover:bg-neutral-800 transition-colors" href="#">Registrarse</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="pt-32 flex-grow flex flex-col max-w-7xl mx-auto w-full px-6 mb-20">
+        
+        <div class="mb-16 mt-8 border-b border-black/10 pb-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div>
+                <h1 class="text-5xl md:text-7xl text-serif font-medium tracking-tight">
+                    Tu Biblioteca <br><span class="text-handwritten text-6xl md:text-8xl italic">Virtual</span>.
+                </h1>
+            </div>
+            <div class="max-w-xs text-sm font-medium opacity-60 leading-relaxed">
+                Todo el material oficial, guías y recursos de estudio organizados por institución. Selecciona tu universidad para comenzar.
+            </div>
+        </div>
+
+        <div class="flex flex-col md:flex-row gap-10">
+            
+            <aside class="w-full md:w-64 flex-shrink-0">
+                <div class="sticky top-32 flex flex-row md:flex-col gap-2 overflow-x-auto no-scrollbar pb-4 md:pb-0">
+                    <button onclick="filterDocs('UV')" id="btn-UV" class="w-full text-left px-5 py-3 rounded-2xl font-bold text-sm transition-all tab-active flex items-center justify-between group flex-shrink-0">
+                        Universidad Veracruzana
+                        <span class="material-symbols-outlined text-[16px] opacity-50 group-hover:opacity-100">chevron_right</span>
+                    </button>
+                    <button onclick="filterDocs('EXANI')" id="btn-EXANI" class="w-full text-left px-5 py-3 rounded-2xl font-bold text-sm transition-all tab-inactive flex items-center justify-between group flex-shrink-0 border border-black/10">
+                        Guías Generales EXANI-II
+                        <span class="material-symbols-outlined text-[16px] opacity-0 group-hover:opacity-50">folder</span>
+                    </button>
+                    <button onclick="filterDocs('IPN')" id="btn-IPN" class="w-full text-left px-5 py-3 rounded-2xl font-bold text-sm transition-all tab-inactive flex items-center justify-between group flex-shrink-0">
+                        IPN
+                        <span class="material-symbols-outlined text-[16px] opacity-0 group-hover:opacity-50">chevron_right</span>
+                    </button>
+                    <button onclick="filterDocs('UNAM')" id="btn-UNAM" class="w-full text-left px-5 py-3 rounded-2xl font-bold text-sm transition-all tab-inactive flex items-center justify-between group flex-shrink-0">
+                        UNAM
+                        <span class="material-symbols-outlined text-[16px] opacity-0 group-hover:opacity-50">chevron_right</span>
+                    </button>
+                    <button onclick="filterDocs('UAM')" id="btn-UAM" class="w-full text-left px-5 py-3 rounded-2xl font-bold text-sm transition-all tab-inactive flex items-center justify-between group flex-shrink-0">
+                        UAM
+                        <span class="material-symbols-outlined text-[16px] opacity-0 group-hover:opacity-50">chevron_right</span>
+                    </button>
+                    <button onclick="filterDocs('BUAP')" id="btn-BUAP" class="w-full text-left px-5 py-3 rounded-2xl font-bold text-sm transition-all tab-inactive flex items-center justify-between group flex-shrink-0">
+                        BUAP
+                        <span class="material-symbols-outlined text-[16px] opacity-0 group-hover:opacity-50">chevron_right</span>
+                    </button>
+                    <button onclick="filterDocs('CHAPINGO')" id="btn-CHAPINGO" class="w-full text-left px-5 py-3 rounded-2xl font-bold text-sm transition-all tab-inactive flex items-center justify-between group flex-shrink-0">
+                        CHAPINGO
+                        <span class="material-symbols-outlined text-[16px] opacity-0 group-hover:opacity-50">chevron_right</span>
+                    </button>
+                </div>
+            </aside>
+
+            <div class="flex-grow">
+                <div class="flex items-center gap-3 mb-6 border-b border-black/5 pb-4">
+                    <span class="material-symbols-outlined opacity-40 text-[20px]">folder_open</span>
+                    <h2 id="current-category-title" class="text-sm font-bold uppercase tracking-widest opacity-60">Universidad Veracruzana (UV)</h2>
+                </div>
+
+                <div id="documents-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    </div>
+                
+                <div id="empty-state" class="hidden text-center py-20 bg-white rounded-3xl border border-black/5 mt-6">
+                    <span class="material-symbols-outlined text-4xl opacity-20 mb-4">inventory_2</span>
+                    <h3 class="font-bold text-lg mb-2">Bóveda en actualización</h3>
+                    <p class="text-sm opacity-50 font-medium">Estamos subiendo el material oficial para esta institución.</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        /* ========================================================
+        BASE DE DATOS CON DESCIPCIONES
+        ======================================================== */
+        const baseDeDatosDocumentos = [
+            {
+                universidad: 'UV',
+                titulo: 'Repositorio Oficial UV',
+                tipo: 'Directorio Drive',
+                descripcion: 'Accede a la colección completa para la Universidad Veracruzana. Incluye las guías EXANI-II 2026, temarios específicos por área académica y bancos de reactivos de años anteriores.',
+                linkDrive: 'https://drive.google.com/drive/folders/1fadx7rgdolGqM7ktUZJL7kqnRmvlCRtl?usp=drive_link'
+            },
+            {
+                universidad: 'EXANI',
+                titulo: 'Material General EXANI-II',
+                tipo: 'Directorio Drive',
+                descripcion: 'Recursos universales alineados a la estructura CENEVAL. Ideal para reforzar Pensamiento Matemático, Redacción Indirecta y Comprensión Lectora.',
+                linkDrive: 'https://drive.google.com/drive/folders/1fadx7rgdolGqM7ktUZJL7kqnRmvlCRtl?usp=drive_link'
+            },
+            {
+                universidad: 'IPN',
+                titulo: 'Repositorio Oficial IPN',
+                tipo: 'Directorio Drive',
+                descripcion: 'Material exclusivo para el "Burro Blanco". Contiene la Guía Oficial de Nivel Superior, formularios de ciencias exactas y exámenes simulacro por área de conocimiento.',
+                linkDrive: 'https://drive.google.com/drive/folders/1MvZCuI-9lOcwqhCOmHxzIwsltaqNX37u?usp=drive_link'
+            },
+            {
+                universidad: 'UNAM',
+                titulo: 'Repositorio Oficial UNAM',
+                tipo: 'Directorio Drive',
+                descripcion: 'La bóveda más grande de la máxima casa de estudios. Guías actualizadas para las Áreas 1, 2, 3 y 4, junto con material de apoyo histórico.',
+                linkDrive: 'https://drive.google.com/drive/folders/1Y0otcVEmalmSdjnYKznEzv1_FPK-YaZn?usp=drive_link'
+            },
+            {
+                universidad: 'UAM',
+                titulo: 'Repositorio Oficial UAM',
+                tipo: 'Directorio Drive',
+                descripcion: 'Prepárate para el examen de la "Casa abierta al tiempo". Guías de estudio divididas por divisiones académicas (CBI, CBS, CSH, CAD).',
+                linkDrive: 'https://drive.google.com/drive/folders/1lSAXT46YEN61t4Qd4mZZISe335rjcuSM?usp=drive_link'
+            },
+            {
+                universidad: 'BUAP',
+                titulo: 'Repositorio Oficial BUAP',
+                tipo: 'Directorio Drive',
+                descripcion: 'Material enfocado en la Prueba de Admisión y Diagnóstico (PAD) y los exámenes EGA-I. Recursos específicos para la Benemérita de Puebla.',
+                linkDrive: 'https://drive.google.com/drive/folders/1kbNs2deAx3pnzvaY8neFbFfVfzooAHYg?usp=drive_link'
+            },
+            {
+                universidad: 'CHAPINGO',
+                titulo: 'Repositorio Oficial Chapingo',
+                tipo: 'Directorio Drive',
+                descripcion: 'Guías y temarios especializados para el ingreso a Preparatoria Agrícola y Propedéutico de la UACh.',
+                linkDrive: 'https://drive.google.com/drive/folders/1sJDC8LYRcYYWCPEX6-aM-Xs1HL6x_Qya?usp=drive_link'
+            }
+        ];
+
+        // Variables DOM
+        const grid = document.getElementById('documents-grid');
+        const emptyState = document.getElementById('empty-state');
+        const titleLabel = document.getElementById('current-category-title');
+        let typingTimeouts = []; // Para controlar las animaciones de escritura
+
+        const nombresCompletos = {
+            'UV': 'Universidad Veracruzana (UV)',
+            'EXANI': 'Material General EXANI-II',
+            'IPN': 'Instituto Politécnico Nacional (IPN)',
+            'UNAM': 'Universidad Nacional Autónoma de México',
+            'UAM': 'Universidad Autónoma Metropolitana',
+            'BUAP': 'Benemérita Univ. Autónoma de Puebla',
+            'CHAPINGO': 'Universidad Autónoma Chapingo'
+        };
+
+        // Función de Efecto Máquina de Escribir
+        function typeWriter(elementId, text, speed = 30) {
+            const element = document.getElementById(elementId);
+            if (!element) return;
+            
+            element.innerHTML = ''; // Limpiar texto previo
+            element.classList.add('typing-cursor'); // Añadir cursor
+            
+            let i = 0;
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    typingTimeouts.push(setTimeout(type, speed));
+                } else {
+                     element.classList.remove('typing-cursor'); // Quitar cursor al terminar
+                }
+            }
+            type();
+        }
+
+        function filterDocs(universidadSeleccionada) {
+            // 1. Limpiar animaciones previas si el usuario cambia rápido de pestaña
+            typingTimeouts.forEach(timeout => clearTimeout(timeout));
+            typingTimeouts = [];
+
+            // 2. Actualizar UI de botones y título
+            document.querySelectorAll('aside button').forEach(btn => {
+                btn.classList.remove('tab-active');
+                btn.classList.add('tab-inactive');
+                btn.querySelector('span').classList.remove('opacity-100');
+                if(!btn.id.includes('EXANI')) btn.querySelector('span').classList.add('opacity-0', 'group-hover:opacity-50');
+            });
+            
+            const botonActivo = document.getElementById(`btn-${universidadSeleccionada}`);
+            botonActivo.classList.remove('tab-inactive');
+            botonActivo.classList.add('tab-active');
+            if(!universidadSeleccionada.includes('EXANI')) botonActivo.querySelector('span').classList.replace('opacity-0', 'opacity-100');
+
+            titleLabel.innerText = nombresCompletos[universidadSeleccionada] || universidadSeleccionada;
+
+            // 3. Filtrar datos
+            const docsFiltrados = baseDeDatosDocumentos.filter(doc => doc.universidad === universidadSeleccionada);
+
+            // 4. Dibujar el Banner Premium
+            if (docsFiltrados.length === 0) {
+                grid.innerHTML = '';
+                emptyState.querySelector('h3').innerText = 'Biblioteca en actualización';
+                emptyState.classList.remove('hidden');
+            } else {
+                emptyState.classList.add('hidden');
+                
+                // Renderizado del HTML
+                grid.innerHTML = docsFiltrados.map((doc, index) => `
+                    <div class="col-span-full bg-white rounded-[32px] border border-black/5 shadow-sm overflow-hidden flex flex-col md:flex-row transition-all hover:shadow-md">
+                        
+                        <div class="p-8 md:p-12 flex-1 flex flex-col justify-center">
+                            <div class="flex items-center gap-3 mb-6">
+                                <div class="w-12 h-12 bg-gray-50 border border-black/5 rounded-2xl flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-black opacity-70">folder_special</span>
+                                    </div>
+                                <span class="bg-black text-white px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest">${doc.tipo}</span>
+                            </div>
+                            
+                            <h3 class="text-3xl md:text-4xl text-serif font-bold mb-4 tracking-tight">${doc.titulo}</h3>
+                            
+                            <p id="desc-${doc.universidad}-${index}" class="text-gray-500 font-medium leading-relaxed mb-10 max-w-xl min-h-[80px]"></p>
+                            
+                            <div class="mt-auto">
+                                <button onclick="window.open('${doc.linkDrive}', '_blank')" class="inline-flex items-center gap-3 bg-black text-white px-8 py-4 rounded-full text-sm font-bold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all">
+                                    Abrir Biblioteca en Drive
+                                    <span class="material-symbols-outlined text-[18px]">open_in_new</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="hidden md:block w-2/5 bg-[#F9F9F9] border-l border-black/5 p-10 relative overflow-hidden">
+                            <div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(circle at 2px 2px, black 1px, transparent 0); background-size: 24px 24px;"></div>
+                            
+                            <div class="relative z-10 h-full flex flex-col justify-center space-y-4 animate-float-slow">
+                                <p class="text-[10px] font-bold opacity-40 uppercase tracking-widest mb-2 pl-2">Contenido del Directorio</p>
+                                
+                                <div class="bg-white p-4 rounded-2xl shadow-sm border border-black/5 flex items-center gap-4">
+                                    <span class="material-symbols-outlined text-red-400">picture_as_pdf</span>
+                                    <div>
+                                        <p class="text-xs font-bold">Guías Oficiales</p>
+                                        <p class="text-[10px] text-gray-400 uppercase tracking-widest">Actualizado 2026</p>
+                                    </div>
+                                </div>
+                                <div class="bg-white p-4 rounded-2xl shadow-sm border border-black/5 flex items-center gap-4 transform translate-x-6">
+                                    <span class="material-symbols-outlined text-blue-400">library_books</span>
+                                    <div>
+                                        <p class="text-xs font-bold">Temarios Específicos</p>
+                                        <p class="text-[10px] text-gray-400 uppercase tracking-widest">Por Área y Módulo</p>
+                                    </div>
+                                </div>
+                                <div class="bg-white p-4 rounded-2xl shadow-sm border border-black/5 flex items-center gap-4">
+                                    <span class="material-symbols-outlined text-green-400">quiz</span>
+                                    <div>
+                                        <p class="text-xs font-bold">Bancos de Preguntas</p>
+                                        <p class="text-[10px] text-gray-400 uppercase tracking-widest">Material de Práctica</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                `).join('');
+
+                // 5. Disparar la animación de escritura después de dibujar el HTML
+                docsFiltrados.forEach((doc, index) => {
+                    // Pequeño retraso para que se sienta más natural
+                    setTimeout(() => {
+                         typeWriter(`desc-${doc.universidad}-${index}`, doc.descripcion);
+                    }, 300);
+                });
+            }
+        }
+
+        // Iniciar aplicación
+        filterDocs('UV');
+    </script>
+</body>
+</html>
