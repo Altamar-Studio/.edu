@@ -533,7 +533,7 @@ window.CHAPINGO_QUESTIONS = [
   {
     "number": 40,
     "section": "Matemáticas",
-    "text": "El volumen de una esfera de radio 3 es (V = (4/3)πr³, π≈3.14):",
+    "text": "El <b>volumen</b> de una esfera de radio 3 es (V = (4/3)πr³, π≈3.14):",
     "options": {
       "A": "≈113",
       "B": "≈100",
