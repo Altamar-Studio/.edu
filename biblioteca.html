@@ -10,6 +10,7 @@
     
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
@@ -26,7 +27,7 @@
         }
     </script>
     <style>
-        body { background-color: #F9F9F9; color: #0A0A0A; }
+        /* body styled with Tailwind classes */
         .text-serif { font-family: 'Cormorant Garamond', serif; }
         .text-handwritten { font-family: 'Homemade Apple', cursive; }
         
@@ -35,8 +36,10 @@
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         
         .tab-active { background-color: #0A0A0A; color: white; }
+        .dark .tab-active { background-color: white; color: black; }
         .tab-inactive { color: #6B7280; }
         .tab-inactive:hover { background-color: #F3F4F6; color: #0A0A0A; }
+        .dark .tab-inactive:hover { background-color: #262626; color: white; }
 
         /* NUEVAS ANIMACIONES */
         
@@ -67,32 +70,46 @@
             animation: fadeIn 0.3s ease-out forwards;
         }
     </style>
+    <script>
+        // Script anti-FOUC para aplicar tema inmediatamente
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+        }
+    </script>
 </head>
-<body class="antialiased selection:bg-black selection:text-white flex flex-col min-h-screen">
+<body class="antialiased bg-ea-bg dark:bg-neutral-950 text-ea-dark dark:text-white selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black flex flex-col min-h-screen transition-colors duration-300">
 
     <header class="fixed top-6 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
-        <nav class="pointer-events-auto w-full max-w-5xl h-16 bg-white/70 backdrop-blur-xl border border-black/10 rounded-full flex items-center justify-between px-6 shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all">
+        <nav class="pointer-events-auto w-full max-w-5xl h-16 bg-white/70 dark:bg-neutral-900/80 backdrop-blur-xl border border-black/10 dark:border-white/10 rounded-full flex items-center justify-between px-6 shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all">
             <div class="flex items-center gap-8">
                 <a class='flex items-center gap-2' href='index.html'>
-                    <div class="bg-black text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">EA</div>
+                    <div class="bg-black dark:bg-white text-white dark:text-black w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm transition-colors">EA</div>
                     <span class="font-bold tracking-tight hidden sm:block">EstudiandoAndo</span>
                 </a>
                 <div class="hidden md:flex items-center gap-6 text-sm font-medium opacity-60">
-                    <a class='text-black font-bold opacity-100' href='biblioteca.html'>Biblioteca</a>
+                    <a class='text-black dark:text-white font-bold opacity-100 transition-colors' href='biblioteca.html'>Biblioteca</a>
                     <a class="hover:opacity-100 transition-opacity" href="aprendizaje.html">Aprendizaje</a>
                     <a class="hover:opacity-100 transition-opacity" href="noticias.html">Noticias</a>
                 </div>
             </div>
             <div class="flex items-center gap-4">
+                <button id="theme-toggle" class="w-8 h-8 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors opacity-60 hover:opacity-100 flex items-center justify-center">
+                    <span class="material-symbols-outlined dark:hidden text-[20px]">dark_mode</span>
+                    <span class="material-symbols-outlined hidden dark:block text-[20px]">light_mode</span>
+                </button>
                 <a class="text-sm font-medium opacity-60 hover:opacity-100 transition-opacity hidden sm:block" href="#">Iniciar sesión</a>
-                <a class="bg-black text-white px-5 py-2.5 rounded-full text-sm font-bold shadow-sm hover:bg-neutral-800 transition-colors" href="#">Registrarse</a>
+                <a class="bg-black dark:bg-white text-white dark:text-black px-5 py-2.5 rounded-full text-sm font-bold shadow-sm hover:bg-neutral-800 dark:hover:bg-gray-200 transition-colors" href="#">Registrarse</a>
             </div>
         </nav>
     </header>
 
     <main class="pt-32 flex-grow flex flex-col max-w-7xl mx-auto w-full px-6 mb-20 pb-20 md:pb-0">
         
-        <div class="mb-16 mt-8 border-b border-black/10 pb-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div class="mb-16 mt-8 border-b border-black/10 dark:border-white/10 pb-8 flex flex-col md:flex-row md:items-end justify-between gap-6 transition-colors">
             <div>
                 <h1 class="text-5xl md:text-7xl text-serif font-medium tracking-tight">
                     Tu Biblioteca <br><span class="text-handwritten text-6xl md:text-8xl italic">Virtual</span>.
@@ -111,7 +128,7 @@
                         Universidad Veracruzana
                         <span class="material-symbols-outlined text-[16px] opacity-50 group-hover:opacity-100 hidden md:block">chevron_right</span>
                     </button>
-                    <button onclick="filterDocs('EXANI')" id="btn-EXANI" class="w-auto md:w-full text-left px-4 py-2.5 md:px-5 md:py-3 rounded-xl md:rounded-2xl font-bold text-xs md:text-sm transition-all tab-inactive flex items-center justify-between group flex-shrink-0 border border-black/10 whitespace-nowrap">
+                    <button onclick="filterDocs('EXANI')" id="btn-EXANI" class="w-auto md:w-full text-left px-4 py-2.5 md:px-5 md:py-3 rounded-xl md:rounded-2xl font-bold text-xs md:text-sm transition-all tab-inactive flex items-center justify-between group flex-shrink-0 border border-black/10 dark:border-white/10 whitespace-nowrap">
                         Guías Generales EXANI-II
                         <span class="material-symbols-outlined text-[16px] opacity-0 group-hover:opacity-50 hidden md:block">folder</span>
                     </button>
@@ -139,7 +156,7 @@
             </aside>
 
             <div class="flex-grow">
-                <div class="flex items-center gap-3 mb-6 border-b border-black/5 pb-4">
+                <div class="flex items-center gap-3 mb-6 border-b border-black/5 dark:border-white/5 pb-4 transition-colors">
                     <span class="material-symbols-outlined opacity-40 text-[20px]">folder_open</span>
                     <h2 id="current-category-title" class="text-sm font-bold uppercase tracking-widest opacity-60">Universidad Veracruzana (UV)</h2>
                 </div>
@@ -147,7 +164,7 @@
                 <div id="documents-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     </div>
                 
-                <div id="empty-state" class="hidden text-center py-20 bg-white rounded-3xl border border-black/5 mt-6">
+                <div id="empty-state" class="hidden text-center py-20 bg-white dark:bg-neutral-900 rounded-3xl border border-black/5 dark:border-white/5 mt-6 transition-colors">
                     <span class="material-symbols-outlined text-4xl opacity-20 mb-4">inventory_2</span>
                     <h3 class="font-bold text-lg mb-2">Bóveda en actualización</h3>
                     <p class="text-sm opacity-50 font-medium">Estamos subiendo el material oficial para esta institución.</p>
@@ -158,12 +175,12 @@
     </main>
 
     <!-- Barra de Navegación Móvil (Adaptable a celulares/tablets pequeñas) -->
-    <nav class="fixed bottom-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-xl border-t border-black/10 h-16 flex items-center justify-around px-2 md:hidden shadow-lg">
+    <nav class="fixed bottom-0 left-0 right-0 z-50 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-xl border-t border-black/10 dark:border-white/10 h-16 flex items-center justify-around px-2 md:hidden shadow-lg transition-colors">
         <a href="index.html" class="flex flex-col items-center gap-0.5 opacity-40 hover:opacity-100 transition-opacity">
             <span class="material-symbols-outlined text-[20px]">home</span>
             <span class="text-[9px] font-bold tracking-tight">Inicio</span>
         </a>
-        <a href="biblioteca.html" class="flex flex-col items-center gap-0.5 opacity-100 text-black transition-opacity">
+        <a href="biblioteca.html" class="flex flex-col items-center gap-0.5 opacity-100 text-black dark:text-white transition-opacity">
             <span class="material-symbols-outlined text-[20px]">local_library</span>
             <span class="text-[9px] font-bold tracking-tight">Biblioteca</span>
         </a>
@@ -303,49 +320,49 @@
                 
                 // Renderizado del HTML con texto pre-cargado para máxima fluidez y legibilidad móvil
                 grid.innerHTML = docsFiltrados.map((doc, index) => `
-                    <div class="col-span-full bg-white rounded-[32px] border border-black/5 shadow-sm overflow-hidden flex flex-col md:flex-row transition-all hover:shadow-md animate-fade-in">
+                    <div class="col-span-full bg-white dark:bg-neutral-900 rounded-[32px] border border-black/5 dark:border-white/5 shadow-sm overflow-hidden flex flex-col md:flex-row transition-all hover:shadow-md animate-fade-in">
                         
                         <div class="p-8 md:p-12 flex-1 flex flex-col justify-center">
                             <div class="flex items-center gap-3 mb-6">
-                                <div class="w-12 h-12 bg-gray-50 border border-black/5 rounded-2xl flex items-center justify-center">
-                                    <span class="material-symbols-outlined text-black opacity-70">folder_special</span>
+                                <div class="w-12 h-12 bg-gray-50 dark:bg-neutral-800 border border-black/5 dark:border-white/5 rounded-2xl flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-black dark:text-white opacity-70">folder_special</span>
                                     </div>
-                                <span class="bg-black text-white px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest">${doc.tipo}</span>
+                                <span class="bg-black dark:bg-white text-white dark:text-black px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest">${doc.tipo}</span>
                             </div>
                             
                             <h3 class="text-3xl md:text-4xl text-serif font-bold mb-4 tracking-tight">${doc.titulo}</h3>
                             
-                            <p id="desc-${doc.universidad}-${index}" class="text-gray-500 font-medium leading-relaxed mb-10 max-w-xl text-sm md:text-base">${doc.descripcion}</p>
+                            <p id="desc-${doc.universidad}-${index}" class="text-gray-500 dark:text-gray-400 font-medium leading-relaxed mb-10 max-w-xl text-sm md:text-base">${doc.descripcion}</p>
                             
                             <div class="mt-auto">
-                                <button onclick="window.open('${doc.linkDrive}', '_blank')" class="inline-flex items-center gap-3 bg-black text-white px-8 py-4 rounded-full text-sm font-bold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all">
+                                <button onclick="window.open('${doc.linkDrive}', '_blank')" class="inline-flex items-center gap-3 bg-black dark:bg-white text-white dark:text-black px-8 py-4 rounded-full text-sm font-bold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all">
                                     Abrir Biblioteca en Drive
                                     <span class="material-symbols-outlined text-[18px]">open_in_new</span>
                                 </button>
                             </div>
                         </div>
 
-                        <div class="hidden md:block w-2/5 bg-[#F9F9F9] border-l border-black/5 p-10 relative overflow-hidden">
-                            <div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(circle at 2px 2px, black 1px, transparent 0); background-size: 24px 24px;"></div>
+                        <div class="hidden md:block w-2/5 bg-[#F9F9F9] dark:bg-neutral-950 border-l border-black/5 dark:border-white/5 p-10 relative overflow-hidden">
+                            <div class="absolute inset-0 opacity-[0.03] dark:opacity-20" style="background-image: radial-gradient(circle at 2px 2px, currentColor 1px, transparent 0); background-size: 24px 24px;"></div>
                             
                             <div class="relative z-10 h-full flex flex-col justify-center space-y-4 animate-float-slow">
                                 <p class="text-[10px] font-bold opacity-40 uppercase tracking-widest mb-2 pl-2">Contenido del Directorio</p>
                                 
-                                <div class="bg-white p-4 rounded-2xl shadow-sm border border-black/5 flex items-center gap-4">
+                                <div class="bg-white dark:bg-neutral-900 p-4 rounded-2xl shadow-sm border border-black/5 dark:border-white/5 flex items-center gap-4">
                                     <span class="material-symbols-outlined text-red-400">picture_as_pdf</span>
                                     <div>
                                         <p class="text-xs font-bold">Guías Oficiales</p>
                                         <p class="text-[10px] text-gray-400 uppercase tracking-widest">Actualizado 2026</p>
                                     </div>
                                 </div>
-                                <div class="bg-white p-4 rounded-2xl shadow-sm border border-black/5 flex items-center gap-4 transform translate-x-6">
+                                <div class="bg-white dark:bg-neutral-900 p-4 rounded-2xl shadow-sm border border-black/5 dark:border-white/5 flex items-center gap-4 transform translate-x-6">
                                     <span class="material-symbols-outlined text-blue-400">library_books</span>
                                     <div>
                                         <p class="text-xs font-bold">Temarios Específicos</p>
                                         <p class="text-[10px] text-gray-400 uppercase tracking-widest">Por Área y Módulo</p>
                                     </div>
                                 </div>
-                                <div class="bg-white p-4 rounded-2xl shadow-sm border border-black/5 flex items-center gap-4">
+                                <div class="bg-white dark:bg-neutral-900 p-4 rounded-2xl shadow-sm border border-black/5 dark:border-white/5 flex items-center gap-4">
                                     <span class="material-symbols-outlined text-green-400">quiz</span>
                                     <div>
                                         <p class="text-xs font-bold">Bancos de Preguntas</p>
@@ -362,6 +379,17 @@
 
         // Iniciar aplicación
         filterDocs('UV');
+        
+        // Dark mode toggle listener
+        document.getElementById('theme-toggle')?.addEventListener('click', () => {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
     </script>
 </body>
 </html>

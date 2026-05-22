@@ -3,18 +3,22 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta name="description" content="Simulador digital del examen de ingreso EXANI-II para la Universidad Veracruzana (UV).">
     <title>Simulador Oficial EXANI-II (UV) | EstudiandoAndo</title>
+    
+    <!-- Tailwind and Plugins -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect"/>
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@400;500;600;700&family=Homemade+Apple&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
-    <script src="math-visuals.js"></script>
     
+    <!-- Tailwind Configuration -->
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
@@ -30,69 +34,54 @@
             }
         }
     </script>
-    <style>
-        body { background-color: #F9F9F9; color: #0A0A0A; }
-        .text-serif { font-family: 'Cormorant Garamond', serif; }
-        .text-handwritten { font-family: 'Homemade Apple', cursive; }
-        
-        .custom-scroll::-webkit-scrollbar { width: 6px; height: 6px; }
-        .custom-scroll::-webkit-scrollbar-track { background: transparent; }
-        .custom-scroll::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 10px; }
-        .custom-scroll::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.2); }
-        
-        /* Animaciones para transiciones fluidas */
-        .animate-fade-in { animation: fadeIn 0.3s ease-out forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-        
-        .option-card {
-            transition: all 0.2s ease;
+
+    <!-- Custom minimal CSS -->
+    <link rel="stylesheet" href="simulador-uv.css">
+    <script>
+        // Script anti-FOUC para aplicar tema inmediatamente
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
         }
-        .option-card:hover:not(.selected) {
-            background-color: #F3F4F6;
-            border-color: #D1D5DB;
-        }
-        .option-card.selected {
-            background-color: #0A0A0A;
-            color: #FFFFFF;
-            border-color: #0A0A0A;
-        }
-        .option-card.selected .option-letter {
-            background-color: #FFFFFF;
-            color: #0A0A0A;
-        }
-    </style>
+    </script>
 </head>
-<body class="antialiased flex flex-col min-h-screen">
+<body class="antialiased bg-ea-cream dark:bg-neutral-950 text-ea-dark dark:text-white selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black flex flex-col min-h-screen transition-colors duration-300">
 
     <!-- Navegación Superior Fija -->
     <header class="fixed top-6 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
-        <nav class="pointer-events-auto w-full max-w-5xl h-16 bg-white/70 backdrop-blur-xl border border-black/10 rounded-full flex items-center justify-between px-6 shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all">
+        <nav class="pointer-events-auto w-full max-w-5xl h-16 bg-white/70 dark:bg-neutral-900/80 backdrop-blur-xl border border-black/10 dark:border-white/10 rounded-full flex items-center justify-between px-6 shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all">
             <div class="flex items-center gap-8">
                 <a class='flex items-center gap-2' href='index.html'>
-                    <div class="bg-black text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">EA</div>
+                    <div class="bg-black dark:bg-white text-white dark:text-black w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm transition-colors">EA</div>
                     <span class="font-bold tracking-tight hidden sm:block">EstudiandoAndo</span>
                 </a>
                 <div class="hidden md:flex items-center gap-6 text-sm font-medium opacity-60">
-                    <a class='hover:opacity-100 transition-opacity' href='biblioteca.html'>Biblioteca</a>
-                    <a class="text-black font-bold opacity-100" href='aprendizaje.html'>Aprendizaje</a>
-                    <a class="hover:opacity-100 transition-opacity" href='noticias.html'>Noticias</a>
+                    <a class="text-black dark:text-white font-bold opacity-100 transition-colors" href='#'>Simulador UV</a>
                 </div>
             </div>
             <div class="flex items-center gap-4">
-                <a class="text-xs font-bold opacity-60 hover:opacity-100 transition-opacity hidden sm:block" href="aprendizaje.html">← Volver a Simuladores</a>
-                <a class="bg-black text-white px-4 py-2 rounded-full text-xs font-bold shadow-sm hover:bg-neutral-800 transition-colors" href="aprendizaje.html">Salir</a>
+                <button id="theme-toggle" class="w-8 h-8 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors opacity-60 hover:opacity-100 flex items-center justify-center">
+                    <span class="material-symbols-outlined dark:hidden text-[20px]">dark_mode</span>
+                    <span class="material-symbols-outlined hidden dark:block text-[20px]">light_mode</span>
+                </button>
+                <a class="bg-black dark:bg-white text-white dark:text-black px-4 py-2 rounded-full text-xs font-bold shadow-sm hover:bg-neutral-800 dark:hover:bg-gray-200 transition-colors" href="aprendizaje.html">Salir</a>
             </div>
         </nav>
     </header>
 
-    <main class="pt-32 flex-grow max-w-5xl mx-auto w-full px-4 sm:px-6 mb-20">
+    <main class="pt-32 flex-grow max-w-5xl mx-auto w-full px-4 sm:px-6 mb-20 exam-layout">
         
-        <!-- PANTALLA 1: INICIO DEL SIMULADOR -->
-        <section id="startScreen" class="animate-fade-in">
-            <div class="bg-white border border-black/10 p-8 sm:p-12 rounded-[32px] shadow-sm max-w-3xl mx-auto mt-6">
+        <!-- ========================================== -->
+        <!-- PANTALLA 1: INICIO DEL SIMULADOR           -->
+        <!-- ========================================== -->
+        <section id="welcome-screen" class="app-screen active animate-fade-in">
+            <div class="bg-white dark:bg-neutral-900 border border-black/10 dark:border-white/10 p-8 sm:p-12 rounded-[32px] shadow-sm max-w-3xl mx-auto mt-6 transition-colors">
                 
                 <div class="flex items-center gap-3 mb-6">
-                    <div class="w-12 h-12 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-lg border border-blue-100">UV</div>
+                    <div class="w-12 h-12 rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-lg border border-blue-100 dark:border-blue-800/50">UV</div>
                     <div>
                         <span class="text-xs opacity-50 font-medium uppercase tracking-wider">Simulador Oficial Dinámico</span>
                         <h2 class="font-bold text-xl leading-tight">Universidad Veracruzana (EXANI-II)</h2>
@@ -100,268 +89,363 @@
                 </div>
 
                 <h1 class="text-4xl sm:text-6xl text-serif font-medium tracking-tight leading-tight mb-6">
-                    Prueba de Selección <span class="text-handwritten text-3xl sm:text-5xl italic block sm:inline-block mt-2 sm:mt-0">Aleatoria</span>
+                    Prueba de Selección <span class="text-handwritten text-3xl sm:text-5xl italic block sm:inline-block mt-2 sm:mt-0">Real</span>
                 </h1>
 
                 <p class="text-sm sm:text-base opacity-70 leading-relaxed mb-8">
-                    Este simulador premium extrae reactivos de forma completamente aleatoria desde un banco de <strong>360 preguntas especializadas</strong>. Cada vez que inicies, presentarás un examen único de 120 reactivos idéntico en estructura, tiempo y dificultad a la prueba oficial de CENEVAL.
+                    Este simulador cuenta con <strong>90 reactivos oficiales</strong> idénticos en estructura, tiempo y dificultad a la prueba de CENEVAL. Configura tu simulacro antes de iniciar.
                 </p>
 
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10 pt-6 border-t border-black/5">
-                    <div class="bg-neutral-50 p-4 rounded-2xl border border-black/5">
-                        <span class="text-xs opacity-50 block font-medium">Módulos</span>
-                        <span class="font-bold text-lg">4 áreas</span>
+                <!-- Configuración del Simulador -->
+                <form id="setup-form" onsubmit="return false;" class="space-y-6">
+                    
+                    <div class="space-y-2">
+                        <label for="student-name" class="block text-sm font-bold opacity-80">Nombre del Estudiante</label>
+                        <input type="text" id="student-name" required autocomplete="off" placeholder="Ingresa tu nombre completo" class="w-full bg-neutral-50 dark:bg-neutral-800 border border-black/10 dark:border-white/10 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-black dark:focus:ring-white focus:border-black dark:focus:border-white outline-none transition-all text-black dark:text-white">
                     </div>
-                    <div class="bg-neutral-50 p-4 rounded-2xl border border-black/5">
-                        <span class="text-xs opacity-50 block font-medium">Reactivos</span>
-                        <span class="font-bold text-lg">120 total</span>
-                    </div>
-                    <div class="bg-neutral-50 p-4 rounded-2xl border border-black/5">
-                        <span class="text-xs opacity-50 block font-medium">Tiempo Límite</span>
-                        <span class="font-bold text-lg">3 horas</span>
-                    </div>
-                    <div class="bg-neutral-50 p-4 rounded-2xl border border-black/5">
-                        <span class="text-xs opacity-50 block font-medium">Calificación</span>
-                        <span class="font-bold text-lg">Tutor IA</span>
-                    </div>
-                </div>
 
-                <div class="space-y-3">
-                    <button id="btnStart" class="w-full bg-black !bg-black text-white py-4 rounded-2xl font-bold hover:bg-blue-600 transition-colors shadow-md text-center block sm:text-lg">
-                        INICIAR EXAMEN AHORA
-                    </button>
-                    <p class="text-center text-xs opacity-40 font-medium">Asegúrate de estar en un lugar tranquilo y sin distracciones.</p>
-                </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="space-y-2">
+                            <label for="exam-mode" class="block text-sm font-bold opacity-80">Modalidad</label>
+                            <select id="exam-mode" class="w-full bg-neutral-50 dark:bg-neutral-800 border border-black/10 dark:border-white/10 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-black dark:focus:ring-white outline-none appearance-none text-black dark:text-white">
+                                <option value="sim">Simulacro Real (Con tiempo)</option>
+                                <option value="practice">Práctica Libre (Sin tiempo)</option>
+                            </select>
+                        </div>
+                        <div class="space-y-2">
+                            <label for="exam-range" class="block text-sm font-bold opacity-80">Contenido</label>
+                            <select id="exam-range" class="w-full bg-neutral-50 dark:bg-neutral-800 border border-black/10 dark:border-white/10 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-black dark:focus:ring-white outline-none appearance-none text-black dark:text-white">
+                                <option value="all">Examen Completo (90 reactivos)</option>
+                                <option value="s1">Sección 1: Lectura (1-30)</option>
+                                <option value="s2">Sección 2: Redacción (31-60)</option>
+                                <option value="s3">Sección 3: Matemáticas (61-90)</option>
+                            </select>
+                        </div>
+                    </div>
 
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-black/5 dark:border-white/5 transition-colors">
+                        <div class="bg-neutral-50 dark:bg-neutral-800 p-4 rounded-2xl border border-black/5 dark:border-white/5 text-center sm:text-left transition-colors">
+                            <span class="text-[10px] opacity-50 block font-bold uppercase tracking-widest">Módulos</span>
+                            <span class="font-bold text-lg">3 áreas</span>
+                        </div>
+                        <div class="bg-neutral-50 dark:bg-neutral-800 p-4 rounded-2xl border border-black/5 dark:border-white/5 text-center sm:text-left transition-colors">
+                            <span class="text-[10px] opacity-50 block font-bold uppercase tracking-widest">Reactivos</span>
+                            <span class="font-bold text-lg" id="info-reactivos-count">90</span>
+                        </div>
+                        <div class="bg-neutral-50 dark:bg-neutral-800 p-4 rounded-2xl border border-black/5 dark:border-white/5 text-center sm:text-left transition-colors">
+                            <span class="text-[10px] opacity-50 block font-bold uppercase tracking-widest">Tiempo Límite</span>
+                            <span class="font-bold text-lg" id="info-time-limit">3h 00m</span>
+                        </div>
+                        <div class="bg-neutral-50 dark:bg-neutral-800 p-4 rounded-2xl border border-black/5 dark:border-white/5 text-center sm:text-left transition-colors">
+                            <span class="text-[10px] opacity-50 block font-bold uppercase tracking-widest">Evaluación</span>
+                            <span class="font-bold text-lg">CENEVAL</span>
+                        </div>
+                    </div>
+
+                    <div class="pt-4">
+                        <button type="submit" class="w-full bg-black dark:bg-white text-white dark:text-black py-4 rounded-2xl font-bold hover:bg-blue-600 dark:hover:bg-blue-400 transition-colors shadow-md text-center block sm:text-lg">
+                            INICIAR EXAMEN AHORA
+                        </button>
+                        <p class="text-center text-xs opacity-40 font-medium mt-3">Asegúrate de estar en un lugar tranquilo y sin distracciones.</p>
+                        
+                        <!-- Agradecimiento a Profe Cristian -->
+                        <div class="mt-6 text-center bg-neutral-50 dark:bg-neutral-800/50 p-4 rounded-xl border border-black/5 dark:border-white/5 transition-colors">
+                            <p class="text-xs sm:text-sm opacity-80 leading-relaxed">
+                                Este simulador fue posible gracias al esfuerzo de <strong>Profe Cristian</strong> en la recopilación de reactivos oficiales.
+                            </p>
+                            <a href="https://www.youtube.com/@ProfeCristian" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-1.5 mt-2 text-red-600 dark:text-red-400 font-bold text-xs sm:text-sm hover:underline transition-colors">
+                                <span class="material-symbols-outlined text-sm">smart_display</span>
+                                Canal de YouTube
+                            </a>
+                        </div>
+                    </div>
+
+                </form>
             </div>
         </section>
 
 
-        <!-- PANTALLA 2: EXAMEN EN VIVO -->
-        <section id="examScreen" class="hidden animate-fade-in space-y-6 mt-4">
+        <!-- ========================================== -->
+        <!-- PANTALLA 2: EXAMEN EN VIVO                 -->
+        <!-- ========================================== -->
+        <section id="exam-screen" class="app-screen animate-fade-in space-y-6 mt-4">
             
             <!-- Barra Superior de Estado y Cronómetro -->
-            <div class="bg-white border border-black/10 p-4 sm:px-6 rounded-2xl shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4 sticky top-28 z-40 transition-all">
-                <div class="w-full sm:w-auto flex items-center justify-between sm:justify-start gap-4">
+            <div class="bg-white dark:bg-neutral-900 border border-black/10 dark:border-white/10 p-4 sm:px-6 rounded-2xl shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4 sticky top-[72px] lg:top-28 z-40 transition-all">
+                <div class="w-full sm:w-auto flex flex-wrap items-center justify-between sm:justify-start gap-4">
+                    
+                    <div class="flex items-center gap-2">
+                        <div class="bg-neutral-100 dark:bg-neutral-800 p-2 rounded-full transition-colors">
+                            <span class="material-symbols-outlined text-sm block">person</span>
+                        </div>
+                        <div>
+                            <span class="text-[10px] uppercase font-bold tracking-widest opacity-40 block">Estudiante</span>
+                            <h3 id="display-student-name" class="font-bold text-xs sm:text-sm truncate max-w-[100px]">Estudiante</h3>
+                        </div>
+                    </div>
+                    
+                    <div class="h-8 w-px bg-black/10 dark:bg-white/10 hidden sm:block"></div>
+                    
                     <div>
                         <span class="text-[10px] uppercase font-bold tracking-widest opacity-40 block">Módulo Actual</span>
-                        <h3 id="currentAreaDisplay" class="font-bold text-sm sm:text-base text-blue-600">Pensamiento Matemático</h3>
+                        <h3 id="display-section-name" class="font-bold text-xs sm:text-sm text-blue-600 dark:text-blue-400">Comprensión Lectora</h3>
                     </div>
-                    <div class="h-8 w-px bg-black/10 hidden sm:block"></div>
+                    
+                    <div class="h-8 w-px bg-black/10 dark:bg-white/10 hidden sm:block"></div>
+                    
                     <div>
                         <span class="text-[10px] uppercase font-bold tracking-widest opacity-40 block">Reactivo</span>
-                        <span id="questionProgressDisplay" class="font-bold text-sm sm:text-base">1/120</span>
+                        <span class="font-bold text-xs sm:text-sm"><span id="q-number-display">1</span> / <span class="total-q-label">90</span></span>
                     </div>
+
+                    <!-- Botón Navegador Móvil -->
+                    <button id="btn-show-grid" class="lg:hidden ml-auto bg-black dark:bg-white text-white dark:text-black px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-tighter flex items-center gap-1 transition-colors">
+                        <span class="material-symbols-outlined text-xs">apps</span> Menú
+                    </button>
                 </div>
 
-                <!-- Cronómetro -->
-                <div class="w-full sm:w-auto flex items-center justify-between sm:justify-end gap-3 bg-neutral-50 px-4 py-2 rounded-xl border border-black/5">
-                    <span class="text-xs font-medium opacity-60 flex items-center gap-1">
-                        <span class="material-symbols-outlined text-base animate-spin" style="animation-duration: 4s;">schedule</span>
-                        Tiempo Límite:
-                    </span>
-                    <span id="timerDisplay" class="font-mono font-bold text-base tracking-wider text-black">03:00:00</span>
-                </div>
-            </div>
+                <!-- Controles Derecha -->
+                <div class="w-full sm:w-auto flex items-center justify-between sm:justify-end gap-4">
+                    <div class="flex items-center gap-3 text-xs font-bold opacity-60">
+                        <span>Contestadas: <span id="stat-answered" class="text-black dark:text-white opacity-100">0</span></span>
+                        <span class="w-1 h-1 rounded-full bg-black/20 dark:bg-white/20"></span>
+                        <span class="flex items-center gap-1">
+                            <span class="material-symbols-outlined text-xs">flag</span>
+                            <span id="stat-flagged" class="text-black dark:text-white opacity-100">0</span>
+                        </span>
+                    </div>
 
-            <!-- Barra de progreso visual -->
-            <div class="w-full h-1.5 bg-black/5 rounded-full overflow-hidden">
-                <div id="progressBarFill" class="h-full bg-blue-600 transition-all duration-300 w-0"></div>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                
-                <!-- Cuerpo de la Pregunta y Lectura -->
-                <div class="lg:col-span-2 space-y-6">
+                    <!-- Cronómetro -->
+                    <div id="exam-timer" class="flex items-center gap-2 bg-neutral-50 dark:bg-neutral-800 px-4 py-2 rounded-xl border border-black/5 dark:border-white/5 transition-colors">
+                        <span class="material-symbols-outlined text-base animate-spin opacity-50" style="animation-duration: 4s;">schedule</span>
+                        <span id="timer-text" class="font-mono font-bold text-sm tracking-wider text-black dark:text-white">03:00:00</span>
+                    </div>
                     
-                    <!-- Tarjeta de Lectura (Solo visible si el reactivo tiene texto asociado) -->
-                    <div id="readingCard" class="hidden bg-neutral-50 border border-black/10 p-6 sm:p-8 rounded-3xl max-h-80 overflow-y-auto custom-scroll shadow-inner">
-                        <div class="flex items-center gap-2 mb-3 opacity-50 text-xs font-bold uppercase tracking-wider">
-                            <span class="material-symbols-outlined text-sm">menu_book</span>
-                            Texto de Consulta para este Reactivo
+                    <!-- Terminar Botón Superior -->
+                    <button id="btn-finish-exam" class="hidden sm:block text-[10px] uppercase font-bold text-red-600 hover:text-white border border-red-200 hover:bg-red-600 px-3 py-1.5 rounded-lg transition-colors">Finalizar</button>
+                </div>
+            </div>
+
+            <!-- Barra de progreso visual (Simulada por CSS, pero aquí ponemos un fallback) -->
+            <div class="w-full h-1.5 bg-black/5 dark:bg-white/10 rounded-full overflow-hidden transition-colors">
+                <div id="progressBarFill" class="h-full bg-blue-600 dark:bg-blue-500 transition-all duration-300 w-full opacity-20"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                
+                <!-- Cuerpo Principal -->
+                <div class="lg:col-span-3 space-y-6">
+                    
+                    <!-- Tarjeta de Lectura -->
+                    <div id="reading-panel" class="hidden bg-neutral-50 dark:bg-neutral-800 border border-black/10 dark:border-white/10 p-6 sm:p-8 rounded-3xl max-h-80 overflow-y-auto custom-scroll shadow-inner transition-colors">
+                        <div class="flex items-center justify-between mb-4 pb-2 border-b border-black/5 dark:border-white/5 transition-colors">
+                            <div class="flex items-center gap-2 opacity-50 text-xs font-bold uppercase tracking-wider">
+                                <span class="material-symbols-outlined text-sm">menu_book</span>
+                                Lectura Asociada
+                            </div>
+                            <h2 id="reading-title" class="font-bold text-sm">Título de Lectura</h2>
                         </div>
-                        <p id="readingText" class="text-sm sm:text-base leading-relaxed text-serif font-medium text-justify"></p>
+                        <div id="reading-body" class="text-sm sm:text-base leading-relaxed text-serif font-medium text-justify">
+                            <!-- Inyectado -->
+                        </div>
                     </div>
 
                     <!-- Tarjeta de la Pregunta -->
-                    <div id="questionCard" class="bg-white border border-black/10 p-6 sm:p-8 rounded-3xl shadow-sm">
-                        <div id="questionMainGrid" class="space-y-6">
-                            <div id="questionLeftCol" class="space-y-6">
+                    <div id="question-panel" class="bg-white dark:bg-neutral-900 border border-black/10 dark:border-white/10 p-6 sm:p-8 rounded-3xl shadow-sm transition-colors">
+                        <div class="space-y-6">
+                            
+                            <!-- Cabecera de Pregunta -->
+                            <div class="flex items-start justify-between gap-4 border-b border-black/5 dark:border-white/5 pb-4 transition-colors">
                                 <div class="flex items-start gap-4">
-                                    <span id="questionNumBadge" class="bg-black text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0 mt-0.5">1</span>
-                                    <h4 id="questionText" class="text-base sm:text-lg font-medium leading-relaxed">
+                                    <span class="bg-black dark:bg-white text-white dark:text-black w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0 mt-0.5 transition-colors"><span class="material-symbols-outlined text-[1rem]">help</span></span>
+                                    <div id="question-text" class="text-base sm:text-lg font-medium leading-relaxed">
                                         Cargando reactivo...
-                                    </h4>
+                                    </div>
                                 </div>
+                                <button id="btn-flag-question" class="flex-shrink-0 flex items-center gap-1 text-[10px] uppercase font-bold text-neutral-400 dark:text-neutral-500 hover:text-black dark:hover:text-white border border-black/10 dark:border-white/10 px-2 py-1 rounded-md transition-colors">
+                                    <span class="material-symbols-outlined text-sm">flag</span>
+                                    <span>Marcar</span>
+                                </button>
+                            </div>
 
-                                <!-- Opciones de Respuesta -->
-                                <div id="optionsContainer" class="space-y-3 pt-4">
-                                    <!-- Opciones inyectadas por JS -->
-                                </div>
+                            <!-- Contenedor para Imagen (Oculto por defecto) -->
+                            <div id="question-diagram-container" class="hidden w-full bg-neutral-50 dark:bg-neutral-800/50 border border-black/5 dark:border-white/5 p-4 rounded-2xl flex flex-col items-center justify-center cursor-pointer hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors">
+                                <img id="question-diagram" src="" alt="Diagrama del reactivo" class="max-h-64 object-contain rounded-xl shadow-sm bg-white p-2">
+                                <span class="text-[10px] uppercase font-bold tracking-widest opacity-40 mt-3 diagram-caption">Haz clic para ampliar</span>
+                            </div>
+
+                            <!-- Opciones de Respuesta -->
+                            <div id="options-container" class="space-y-3 pt-2">
+                                <!-- Opciones inyectadas por JS -->
                             </div>
                             
-                            <!-- Contenedor para Figuras (Matemáticas o Imágenes) -->
-                            <div id="figureContainer" class="hidden w-full h-full min-h-[350px] flex justify-center items-center bg-white/40 backdrop-blur-sm rounded-3xl border border-white/20 overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)] fade-in"></div>
+                            <!-- Caja de Retroalimentación de Práctica -->
+                            <div id="practice-feedback" class="hidden mt-6 p-4 rounded-2xl border text-sm font-medium flex items-start gap-3">
+                                <!-- Inyectado por JS -->
+                            </div>
                         </div>
                     </div>
 
                     <!-- Botones de Acción / Navegación Inferior -->
                     <div class="flex items-center justify-between pt-2 gap-4">
-                        <button id="btnPrev" onclick="prevQuestion()" class="px-5 py-3 rounded-xl border border-black/10 text-xs sm:text-sm font-bold hover:bg-neutral-100 transition-colors disabled:opacity-30 disabled:pointer-events-none">
-                            ← Anterior
+                        <button id="btn-prev-question" class="px-5 py-3 rounded-xl border border-black/10 dark:border-white/10 text-xs sm:text-sm font-bold hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors disabled:opacity-30 disabled:pointer-events-none flex items-center gap-1">
+                            <span class="material-symbols-outlined text-sm">arrow_back</span> Anterior
                         </button>
                         
-                        <button onclick="toggleNavigator()" class="px-4 py-3 rounded-xl bg-neutral-50 border border-black/10 text-xs font-bold hover:bg-neutral-100 transition-colors flex items-center gap-1.5 lg:hidden">
-                            <span class="material-symbols-outlined text-sm">apps</span>
-                            Navegador
-                        </button>
-
-                        <button id="btnNext" onclick="nextQuestion()" class="flex-1 sm:flex-none px-8 py-3 rounded-xl bg-black text-white text-xs sm:text-sm font-bold hover:bg-blue-600 transition-colors shadow-sm">
-                            Siguiente →
-                        </button>
-
-                        <button id="btnFinishExam" onclick="finishExamPrompt()" class="hidden flex-1 sm:flex-none px-8 py-3 rounded-xl bg-red-600 text-white text-xs sm:text-sm font-bold hover:bg-red-700 transition-colors shadow-sm">
-                            Finalizar Simulador
+                        <button id="btn-next-question" class="flex-1 sm:flex-none px-8 py-3 rounded-xl bg-black dark:bg-white text-white dark:text-black text-xs sm:text-sm font-bold hover:bg-blue-600 dark:hover:bg-blue-400 transition-colors shadow-sm flex justify-center items-center gap-1">
+                            <span>Siguiente</span> <span class="material-symbols-outlined text-sm">arrow_forward</span>
                         </button>
                     </div>
 
                 </div>
 
-                <!-- Panel Lateral: Navegador de Reactivos (Escritorio) -->
-                <div id="navigatorPanel" class="hidden lg:block bg-white border border-black/10 p-6 rounded-3xl shadow-sm h-[520px] flex flex-col justify-between sticky top-48">
+                <!-- Panel Lateral: Navegador de Reactivos -->
+                <div id="nav-drawer" class="lg:block bg-white dark:bg-neutral-900 border border-black/10 dark:border-white/10 p-6 rounded-3xl shadow-sm h-[600px] flex flex-col justify-between sticky top-48 hidden lg:flex transition-colors">
                     <div>
-                        <div class="flex items-center justify-between mb-4 pb-3 border-b border-black/5">
-                            <h4 class="font-bold text-sm tracking-tight">Navegador de Reactivos</h4>
-                            <span id="answeredCountBadge" class="text-xs opacity-50 font-medium">0/120</span>
+                        <div class="flex items-center justify-between mb-4 pb-3 border-b border-black/5 dark:border-white/5 transition-colors">
+                            <h4 class="font-bold text-sm tracking-tight">Navegador</h4>
+                            <button id="btn-close-drawer" class="lg:hidden text-neutral-400 hover:text-black">
+                                <span class="material-symbols-outlined text-xl">close</span>
+                            </button>
                         </div>
                         
-                        <!-- Leyenda de colores -->
-                        <div class="flex items-center gap-3 text-[10px] opacity-60 mb-4 font-medium">
-                            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-neutral-200"></span> Pendiente</span>
-                            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-black"></span> Respondida</span>
-                            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-blue-600"></span> Actual</span>
+                        <!-- Leyenda -->
+                        <div class="flex flex-wrap gap-2 text-[10px] opacity-60 mb-4 font-bold uppercase tracking-wider">
+                            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-neutral-200 dark:bg-neutral-600"></span> Pendiente</span>
+                            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-black dark:bg-white"></span> Respondida</span>
+                            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-400"></span> Marcada</span>
                         </div>
 
-                        <!-- Cuadrícula de Botones -->
-                        <div id="navGrid" class="grid grid-cols-5 gap-2 max-h-[340px] overflow-y-auto custom-scroll pr-1 pt-1">
-                            <!-- Inyectados por JS -->
+                        <!-- Cuadrícula -->
+                        <div id="drawer-grid" class="grid grid-cols-5 gap-2 overflow-y-auto custom-scroll pr-1 pt-1 content-start h-[400px]">
+                            <!-- Botones inyectados por JS -->
                         </div>
                     </div>
-
-                    <button onclick="finishExamPrompt()" class="w-full bg-neutral-100 text-red-600 hover:bg-red-600 hover:text-white py-3 rounded-xl text-xs font-bold transition-colors mt-4">
-                        Entregar Examen
-                    </button>
                 </div>
 
             </div>
         </section>
 
 
-        <!-- PANTALLA 3: RESULTADOS Y RETROALIMENTACIÓN -->
-        <section id="resultScreen" class="hidden animate-fade-in space-y-12 mt-6">
+        <!-- ========================================== -->
+        <!-- PANTALLA 3: RESULTADOS                     -->
+        <!-- ========================================== -->
+        <section id="results-screen" class="app-screen animate-fade-in space-y-12 mt-6">
             
-            <!-- Resumen de Calificación Superior -->
-            <div class="bg-white border border-black/10 p-8 sm:p-12 rounded-[32px] shadow-sm text-center relative overflow-hidden max-w-3xl mx-auto">
-                <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-blue-600 via-indigo-600 to-black"></div>
+            <div class="bg-white dark:bg-neutral-900 border border-black/10 dark:border-white/10 p-8 sm:p-12 rounded-[32px] shadow-sm text-center relative overflow-hidden max-w-3xl mx-auto transition-colors">
+                <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-blue-600 via-indigo-600 to-black dark:to-white"></div>
                 
                 <span class="text-xs font-bold uppercase tracking-widest opacity-40 block mb-2">Simulador EXANI-II Concluido</span>
-                <h2 class="text-4xl sm:text-6xl text-serif font-bold italic mb-8">Tus Resultados Oficiales</h2>
+                <h2 id="results-title" class="text-4xl sm:text-5xl text-serif font-bold italic mb-2">Resultados Oficiales</h2>
+                <p id="results-student-greet" class="text-sm font-medium opacity-60 mb-8">Felicidades por completar el simulacro.</p>
 
                 <!-- Gráfico de Círculo/Puntaje -->
                 <div class="inline-flex items-center justify-center relative mb-8">
                     <svg class="w-40 h-40 transform -rotate-90">
                         <circle cx="80" cy="80" r="70" stroke="rgba(0,0,0,0.05)" stroke-width="12" fill="transparent" />
-                        <circle id="scoreCircleSvg" cx="80" cy="80" r="70" stroke="#2563EB" stroke-width="12" fill="transparent" stroke-dasharray="439.8" stroke-dashoffset="439.8" stroke-linecap="round" class="transition-all duration-1000" />
+                        <circle id="score-ring-progress" cx="80" cy="80" r="70" stroke="#2563EB" stroke-width="12" fill="transparent" stroke-dasharray="439.8" stroke-dashoffset="439.8" stroke-linecap="round" class="transition-all duration-1000" />
                     </svg>
                     <div class="absolute flex flex-col items-center justify-center">
-                        <span id="finalScorePct" class="text-4xl sm:text-5xl font-bold font-mono tracking-tighter">0%</span>
+                        <span id="score-percentage" class="text-4xl sm:text-5xl font-bold font-mono tracking-tighter">0%</span>
                         <span class="text-[10px] uppercase font-bold tracking-widest opacity-40">Aciertos</span>
                     </div>
                 </div>
 
-                <div class="flex justify-center gap-6 text-sm font-medium opacity-80 mb-8 max-w-sm mx-auto bg-neutral-50 p-4 rounded-2xl border border-black/5">
+                <div class="flex justify-center gap-6 text-sm font-medium opacity-80 mb-8 max-w-sm mx-auto bg-neutral-50 dark:bg-neutral-800 p-4 rounded-2xl border border-black/5 dark:border-white/5 transition-colors">
                     <div>
-                        <span class="block text-xs opacity-50">Total Aciertos</span>
-                        <strong id="finalCorrectCount" class="text-lg text-black font-bold">0/120</strong>
+                        <span class="block text-xs opacity-50">Aciertos</span>
+                        <strong id="res-correct" class="text-lg text-emerald-600 font-bold">0</strong>
                     </div>
-                    <div class="w-px bg-black/10"></div>
+                    <div class="w-px bg-black/10 dark:bg-white/10"></div>
                     <div>
-                        <span class="block text-xs opacity-50">Estado UV</span>
-                        <strong id="admissionStatusDisplay" class="text-lg text-blue-600 font-bold">Analizando</strong>
+                        <span class="block text-xs opacity-50">Errores</span>
+                        <strong id="res-incorrect" class="text-lg text-red-600 font-bold">0</strong>
+                    </div>
+                    <div class="w-px bg-black/10 dark:bg-white/10"></div>
+                    <div>
+                        <span class="block text-xs opacity-50">Vacías</span>
+                        <strong id="res-unanswered" class="text-lg text-neutral-400 font-bold">0</strong>
                     </div>
                 </div>
-
-                <!-- Desglose por los 4 módulos -->
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-left pt-6 border-t border-black/5">
-                    <div class="p-3 bg-neutral-50 rounded-xl border border-black/5">
-                        <span class="text-[11px] font-bold block truncate" title="Pensamiento Matemático">Matemáticas</span>
-                        <div class="flex items-baseline justify-between mt-1">
-                            <span id="scoreMath" class="font-mono font-bold text-sm">0/30</span>
-                            <span id="pctMath" class="text-[10px] opacity-50 font-bold">0%</span>
-                        </div>
-                    </div>
-                    <div class="p-3 bg-neutral-50 rounded-xl border border-black/5">
-                        <span class="text-[11px] font-bold block truncate" title="Comprensión Lectora">Lectura</span>
-                        <div class="flex items-baseline justify-between mt-1">
-                            <span id="scoreReading" class="font-mono font-bold text-sm">0/30</span>
-                            <span id="pctReading" class="text-[10px] opacity-50 font-bold">0%</span>
-                        </div>
-                    </div>
-                    <div class="p-3 bg-neutral-50 rounded-xl border border-black/5">
-                        <span class="text-[11px] font-bold block truncate" title="Redacción Indirecta">Redacción</span>
-                        <div class="flex items-baseline justify-between mt-1">
-                            <span id="scoreWriting" class="font-mono font-bold text-sm">0/30</span>
-                            <span id="pctWriting" class="text-[10px] opacity-50 font-bold">0%</span>
-                        </div>
-                    </div>
-                    <div class="p-3 bg-neutral-50 rounded-xl border border-black/5">
-                        <span class="text-[11px] font-bold block truncate" title="Inglés">Inglés</span>
-                        <div class="flex items-baseline justify-between mt-1">
-                            <span id="scoreEnglish" class="font-mono font-bold text-sm">0/30</span>
-                            <span id="pctEnglish" class="text-[10px] opacity-50 font-bold">0%</span>
-                        </div>
-                    </div>
+                <div class="text-center mb-8">
+                    <span class="text-xs font-bold uppercase tracking-widest opacity-40 block mb-1">Fracción Total</span>
+                    <strong id="score-correct-fraction" class="text-lg text-black dark:text-white font-bold">0/90</strong>
                 </div>
 
             </div>
 
-            <!-- Mentoría IA Personalizada de Mac -->
-            <div class="bg-black text-white p-8 sm:p-10 rounded-[32px] shadow-xl flex flex-col md:flex-row gap-6 items-center md:items-start relative overflow-hidden max-w-3xl mx-auto">
-                <div class="w-16 h-16 rounded-full flex-shrink-0 overflow-hidden bg-white/5 border border-white/10 shadow-lg">
-                    <img src="mac-greeting.png" alt="Mac Tutor" class="w-full h-full object-cover scale-105" onerror="this.onerror=null; this.src='https://api.dicebear.com/7.x/bottts/svg?seed=mac-white&baseColor=e2e8f0';">
+            <!-- Ceneval Estimator -->
+            <div class="bg-black text-white p-8 sm:p-10 rounded-[32px] shadow-xl max-w-3xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="text-center md:text-left">
+                    <span class="text-[10px] font-mono text-white/50 tracking-widest uppercase block mb-2">Índice CENEVAL</span>
+                    <h2 id="ceneval-score-display" class="text-4xl sm:text-5xl font-bold font-mono">0000 <span class="text-2xl opacity-50">/ 1300</span></h2>
+                    <p class="text-xs text-white/70 mt-2 max-w-xs">Puntaje estimado en el formato oficial. El rango va de 700 a 1300.</p>
                 </div>
-                <div class="space-y-3 text-center md:text-left flex-1">
-                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-1">
-                        <h4 class="font-bold text-base flex items-center justify-center md:justify-start gap-1.5">
-                            Análisis del Tutor IA Mac
-                        </h4>
-                        <span class="text-[10px] font-mono text-white/50 tracking-widest uppercase">Mentoría Dinámica</span>
-                    </div>
-                    <div id="aiTutorFeedbackContent" class="text-sm text-white/80 leading-relaxed space-y-2">
-                        Analizando tus respuestas...
+                <div class="text-center md:text-right flex flex-col items-center md:items-end">
+                    <div id="ceneval-performance-badge" class="px-4 py-2 bg-white/10 border border-white/20 rounded-full text-sm font-bold shadow-sm mb-4">Analizando...</div>
+                    <div class="flex items-center gap-2 text-xs text-white/60 font-medium bg-white/5 px-3 py-1.5 rounded-lg">
+                        <span class="material-symbols-outlined text-sm">schedule</span>
+                        Tiempo: <strong id="res-time-spent" class="text-white">00:00:00</strong>
                     </div>
                 </div>
             </div>
 
-            <!-- Revisión Detallada de Errores con Justificación -->
-            <div class="space-y-6 max-w-3xl mx-auto">
-                <div class="flex items-center justify-between border-b border-black/10 pb-4">
+            <!-- Desglose por los módulos -->
+            <div class="max-w-3xl mx-auto space-y-4">
+                <h3 class="text-xl text-serif font-bold italic mb-4">Resultados por Área</h3>
+                
+                <div class="bg-white dark:bg-neutral-900 p-6 rounded-2xl border border-black/10 dark:border-white/10 shadow-sm space-y-6 transition-colors">
                     <div>
-                        <h3 class="text-2xl text-serif font-bold italic">Revisión Pedagógica de Errores</h3>
-                        <p class="text-xs opacity-50 font-medium">Aprende de tus fallos analizando la justificación oficial para cada reactivo.</p>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm font-bold">Comprensión Lectora</span>
+                            <span id="sec1-score-text" class="text-xs font-bold font-mono bg-neutral-100 dark:bg-neutral-800 text-black dark:text-white px-2 py-1 rounded-md transition-colors">0 / 30</span>
+                        </div>
+                        <div class="w-full h-2 bg-neutral-100 dark:bg-neutral-800 rounded-full overflow-hidden transition-colors">
+                            <div id="sec1-progress-fill" class="h-full bg-blue-600 transition-all duration-1000" style="width: 0%"></div>
+                        </div>
                     </div>
-                    <span id="errorCountBadge" class="bg-neutral-100 text-neutral-800 px-3 py-1 rounded-full text-xs font-bold">0 errores</span>
+                    
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm font-bold">Redacción Indirecta</span>
+                            <span id="sec2-score-text" class="text-xs font-bold font-mono bg-neutral-100 dark:bg-neutral-800 text-black dark:text-white px-2 py-1 rounded-md transition-colors">0 / 30</span>
+                        </div>
+                        <div class="w-full h-2 bg-neutral-100 dark:bg-neutral-800 rounded-full overflow-hidden transition-colors">
+                            <div id="sec2-progress-fill" class="h-full bg-blue-600 transition-all duration-1000" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm font-bold">Pensamiento Matemático</span>
+                            <span id="sec3-score-text" class="text-xs font-bold font-mono bg-neutral-100 dark:bg-neutral-800 text-black dark:text-white px-2 py-1 rounded-md transition-colors">0 / 30</span>
+                        </div>
+                        <div class="w-full h-2 bg-neutral-100 dark:bg-neutral-800 rounded-full overflow-hidden transition-colors">
+                            <div id="sec3-progress-fill" class="h-full bg-blue-600 transition-all duration-1000" style="width: 0%"></div>
+                        </div>
+                    </div>
                 </div>
 
-                <div id="errorsContainer" class="space-y-4">
-                    <!-- Errores inyectados dinámicamente -->
-                </div>
-
-                <div class="pt-8 text-center">
-                    <button onclick="location.reload()" class="px-8 py-4 bg-black text-white rounded-2xl font-bold text-sm hover:bg-blue-600 transition-colors shadow-md inline-flex items-center gap-2">
+                <div class="pt-8 flex flex-col sm:flex-row justify-center gap-4">
+                    <button id="btn-restart" class="px-8 py-4 bg-neutral-100 dark:bg-neutral-800 text-black dark:text-white border border-black/10 dark:border-white/10 rounded-2xl font-bold text-sm hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors shadow-sm inline-flex items-center justify-center gap-2 flex-1 sm:flex-none">
                         <span class="material-symbols-outlined text-base">refresh</span>
-                        Generar Nuevo Examen Aleatorio
+                        Reiniciar Examen
                     </button>
+                    <button id="btn-review-answers" class="px-8 py-4 bg-black dark:bg-white text-white dark:text-black rounded-2xl font-bold text-sm hover:bg-blue-600 dark:hover:bg-blue-400 transition-colors shadow-md inline-flex items-center justify-center gap-2 flex-1 sm:flex-none">
+                        <span class="material-symbols-outlined text-base">fact_check</span>
+                        Revisar Reactivos
+                    </button>
+                </div>
+
+                <!-- Agradecimiento a Profe Cristian -->
+                <div class="mt-8 text-center bg-white dark:bg-neutral-900 p-6 rounded-2xl border border-black/10 dark:border-white/10 shadow-sm transition-colors">
+                    <p class="text-sm opacity-80 leading-relaxed mb-2">
+                        Queremos agradecer de forma especial a <strong>Profe Cristian</strong> por su dedicación al recopilar el examen simulacro en el que se basa esta herramienta.
+                    </p>
+                    <a href="https://www.youtube.com/@ProfeCristian" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-1.5 text-red-600 dark:text-red-400 font-bold text-sm hover:underline transition-colors">
+                        <span class="material-symbols-outlined text-base">smart_display</span>
+                        Visitar Canal de YouTube
+                    </a>
                 </div>
             </div>
 
@@ -369,498 +453,66 @@
 
     </main>
 
-    <!-- Modal para el Navegador Móvil -->
-    <div id="mobileNavigatorModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden items-end sm:items-center justify-center p-4">
-        <div class="bg-white w-full max-w-md rounded-t-[32px] sm:rounded-[32px] p-6 max-h-[80vh] flex flex-col justify-between animate-fade-in">
-            <div class="flex items-center justify-between mb-4 pb-3 border-b border-black/5">
-                <h4 class="font-bold text-sm">Saltar a Reactivo</h4>
-                <button onclick="toggleNavigator()" class="w-8 h-8 rounded-full bg-neutral-100 flex items-center justify-center text-sm font-bold opacity-60 hover:opacity-100">✕</button>
-            </div>
-            
-            <div id="mobileNavGrid" class="grid grid-cols-5 gap-2 overflow-y-auto custom-scroll pr-1 max-h-[50vh] pt-1 mb-4">
-                <!-- Copia dinámica de botones -->
-            </div>
-
-            <button onclick="finishExamPrompt()" class="w-full bg-red-50 text-red-600 hover:bg-red-600 hover:text-white py-3 rounded-xl text-xs font-bold transition-colors text-center block">
-                Entregar Examen
-            </button>
+    <!-- ========================================== -->
+    <!-- MODAL: IMAGE ZOOM LIGHTBOX                 -->
+    <!-- ========================================== -->
+    <div id="lightbox-modal" class="modal-overlay hidden" role="dialog" aria-modal="true">
+        <div class="lightbox-content bg-white/5 p-2 backdrop-blur-md border border-white/20">
+            <button id="btn-close-lightbox" class="lightbox-close bg-black/60 hover:bg-black text-white" aria-label="Cerrar zoom">&times;</button>
+            <img id="lightbox-img" src="" alt="Diagrama ampliado" class="rounded-xl shadow-2xl">
         </div>
     </div>
 
+    <!-- ========================================== -->
+    <!-- MODAL: CONFIRM FINISH EXAM                 -->
+    <!-- ========================================== -->
+    <div id="confirm-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="bg-white dark:bg-neutral-900 w-full max-w-sm rounded-[32px] p-8 text-center shadow-2xl animate-fade-in border border-black/10 dark:border-white/10 transition-colors">
+            <div class="w-16 h-16 bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 rounded-full flex items-center justify-center mx-auto mb-4 transition-colors">
+                <span class="material-symbols-outlined text-3xl">warning</span>
+            </div>
+            <h2 class="font-bold text-xl mb-2">¿Finalizar examen?</h2>
+            <p id="confirm-modal-warning-text" class="text-sm opacity-60 mb-6 leading-relaxed">
+                ¿Estás seguro de que deseas finalizar tu simulacro? Aún tienes preguntas sin responder.
+            </p>
+            
+            <div class="flex justify-center gap-4 mb-8 bg-neutral-50 dark:bg-neutral-800 p-4 rounded-2xl border border-black/5 dark:border-white/5 transition-colors">
+                <div>
+                    <span id="modal-stat-answered" class="block font-bold text-lg">0</span>
+                    <span class="text-[10px] font-bold uppercase tracking-widest opacity-50">Listas</span>
+                </div>
+                <div class="w-px bg-black/10 dark:bg-white/10"></div>
+                <div>
+                    <span id="modal-stat-unanswered" class="block font-bold text-lg text-red-600">0</span>
+                    <span class="text-[10px] font-bold uppercase tracking-widest opacity-50">Vacías</span>
+                </div>
+            </div>
 
-    <!-- Importar Base de Datos de Preguntas UV -->
-    <script src="preguntas-uv.js"></script>
-    
-    <!-- Script Principal del Simulador -->
+            <div class="flex flex-col gap-3">
+                <button id="btn-confirm-modal" class="w-full bg-black dark:bg-white text-white dark:text-black py-3.5 rounded-xl text-sm font-bold hover:bg-red-600 dark:hover:bg-red-500 hover:text-white dark:hover:text-white transition-colors shadow-sm">
+                    Sí, Entregar Examen
+                </button>
+                <button id="btn-cancel-modal" class="w-full bg-neutral-100 dark:bg-neutral-800 text-black dark:text-white py-3.5 rounded-xl text-sm font-bold hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors">
+                    Volver al Examen
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main JavaScript File -->
+    <script src="simulador-uv-questions.js"></script>
+    <script src="simulador-uv.js"></script>
     <script>
-        const AREAS = [
-            "Pensamiento Matemático",
-            "Comprensión Lectora",
-            "Redacción Indirecta",
-            "Inglés"
-        ];
-        const PREGUNTAS_POR_AREA = 30;
-        const TOTAL_REACTIVOS = AREAS.length * PREGUNTAS_POR_AREA;
-        const TIEMPO_LIMITE_SEGUNDOS = 3 * 3600; // 3 horas
-
-        let examenActual = [];
-        let respuestasUsuario = new Array(TOTAL_REACTIVOS).fill(null);
-        let indicePreguntaActual = 0;
-        let temporizador;
-        let segundosRestantes = TIEMPO_LIMITE_SEGUNDOS;
-
-        // Elementos DOM
-        const startScreen = document.getElementById('startScreen');
-        const examScreen = document.getElementById('examScreen');
-        const resultScreen = document.getElementById('resultScreen');
-
-        const currentAreaDisplay = document.getElementById('currentAreaDisplay');
-        const questionProgressDisplay = document.getElementById('questionProgressDisplay');
-        const timerDisplay = document.getElementById('timerDisplay');
-        const progressBarFill = document.getElementById('progressBarFill');
-
-        const readingCard = document.getElementById('readingCard');
-        const readingText = document.getElementById('readingText');
-        const questionNumBadge = document.getElementById('questionNumBadge');
-        const questionText = document.getElementById('questionText');
-        const optionsContainer = document.getElementById('optionsContainer');
-
-        const navGrid = document.getElementById('navGrid');
-        const mobileNavGrid = document.getElementById('mobileNavGrid');
-        const answeredCountBadge = document.getElementById('answeredCountBadge');
-        const mobileNavigatorModal = document.getElementById('mobileNavigatorModal');
-
-        const btnPrev = document.getElementById('btnPrev');
-        const btnNext = document.getElementById('btnNext');
-        const btnFinishExam = document.getElementById('btnFinishExam');
-
-        // Inicializar eventos
-        document.getElementById('btnStart').addEventListener('click', iniciarSimulador);
-
-        function mezclarArreglo(arreglo) {
-            let copia = [...arreglo];
-            for (let i = copia.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [copia[i], copia[j]] = [copia[j], copia[i]];
-            }
-            return copia;
-        }
-
-        function construirExamenDinamico() {
-            examenActual = [];
-            if (typeof basePreguntasUV === 'undefined') {
-                alert("Error crítico: No se pudo cargar el archivo preguntas-uv.js. Asegúrate de que esté en la misma carpeta que este HTML.");
-                return;
-            }
-            AREAS.forEach(modulo => {
-                if (!basePreguntasUV[modulo]) {
-                    console.warn(`No se encontró el banco para el módulo: ${modulo}`);
-                    return;
-                }
-                const todas = basePreguntasUV[modulo];
-                const seleccionadas = mezclarArreglo(todas).slice(0, PREGUNTAS_POR_AREA);
-                seleccionadas.forEach(p => {
-                    examenActual.push({ ...p });
-                });
-            });
-            console.log(`Examen construido con ${examenActual.length} reactivos.`);
-        }
-
-        function iniciarSimulador() {
-            try {
-                console.log("Iniciando simulador...");
-                construirExamenDinamico();
-                
-                if (examenActual.length === 0) {
-                    throw new Error("No se pudieron cargar los reactivos del examen.");
-                }
-
-                respuestasUsuario = new Array(TOTAL_REACTIVOS).fill(null);
-                indicePreguntaActual = 0;
-                segundosRestantes = TIEMPO_LIMITE_SEGUNDOS;
-
-                // Transición de pantallas
-                startScreen.classList.add('hidden');
-                examScreen.classList.remove('hidden');
-
-                // Renderizar la cuadrícula del navegador
-                renderizarNavegador();
-
-                // Iniciar cronómetro
-                iniciarCronometro();
-
-                // Cargar la primera pregunta
-                cargarPregunta(0);
-                
-                // Scroll hacia arriba suavemente
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                console.log("Simulador listo.");
-            } catch (err) {
-                console.error("Error al iniciar simulador:", err);
-                alert("Hubo un error al iniciar el simulador: " + err.message);
-            }
-        }
-
-        function iniciarCronometro() {
-            clearInterval(temporizador);
-            actualizarDisplayTiempo();
-            temporizador = setInterval(() => {
-                segundosRestantes--;
-                if (segundosRestantes <= 0) {
-                    clearInterval(temporizador);
-                    alert("¡Tiempo agotado! El simulador se entregará automáticamente.");
-                    finalizarExamen();
-                } else {
-                    actualizarDisplayTiempo();
-                }
-            }, 1000);
-        }
-
-        function actualizarDisplayTiempo() {
-            const h = Math.floor(segundosRestantes / 3600).toString().padStart(2, '0');
-            const m = Math.floor((segundosRestantes % 3600) / 60).toString().padStart(2, '0');
-            const s = (segundosRestantes % 60).toString().padStart(2, '0');
-            timerDisplay.innerText = `${h}:${m}:${s}`;
-            
-            // Alerta visual de últimos 15 minutos
-            if (segundosRestantes < 900) {
-                timerDisplay.parentElement.classList.add('bg-red-50', 'border-red-200');
-                timerDisplay.classList.add('text-red-600', 'animate-pulse');
-            }
-        }
-
-        function renderizarNavegador() {
-            navGrid.innerHTML = '';
-            mobileNavGrid.innerHTML = '';
-            
-            for (let i = 0; i < TOTAL_REACTIVOS; i++) {
-                // Crear botón para escritorio
-                const btn = document.createElement('button');
-                btn.className = 'w-full aspect-square rounded-xl border border-black/10 text-xs font-bold transition-all flex items-center justify-center nav-pill';
-                btn.innerText = i + 1;
-                btn.onclick = () => { cargarPregunta(i); toggleNavigator(false); };
-                navGrid.appendChild(btn);
-
-                // Crear copia para móvil
-                const btnMob = btn.cloneNode(true);
-                btnMob.onclick = () => { cargarPregunta(i); toggleNavigator(false); };
-                mobileNavGrid.appendChild(btnMob);
-            }
-            actualizarEstadoNavegador();
-        }
-
-        function actualizarEstadoNavegador() {
-            const respondidas = respuestasUsuario.filter(r => r !== null).length;
-            answeredCountBadge.innerText = `${respondidas}/${TOTAL_REACTIVOS}`;
-
-            const actualizarGrid = (contenedor) => {
-                const botones = contenedor.children;
-                for (let i = 0; i < botones.length; i++) {
-                    const b = botones[i];
-                    b.className = 'w-full aspect-square rounded-xl border text-xs font-bold transition-all flex items-center justify-center';
-                    
-                    if (i === indicePreguntaActual) {
-                        b.classList.add('bg-blue-600', 'text-white', 'border-blue-600', 'scale-105', 'shadow-sm');
-                    } else if (respuestasUsuario[i] !== null) {
-                        b.classList.add('bg-black', 'text-white', 'border-black');
-                    } else {
-                        b.classList.add('bg-neutral-50', 'text-neutral-600', 'border-black/10', 'hover:bg-neutral-100');
-                    }
-                }
-            };
-
-            actualizarGrid(navGrid);
-            actualizarGrid(mobileNavGrid);
-        }
-
-        function cargarPregunta(indice) {
-            indicePreguntaActual = indice;
-            const reactivo = examenActual[indice];
-
-            // Actualizar Cabecera y Barra de Progreso
-            currentAreaDisplay.innerText = reactivo.modulo;
-            questionProgressDisplay.innerText = `${indice + 1}/${TOTAL_REACTIVOS}`;
-            progressBarFill.style.width = `${((indice + 1) / TOTAL_REACTIVOS) * 100}%`;
-
-            // Actualizar número y texto de pregunta
-            questionNumBadge.innerText = indice + 1;
-            questionText.innerText = reactivo.pregunta;
-
-            // Reset layout y visibilidad
-            const mainGrid = document.getElementById('questionMainGrid');
-            const figContainer = document.getElementById('figureContainer');
-            
-            mainGrid.classList.remove('grid', 'grid-cols-1', 'lg:grid-cols-2', 'gap-8', 'items-start');
-            figContainer.classList.add('hidden');
-            figContainer.innerHTML = '';
-
-            if (reactivo.modulo === "Pensamiento Matemático" && window.renderMathFigure) {
-                mainGrid.classList.add('grid', 'grid-cols-1', 'lg:grid-cols-2', 'gap-8', 'items-start');
-                figContainer.classList.remove('hidden');
-                window.renderMathFigure(figContainer, reactivo.pregunta, reactivo.meta);
-            } else if (reactivo.figura) {
-                figContainer.classList.remove('hidden');
-                figContainer.innerHTML = reactivo.figura;
-            }
-
-            // Manejar la tarjeta de lectura
-            if (reactivo.lectura && reactivo.lectura.trim() !== "") {
-                readingText.innerText = reactivo.lectura;
-                readingCard.classList.remove('hidden');
+        // Dark mode toggle listener
+        document.getElementById('theme-toggle')?.addEventListener('click', () => {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.theme = 'light';
             } else {
-                readingCard.classList.add('hidden');
+                document.documentElement.classList.add('dark');
+                localStorage.theme = 'dark';
             }
-
-            // Opciones de respuesta
-            optionsContainer.innerHTML = '';
-            const letras = ['A', 'B', 'C', 'D'];
-            
-            reactivo.opciones.forEach((opcion, idx) => {
-                const optCard = document.createElement('div');
-                const isSelected = respuestasUsuario[indice] === opcion;
-                
-                optCard.className = `option-card border border-black/10 p-4 rounded-2xl cursor-pointer flex items-center gap-4 ${isSelected ? 'selected shadow-sm' : 'bg-white'}`;
-                
-                // Create elements with textContent to avoid HTML injection
-                const letterSpan = document.createElement('span');
-                letterSpan.className = 'option-letter w-7 h-7 rounded-full bg-neutral-100 text-neutral-700 flex items-center justify-center text-xs font-bold flex-shrink-0 transition-colors';
-                letterSpan.textContent = letras[idx];
-                
-                const textSpan = document.createElement('span');
-                textSpan.className = 'text-sm sm:text-base font-medium flex-1';
-                textSpan.textContent = opcion;
-                
-                optCard.appendChild(letterSpan);
-                optCard.appendChild(textSpan);
-
-                optCard.onclick = () => seleccionarOpcion(opcion);
-                optionsContainer.appendChild(optCard);
-            });
-
-            // Control de Botones Inferiores
-            btnPrev.disabled = indice === 0;
-            
-            if (indice === TOTAL_REACTIVOS - 1) {
-                btnNext.classList.add('hidden');
-                btnFinishExam.classList.remove('hidden');
-            } else {
-                btnNext.classList.remove('hidden');
-                btnFinishExam.classList.add('hidden');
-            }
-
-            // Refrescar el estado de los colores en el navegador
-            actualizarEstadoNavegador();
-        }
-
-        function seleccionarOpcion(textoOpcion) {
-            respuestasUsuario[indicePreguntaActual] = textoOpcion;
-            // Recargar visualmente las opciones para aplicar la clase seleccionada
-            cargarPregunta(indicePreguntaActual);
-            
-            // Pequeño retardo opcional para avanzar de forma automática si se prefiere, o dejar que el usuario controle
-        }
-
-        function prevQuestion() {
-            if (indicePreguntaActual > 0) {
-                cargarPregunta(indicePreguntaActual - 1);
-            }
-        }
-
-        function nextQuestion() {
-            if (indicePreguntaActual < TOTAL_REACTIVOS - 1) {
-                cargarPregunta(indicePreguntaActual + 1);
-            }
-        }
-
-        function toggleNavigator(forceClose = false) {
-            if (forceClose) {
-                mobileNavigatorModal.classList.add('hidden');
-                mobileNavigatorModal.classList.remove('flex');
-                return;
-            }
-            
-            const isHidden = mobileNavigatorModal.classList.contains('hidden');
-            if (isHidden) {
-                mobileNavigatorModal.classList.remove('hidden');
-                mobileNavigatorModal.classList.add('flex');
-            } else {
-                mobileNavigatorModal.classList.add('hidden');
-                mobileNavigatorModal.classList.remove('flex');
-            }
-        }
-
-        function finishExamPrompt() {
-            const faltantes = respuestasUsuario.filter(r => r === null).length;
-            if (faltantes > 0) {
-                const confirmar = confirm(`Aún tienes ${faltantes} reactivos sin responder. ¿Estás absolutamente seguro de entregar tu simulador?`);
-                if (!confirmar) return;
-            }
-            toggleNavigator(true);
-            finalizarExamen();
-        }
-
-        function finalizarExamen() {
-            clearInterval(temporizador);
-            examScreen.classList.add('hidden');
-            resultScreen.classList.remove('hidden');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-
-            // Estadísticas
-            let aciertosTotales = 0;
-            const stats = {};
-            AREAS.forEach(mod => {
-                stats[mod] = { aciertos: 0, total: PREGUNTAS_POR_AREA, errores: [] };
-            });
-
-            examenActual.forEach((reactivo, idx) => {
-                const resp = respuestasUsuario[idx];
-                if (resp === reactivo.correcta) {
-                    aciertosTotales++;
-                    stats[reactivo.modulo].aciertos++;
-                } else {
-                    stats[reactivo.modulo].errores.push({
-                        num: idx + 1,
-                        pregunta: reactivo.pregunta,
-                        respuestaUsuario: resp,
-                        respuestaCorrecta: reactivo.correcta,
-                        explicacion: reactivo.explicacion
-                    });
-                }
-            });
-
-            // Porcentaje Final
-            const pctGlobal = Math.round((aciertosTotales / TOTAL_REACTIVOS) * 100);
-            document.getElementById('finalScorePct').innerText = `${pctGlobal}%`;
-            document.getElementById('finalCorrectCount').innerText = `${aciertosTotales}/${TOTAL_REACTIVOS}`;
-
-            // Animar el círculo SVG (circunferencia aprox 439.8)
-            const offset = 439.8 - (pctGlobal / 100) * 439.8;
-            setTimeout(() => {
-                const circleSvg = document.getElementById('scoreCircleSvg');
-                circleSvg.style.strokeDashoffset = offset;
-                if (pctGlobal >= 80) circleSvg.setAttribute('stroke', '#10B981'); // Verde
-                else if (pctGlobal >= 60) circleSvg.setAttribute('stroke', '#F59E0B'); // Amarillo
-                else circleSvg.setAttribute('stroke', '#EF4444'); // Rojo
-            }, 200);
-
-            // Estado de Admisión
-            const statusDisplay = document.getElementById('admissionStatusDisplay');
-            if (pctGlobal >= 80) {
-                statusDisplay.innerText = "Alta Probabilidad";
-                statusDisplay.className = "text-lg font-bold text-emerald-600";
-            } else if (pctGlobal >= 60) {
-                statusDisplay.innerText = "Competitivo";
-                statusDisplay.className = "text-lg font-bold text-amber-600";
-            } else {
-                statusDisplay.innerText = "Requiere Repaso";
-                statusDisplay.className = "text-lg font-bold text-red-600";
-            }
-
-            // Desglose por áreas
-            const mapIdStats = {
-                "Pensamiento Matemático": { score: 'scoreMath', pct: 'pctMath' },
-                "Comprensión Lectora": { score: 'scoreReading', pct: 'pctReading' },
-                "Redacción Indirecta": { score: 'scoreWriting', pct: 'pctWriting' },
-                "Inglés": { score: 'scoreEnglish', pct: 'pctEnglish' }
-            };
-
-            let moduloMasDebil = "";
-            let menorPct = 101;
-
-            AREAS.forEach(mod => {
-                const st = stats[mod];
-                const pct = Math.round((st.aciertos / st.total) * 100);
-                
-                document.getElementById(mapIdStats[mod].score).innerText = `${st.aciertos}/${st.total}`;
-                document.getElementById(mapIdStats[mod].pct).innerText = `${pct}%`;
-                
-                if (pct < menorPct) {
-                    menorPct = pct;
-                    moduloMasDebil = mod;
-                }
-            });
-
-            // Tutor IA Feedback
-            const aiMsg = document.getElementById('aiTutorFeedbackContent');
-            let feedbackText = `<p class="font-medium">Has obtenido <strong>${aciertosTotales} de ${TOTAL_REACTIVOS}</strong> aciertos posibles.</p>`;
-            
-            if (pctGlobal >= 85) {
-                feedbackText += `<p class="mt-2 text-emerald-400 font-medium">¡Resultados Sobresalientes! Tu dominio de los módulos del EXANI-II es excepcionalmente alto. Mantén tu constancia resolviendo simuladores periódicamente para asegurar tu lugar en la Universidad Veracruzana.</p>`;
-            } else if (pctGlobal >= 65) {
-                feedbackText += `<p class="mt-2 text-amber-300 font-medium">Tienes un nivel estable, pero el ingreso a la UV es sumamente competido. Para asegurar tu ingreso, necesitamos elevar tu efectividad por encima del 80%.</p>`;
-            } else {
-                feedbackText += `<p class="mt-2 text-red-300 font-medium">Tu puntaje se encuentra por debajo del umbral recomendado. Es el momento perfecto para trazar un plan de estudio enfocado y revisar cada uno de tus errores conceptuales.</p>`;
-            }
-
-            feedbackText += `<div class="mt-3 pt-3 border-t border-white/10 text-xs text-white/70">
-                💡 <strong>Consejo Estratégico:</strong> Tu área con mayor oportunidad de mejora es <strong>${moduloMasDebil}</strong> (${menorPct}%). Te sugiero repasar detenidamente la justificación pedagógica de los reactivos fallados en la sección inferior.
-            </div>`;
-
-            aiMsg.innerHTML = feedbackText;
-
-            // Renderizar listado de Errores con Justificación Pedagógica
-            const errorsContainer = document.getElementById('errorsContainer');
-            errorsContainer.innerHTML = '';
-            
-            let totalErrores = TOTAL_REACTIVOS - aciertosTotales;
-            document.getElementById('errorCountBadge').innerText = `${totalErrores} reactivos fallados`;
-
-            if (totalErrores === 0) {
-                errorsContainer.innerHTML = `
-                    <div class="bg-emerald-50 border border-emerald-200 p-6 rounded-2xl text-center text-emerald-800 font-bold">
-                        🎉 ¡Felicidades! Respondiste correctamente todos los reactivos del simulador.
-                    </div>
-                `;
-                return;
-            }
-
-            AREAS.forEach(mod => {
-                const errs = stats[mod].errores;
-                if (errs.length === 0) return;
-
-                const modGroup = document.createElement('div');
-                modGroup.className = 'bg-white border border-black/10 rounded-2xl overflow-hidden shadow-sm';
-                
-                let errHtml = `
-                    <div class="bg-neutral-50 px-6 py-3 border-b border-black/5 flex items-center justify-between font-bold text-xs">
-                        <span>${mod}</span>
-                        <span class="opacity-40">${errs.length} fallos</span>
-                    </div>
-                    <div class="divide-y divide-black/5">
-                `;
-
-                errs.forEach(e => {
-                    errHtml += `
-                        <div class="p-6 space-y-3">
-                            <div class="flex items-start gap-3">
-                                <span class="text-xs font-bold bg-neutral-100 px-2 py-0.5 rounded text-neutral-600 mt-0.5">#${e.num}</span>
-                                <p class="text-sm font-medium text-black leading-relaxed flex-1">${e.pregunta}</p>
-                            </div>
-                            
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2 text-xs">
-                                <div class="bg-red-50 text-red-700 p-2.5 rounded-xl border border-red-100">
-                                    <span class="font-bold block opacity-60 text-[10px] uppercase">Tu respuesta:</span>
-                                    ${e.respuestaUsuario ? `❌ ${e.respuestaUsuario}` : '⚠️ Ninguna (En blanco)'}
-                                </div>
-                                <div class="bg-emerald-50 text-emerald-800 p-2.5 rounded-xl border border-emerald-100">
-                                    <span class="font-bold block opacity-60 text-[10px] uppercase">Respuesta Correcta:</span>
-                                    ✅ ${e.respuestaCorrecta}
-                                </div>
-                            </div>
-
-                            <div class="bg-neutral-50 p-3 rounded-xl border border-black/5 text-xs text-neutral-600">
-                                <strong class="text-black block mb-1">Justificación Oficial:</strong>
-                                ${e.explicacion || 'La opción correcta cumple íntegramente con los lineamientos metodológicos de evaluación del EXANI-II.'}
-                            </div>
-                        </div>
-                    `;
-                });
-
-                errHtml += `</div>`;
-                modGroup.innerHTML = errHtml;
-                errorsContainer.appendChild(modGroup);
-            });
-        }
+        });
     </script>
 </body>
 </html>

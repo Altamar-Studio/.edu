@@ -11,7 +11,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet" />
     
     <script>
+        // Configuración inicial de Tailwind con darkMode
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
@@ -59,14 +61,24 @@
 
         #live-news-content { transition: opacity 0.4s ease-in-out; }
     </style>
+    <script>
+        // Script anti-FOUC para aplicar tema inmediatamente
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+        }
+    </script>
 </head>
-<body class="bg-[#F9F9F9] text-ea-dark font-sans selection:bg-black selection:text-white">
+<body class="bg-[#F9F9F9] dark:bg-neutral-950 text-ea-dark dark:text-white font-sans selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black transition-colors duration-300">
 
     <header class="fixed top-6 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
-        <nav class="pointer-events-auto w-full max-w-5xl h-16 bg-white/70 backdrop-blur-xl border border-black/10 rounded-full flex items-center justify-between px-6 shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all">
+        <nav class="pointer-events-auto w-full max-w-5xl h-16 bg-white/70 dark:bg-neutral-900/80 backdrop-blur-xl border border-black/10 dark:border-white/10 rounded-full flex items-center justify-between px-6 shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all">
             <div class="flex items-center gap-8">
                 <a class="flex items-center gap-2" href="#">
-                    <div class="bg-black text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">EA</div>
+                    <div class="bg-black dark:bg-white text-white dark:text-black w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm transition-colors">EA</div>
                     <span class="font-bold tracking-tight hidden sm:block">EstudiandoAndo</span>
                 </a>
                 <div class="hidden md:flex items-center gap-6 text-sm font-medium opacity-60">
@@ -76,19 +88,23 @@
                 </div>
             </div>
             <div class="flex items-center gap-4">
+                <button id="theme-toggle" class="w-8 h-8 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors opacity-60 hover:opacity-100 flex items-center justify-center">
+                    <span class="material-symbols-outlined dark:hidden text-[20px]">dark_mode</span>
+                    <span class="material-symbols-outlined hidden dark:block text-[20px]">light_mode</span>
+                </button>
                 <a class="text-sm font-medium opacity-60 hover:opacity-100 transition-opacity hidden sm:block" href="#">Iniciar sesión</a>
-                <a class="btn-dark px-5 py-2.5 rounded-full text-sm font-bold shadow-sm" href="#">Registrarse</a>
+                <a class="btn-dark dark:bg-white dark:text-black dark:hover:bg-gray-200 px-5 py-2.5 rounded-full text-sm font-bold shadow-sm transition-colors" href="#">Registrarse</a>
             </div>
         </nav>
     </header>
 
     <main class="pt-40">
         <section class="max-w-4xl mx-auto text-center px-6 mb-20">
-            <div class="inline-flex items-center bg-gray-200 px-4 py-1.5 rounded-full text-[10px] font-bold text-black mb-10 tracking-widest uppercase shadow-sm">
+            <div class="inline-flex items-center bg-gray-200 dark:bg-neutral-800 px-4 py-1.5 rounded-full text-[10px] font-bold text-black dark:text-white mb-10 tracking-widest uppercase shadow-sm transition-colors">
                 CICLO 2026 ABIERTO →
             </div>
             
-            <h1 class="text-[3.5rem] md:text-7xl lg:text-[5.5rem] text-serif leading-[1.05] mb-8 font-medium tracking-tight">
+            <h1 class="text-[3.5rem] md:text-7xl lg:text-[5.5rem] text-serif leading-[1.05] mb-8 font-medium tracking-tight text-ea-dark dark:text-white transition-colors">
                 Tu plataforma de estudio<br> para la <span class="text-handwritten text-5xl md:text-7xl lg:text-[6.5rem] italic">universidad</span>.
             </h1>
             
@@ -97,7 +113,7 @@
             </p>
             
             <div class="flex justify-center">
-               <a class='inline-flex items-center gap-2 bg-black text-white px-8 py-3.5 rounded-full text-sm font-bold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all' href='aprendizaje.html'>
+               <a class='inline-flex items-center gap-2 bg-black dark:bg-white text-white dark:text-black px-8 py-3.5 rounded-full text-sm font-bold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all' href='aprendizaje.html'>
                     <span class="material-symbols-outlined text-[18px]">play_arrow</span>
                     Probar Simulador Gratis
                 </a>
@@ -123,31 +139,31 @@
             <h4 class="text-center text-serif text-3xl mb-12 opacity-50 italic font-medium">Preparación de élite para los aspirantes de</h4>
             
             <div class="relative w-full overflow-hidden">
-                <div class="absolute left-0 top-0 bottom-0 w-24 md:w-48 bg-gradient-to-r from-[#F9F9F9] to-transparent z-10 pointer-events-none"></div>
-                <div class="absolute right-0 top-0 bottom-0 w-24 md:w-48 bg-gradient-to-l from-[#F9F9F9] to-transparent z-10 pointer-events-none"></div>
+                <div class="absolute left-0 top-0 bottom-0 w-24 md:w-48 bg-gradient-to-r from-[#F9F9F9] dark:from-neutral-950 to-transparent z-10 pointer-events-none transition-colors"></div>
+                <div class="absolute right-0 top-0 bottom-0 w-24 md:w-48 bg-gradient-to-l from-[#F9F9F9] dark:from-neutral-950 to-transparent z-10 pointer-events-none transition-colors"></div>
                 
                 <div class="animate-infinite-scroll gap-6 px-3">
                     
-                    <div class="bg-white border border-black/5 rounded-[20px] px-8 py-6 flex items-center justify-center shadow-[0_2px_10px_rgb(0,0,0,0.02)] min-w-max transition-all hover:shadow-md cursor-default">
+                    <div class="bg-white dark:bg-neutral-900 border border-black/5 dark:border-white/5 rounded-[20px] px-8 py-6 flex items-center justify-center shadow-[0_2px_10px_rgb(0,0,0,0.02)] min-w-max transition-all hover:shadow-md cursor-default">
                         <span class="text-xl font-bold tracking-tight opacity-70">Universidad Veracruzana</span>
                     </div>
-                    <div class="bg-white border border-black/5 rounded-[20px] px-8 py-6 flex items-center justify-center shadow-[0_2px_10px_rgb(0,0,0,0.02)] min-w-max transition-all hover:shadow-md cursor-default">
+                    <div class="bg-white dark:bg-neutral-900 border border-black/5 dark:border-white/5 rounded-[20px] px-8 py-6 flex items-center justify-center shadow-[0_2px_10px_rgb(0,0,0,0.02)] min-w-max transition-all hover:shadow-md cursor-default">
                         <span class="text-xl font-bold tracking-tight opacity-70">Instituto Politécnico Nacional</span>
                     </div>
-                    <div class="bg-white border border-black/5 rounded-[20px] px-8 py-6 flex items-center justify-center shadow-[0_2px_10px_rgb(0,0,0,0.02)] min-w-max transition-all hover:shadow-md cursor-default">
+                    <div class="bg-white dark:bg-neutral-900 border border-black/5 dark:border-white/5 rounded-[20px] px-8 py-6 flex items-center justify-center shadow-[0_2px_10px_rgb(0,0,0,0.02)] min-w-max transition-all hover:shadow-md cursor-default">
                         <span class="text-xl font-bold tracking-tight opacity-70">Universidad Nacional Autónoma de México</span>
                     </div>
-                    <div class="bg-white border border-black/5 rounded-[20px] px-8 py-6 flex items-center justify-center shadow-[0_2px_10px_rgb(0,0,0,0.02)] min-w-max transition-all hover:shadow-md cursor-default">
+                    <div class="bg-white dark:bg-neutral-900 border border-black/5 dark:border-white/5 rounded-[20px] px-8 py-6 flex items-center justify-center shadow-[0_2px_10px_rgb(0,0,0,0.02)] min-w-max transition-all hover:shadow-md cursor-default">
                         <span class="text-xl font-bold tracking-tight opacity-70">Universidad Autónoma Metropolitana</span>
                     </div>
-                    <div class="bg-white border border-black/5 rounded-[20px] px-8 py-6 flex items-center justify-center shadow-[0_2px_10px_rgb(0,0,0,0.02)] min-w-max transition-all hover:shadow-md cursor-default">
+                    <div class="bg-white dark:bg-neutral-900 border border-black/5 dark:border-white/5 rounded-[20px] px-8 py-6 flex items-center justify-center shadow-[0_2px_10px_rgb(0,0,0,0.02)] min-w-max transition-all hover:shadow-md cursor-default">
                         <span class="text-xl font-bold tracking-tight opacity-70">Benemérita Univ. Autónoma de Puebla</span>
                     </div>
-                    <div class="bg-white border border-black/5 rounded-[20px] px-8 py-6 flex items-center justify-center shadow-[0_2px_10px_rgb(0,0,0,0.02)] min-w-max transition-all hover:shadow-md cursor-default">
+                    <div class="bg-white dark:bg-neutral-900 border border-black/5 dark:border-white/5 rounded-[20px] px-8 py-6 flex items-center justify-center shadow-[0_2px_10px_rgb(0,0,0,0.02)] min-w-max transition-all hover:shadow-md cursor-default">
                         <span class="text-xl font-bold tracking-tight opacity-70">Universidad Autónoma Chapingo</span>
                     </div>
 
-                    <div class="bg-white border border-black/5 rounded-[20px] px-8 py-6 flex items-center justify-center shadow-[0_2px_10px_rgb(0,0,0,0.02)] min-w-max transition-all hover:shadow-md cursor-default">
+                    <div class="bg-white dark:bg-neutral-900 border border-black/5 dark:border-white/5 rounded-[20px] px-8 py-6 flex items-center justify-center shadow-[0_2px_10px_rgb(0,0,0,0.02)] min-w-max transition-all hover:shadow-md cursor-default">
                         <span class="text-xl font-bold tracking-tight opacity-70">Universidad Veracruzana</span>
                     </div>
                     <div class="bg-white border border-black/5 rounded-[20px] px-8 py-6 flex items-center justify-center shadow-[0_2px_10px_rgb(0,0,0,0.02)] min-w-max transition-all hover:shadow-md cursor-default">
@@ -171,96 +187,31 @@
         </section>
 
         <section class="max-w-6xl mx-auto px-6 mb-32">
-            
-            <div class="mb-16 text-center max-w-2xl mx-auto flex flex-col items-center">
-                <h3 class="text-3xl md:text-4xl text-serif mb-4 font-medium tracking-tight">El estudio autodidacta ya no es solitario.</h3>
-                <p class="text-base md:text-lg opacity-60 mb-8 font-medium leading-relaxed">
-                    Únete a una red nacional de aspirantes. Comparte métodos de estudio, resuelve dudas complejas en tiempo real y mantén la motivación al máximo apoyándote en quienes tienen el mismo objetivo que tú.
-                </p>
-                <a href="#" class="inline-flex items-center gap-2 bg-white border border-black/10 px-8 py-3.5 rounded-full text-sm font-bold shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all text-black">
-                    Explorar la Comunidad
-                    <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-                </a>
+            <div class="flex items-center justify-between mb-12">
+                <h2 class="text-3xl md:text-5xl text-serif font-medium tracking-tight">Simuladores Activos</h2>
+                <a href="aprendizaje.html" class="text-xs font-bold uppercase tracking-widest border-b-2 border-black pb-1 hover:opacity-60 transition-opacity">Ver todos</a>
             </div>
-
-            <div class="grid md:grid-cols-2 gap-8 items-center bg-white/50 p-8 rounded-[40px] border border-black/5 shadow-sm">
-                
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-black/5 transform hover:-rotate-1 transition-transform cursor-default">
-                    <div class="flex gap-2 mb-6">
-                        <div class="w-3 h-3 rounded-full bg-gray-200"></div>
-                        <div class="w-3 h-3 rounded-full bg-gray-200"></div>
-                        <div class="w-3 h-3 rounded-full bg-gray-200"></div>
-                    </div>
-                    <div class="space-y-4">
-                        <h4 class="text-black font-bold text-sm">Foro de Aspirantes</h4>
-                        
-                        <div class="mt-4 p-4 border border-black/5 rounded-xl bg-[#F9F9F9]">
-                            <div class="flex items-center gap-3 mb-3">
-                                <div class="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center text-[10px] font-bold">MR</div>
-                                <div>
-                                    <p class="text-xs font-bold text-black">Mateo R.</p>
-                                    <p class="text-[9px] opacity-40 uppercase tracking-widest font-bold">Aspirante UV</p>
-                                </div>
-                            </div>
-                            <p class="text-sm font-medium opacity-80 leading-relaxed">¿Alguien tiene un tip para resolver las sucesiones numéricas más rápido? En el simulador me toman mucho tiempo. ⏳</p>
-                        </div>
-                        
-                        <div class="pl-6">
-                            <div class="p-4 border border-black/5 rounded-xl bg-white shadow-sm relative">
-                                <div class="absolute -left-3 top-6 w-3 h-px bg-gray-200"></div>
-                                <div class="flex items-center gap-3 mb-2">
-                                    <div class="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center text-[8px] font-bold">AL</div>
-                                    <div class="flex items-center gap-2">
-                                        <p class="text-xs font-bold text-black">Ana L.</p>
-                                        <span class="text-[8px] bg-green-100 text-green-700 px-1.5 py-0.5 rounded font-bold uppercase tracking-wider">Admitida IPN</span>
-                                    </div>
-                                </div>
-                                <p class="text-xs font-medium opacity-70 leading-relaxed">¡Sí! Busca el patrón en las diferencias de segundo nivel. Te comparto mis apuntes por mensaje directo. 📚</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="bg-white p-8 rounded-3xl shadow-lg border border-black/10 transform hover:rotate-1 transition-transform cursor-default relative">
-                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-black text-white px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest flex items-center gap-1 shadow-md">
-                        ✨ Opiniones
-                    </div>
-                    <div class="flex gap-2 mb-6">
-                        <div class="w-3 h-3 rounded-full bg-red-400"></div>
-                        <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
-                        <div class="w-3 h-3 rounded-full bg-green-400"></div>
-                    </div>
-                    <div class="space-y-4">
-                        <h3 class="text-xl font-bold">Respaldo entre estudiantes</h3>
-                        <p class="text-[10px] font-bold opacity-50 uppercase tracking-widest">Experiencias Reales</p>
-                        
-                        <div class="space-y-4 mt-4">
-                            <div class="p-4 border border-black/5 rounded-xl bg-[#F9F9F9] hover:bg-white hover:shadow-sm transition-all">
-                                <div class="flex gap-1 mb-2 text-yellow-400 text-[10px]">
-                                    ★ ★ ★ ★ ★
-                                </div>
-                                <p class="text-xs font-medium opacity-80 leading-relaxed italic">"Encontrar resúmenes específicos para mi carrera hechos por otros compañeros me ahorró semanas de búsqueda en Google."</p>
-                                <div class="flex items-center justify-between mt-3">
-                                    <p class="text-[10px] font-bold text-black">— Carlos T.</p>
-                                    <span class="text-[8px] opacity-40 uppercase font-bold tracking-wider">Aspirante BUAP</span>
-                                </div>
-                            </div>
-                            
-                            <div class="p-4 border border-black/5 rounded-xl bg-[#F9F9F9] hover:bg-white hover:shadow-sm transition-all">
-                                <div class="flex gap-1 mb-2 text-yellow-400 text-[10px]">
-                                    ★ ★ ★ ★ ★
-                                </div>
-                                <p class="text-xs font-medium opacity-80 leading-relaxed italic">"La mejor comunidad de estudio. Siempre hay alguien dispuesto a explicarte si no entiendes la justificación de un simulador."</p>
-                                <div class="flex items-center justify-between mt-3">
-                                    <p class="text-[10px] font-bold text-black">— Valeria M.</p>
-                                    <span class="text-[8px] opacity-40 uppercase font-bold tracking-wider">Aspirante UNAM</span>
-                                </div>
-                            </div>
-                        </div>
-                        
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- UV -->
+                <div class="bg-white dark:bg-neutral-900 border border-black/5 dark:border-white/5 p-8 rounded-[40px] shadow-sm hover:shadow-xl transition-all flex flex-col md:flex-row gap-8 items-center border-l-8 border-l-blue-600 dark:border-l-blue-500">
+                    <div class="w-24 h-24 rounded-full bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400 font-bold text-2xl border border-blue-100 dark:border-blue-800/50 flex-shrink-0">UV</div>
+                    <div>
+                        <h3 class="text-xl font-bold mb-2">Universidad Veracruzana</h3>
+                        <p class="text-sm opacity-60 leading-relaxed mb-6">Basado en el nuevo formato EXANI-II. 120 reactivos dinámicos con cronómetro oficial.</p>
+                        <a href="simulador-uv.html" class="inline-block bg-black dark:bg-white text-white dark:text-black px-6 py-2.5 rounded-full text-xs font-bold hover:bg-blue-600 dark:hover:bg-gray-200 transition-colors">Iniciar Simulador UV</a>
                     </div>
                 </div>
 
+                <!-- UAM -->
+                <div class="bg-white dark:bg-neutral-900 border border-black/5 dark:border-white/5 p-8 rounded-[40px] shadow-sm hover:shadow-xl transition-all flex flex-col md:flex-row gap-8 items-center border-l-8 border-l-maroon-800" style="border-left-color: #800000;">
+                    <div class="w-24 h-24 rounded-full bg-red-50 dark:bg-red-900/20 flex items-center justify-center text-maroon-800 dark:text-red-400 font-bold text-2xl border border-red-100 dark:border-red-900/50 flex-shrink-0" style="color: #800000;">UAM</div>
+                    <div>
+                        <h3 class="text-xl font-bold mb-2">UAM (CBI, CBS, CHS, CyAD)</h3>
+                        <p class="text-sm opacity-60 leading-relaxed mb-6">4 Simuladores especializados por división académica, usando copias exactas y fieles de los exámenes reales de la UAM.</p>
+                        <a href="simulador-uam-exacto.html" class="inline-block bg-black dark:bg-white text-white dark:text-black px-6 py-2.5 rounded-full text-xs font-bold hover:bg-maroon-800 dark:hover:bg-gray-200 transition-colors">Explorar Simuladores</a>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -271,11 +222,11 @@
             <h2 class="text-center text-serif text-5xl mb-16 font-medium tracking-tight">Nuestro modelo de Aprendizaje</h2>
             <div class="grid md:grid-cols-2 gap-8">
                 
-                <div class="bg-white p-12 rounded-[40px] border border-black/5 hover:border-black/20 transition-all shadow-sm">
+                <div class="bg-white dark:bg-neutral-900 p-12 rounded-[40px] border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-all shadow-sm">
                     <h3 class="text-3xl text-serif mb-6 leading-tight">
-                        Simuladores a la medida para <span class="highlight-gray font-sans font-bold text-lg">cada</span> universidad.
+                        Simuladores a la medida para <span class="highlight-gray dark:bg-neutral-800 dark:text-white transition-colors font-sans font-bold text-lg">cada</span> universidad.
                     </h3>
-                    <div class="bg-[#F9F9F9] rounded-xl p-6 border border-black/5">
+                    <div class="bg-[#F9F9F9] dark:bg-neutral-950 rounded-xl p-6 border border-black/5 dark:border-white/5 transition-colors">
                         <div class="flex gap-2 mb-4">
                             <span class="material-symbols-outlined text-[18px]">speed</span>
                             <p class="font-bold text-sm tracking-tight">Estructura Oficial</p>
@@ -287,9 +238,9 @@
                     </div>
                 </div>
 
-                <div class="bg-black text-white p-12 rounded-[40px] border border-black hover:shadow-xl transition-all shadow-md">
+                <div class="bg-black dark:bg-neutral-800 text-white p-12 rounded-[40px] border border-black dark:border-neutral-700 hover:shadow-xl transition-all shadow-md">
                     <h3 class="text-3xl text-serif mb-6 leading-tight text-white">
-                        Con Mac, nuestra IA instructora, integrada en tu <span class="highlight-gray font-sans font-bold text-lg text-black bg-white">aprendizaje</span>.
+                        Con Mac, nuestra IA instructora, integrada en tu <span class="highlight-gray font-sans font-bold text-lg text-black bg-white dark:bg-neutral-950 dark:text-white transition-colors">aprendizaje</span>.
                     </h3>
                     <div class="bg-white/10 rounded-xl p-6 border border-white/10">
                         <div class="flex gap-2 mb-4">
@@ -314,21 +265,21 @@
                     Recibe notificaciones instantáneas sobre convocatorias, publicación de resultados y programa eventos críticos directamente en tu calendario para que nunca pierdas una fecha límite.
                 </p>
                 
-                <a href="noticias.html" class="inline-flex items-center gap-2 bg-white border border-black/10 px-8 py-3.5 rounded-full text-sm font-bold shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all text-black">
+                <a href="noticias.html" class="inline-flex items-center gap-2 bg-white dark:bg-neutral-900 border border-black/10 dark:border-white/10 px-8 py-3.5 rounded-full text-sm font-bold shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all text-black dark:text-white">
                     <span class="material-symbols-outlined text-[18px]">calendar_month</span>
                     Explorar Noticiero
                 </a>
             </div>
             
-            <div class="flex-1 w-full bg-[#F9F9F9] p-8 md:p-12 rounded-[40px] md:rounded-[64px] border border-black/5 relative overflow-hidden">
+            <div class="flex-1 w-full bg-[#F9F9F9] dark:bg-neutral-900/50 p-8 md:p-12 rounded-[40px] md:rounded-[64px] border border-black/5 dark:border-white/5 relative overflow-hidden transition-colors">
                 
                 <div class="space-y-6 relative z-10">
                     
-                    <div class="bg-white p-6 rounded-3xl shadow-sm border border-black/5 hover:-translate-y-1 transition-transform">
-                        <div class="flex justify-between items-center mb-6 border-b border-gray-100 pb-4">
+                    <div class="bg-white dark:bg-neutral-900 p-6 rounded-3xl shadow-sm border border-black/5 dark:border-white/5 hover:-translate-y-1 transition-transform">
+                        <div class="flex justify-between items-center mb-6 border-b border-gray-100 dark:border-neutral-800 pb-4">
                             <div class="flex items-center gap-2">
                                 <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                                <span class="text-[10px] font-bold uppercase tracking-widest text-black">Feed en vivo</span>
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-black dark:text-white">Feed en vivo</span>
                             </div>
                             <span class="material-symbols-outlined text-gray-400 text-lg">campaign</span>
                         </div>
@@ -336,7 +287,7 @@
                             </div>
                     </div>
 
-                    <div class="bg-black text-white p-6 rounded-3xl shadow-lg border border-black transform translate-x-4 md:translate-x-8 hover:-translate-y-1 transition-transform">
+                    <div class="bg-black dark:bg-neutral-800 text-white p-6 rounded-3xl shadow-lg border border-black dark:border-neutral-700 transform translate-x-4 md:translate-x-8 hover:-translate-y-1 transition-transform">
                         <div class="flex items-start gap-4">
                             <div class="bg-white/10 p-3 rounded-2xl flex-shrink-0">
                                 <span class="material-symbols-outlined text-white">event_available</span>
@@ -345,7 +296,7 @@
                                 <p class="text-[10px] font-bold opacity-50 uppercase tracking-widest mb-1">Evento Detectado</p>
                                 <h4 class="font-bold text-sm mb-1 tracking-tight">Registro de Aspirantes UNAM 2026</h4>
                                 <p class="text-[11px] text-gray-400 mb-4 font-medium leading-relaxed">Se ha detectado una nueva fecha crítica en tu panel de interés.</p>
-                                <button class="bg-white text-black text-xs font-bold px-5 py-2.5 rounded-full hover:bg-gray-200 transition-colors shadow-sm w-full md:w-auto text-center">
+                                <button class="bg-white dark:bg-neutral-950 text-black dark:text-white text-xs font-bold px-5 py-2.5 rounded-full hover:bg-gray-200 dark:hover:bg-neutral-900 transition-colors shadow-sm w-full md:w-auto text-center border dark:border-white/10">
                                     Añadir a Google Calendar
                                 </button>
                             </div>
@@ -353,13 +304,13 @@
                     </div>
                 </div>
                 
-                <div class="absolute -right-20 -bottom-20 w-64 h-64 bg-gray-200/50 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="absolute -right-20 -bottom-20 w-64 h-64 bg-gray-200/50 dark:bg-white/5 rounded-full blur-3xl pointer-events-none"></div>
             </div>
             
         </section>
 
         <section class="max-w-7xl mx-auto px-6 py-20">
-            <div class="bg-black rounded-[40px] md:rounded-[80px] py-24 px-8 md:px-12 text-center text-white overflow-hidden relative shadow-2xl">
+            <div class="bg-black dark:bg-neutral-900 rounded-[40px] md:rounded-[80px] py-24 px-8 md:px-12 text-center text-white overflow-hidden relative shadow-2xl transition-colors">
                 
                 <div class="absolute inset-0 flex items-center justify-center opacity-5 select-none pointer-events-none">
                     <span class="text-[20vw] font-bold text-white tracking-tighter">GRATUITA</span>
@@ -379,11 +330,11 @@
         </section>
     </main>
 
-    <footer class="bg-white py-20 px-6 border-t border-black/5">
+    <footer class="bg-white dark:bg-neutral-950 py-20 px-6 border-t border-black/5 dark:border-white/5 transition-colors">
         <div class="max-w-7xl mx-auto">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-12 mb-20">
                 <div class="col-span-2 md:col-span-1">
-                    <div class="bg-black text-white w-10 h-10 rounded flex items-center justify-center font-bold text-sm mb-6">EA</div>
+                    <div class="bg-black dark:bg-white text-white dark:text-black w-10 h-10 rounded flex items-center justify-center font-bold text-sm mb-6 transition-colors">EA</div>
                     <p class="text-xs opacity-50 font-medium leading-relaxed max-w-xs">
                         Elevando el estándar de la educación digital en México. Preparación de alto rendimiento.
                     </p>
@@ -421,8 +372,8 @@
     </footer>
 
     <!-- Barra de Navegación Móvil (Adaptable a celulares/tablets pequeñas) -->
-    <nav class="fixed bottom-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-xl border-t border-black/10 h-16 flex items-center justify-around px-2 md:hidden shadow-lg">
-        <a href="index.html" class="flex flex-col items-center gap-0.5 opacity-100 text-black transition-opacity">
+    <nav class="fixed bottom-0 left-0 right-0 z-50 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-xl border-t border-black/10 dark:border-white/10 h-16 flex items-center justify-around px-2 md:hidden shadow-lg transition-colors">
+        <a href="index.html" class="flex flex-col items-center gap-0.5 opacity-100 text-black dark:text-white transition-opacity">
             <span class="material-symbols-outlined text-[20px]">home</span>
             <span class="text-[9px] font-bold tracking-tight">Inicio</span>
         </a>
@@ -473,6 +424,17 @@
         // Ejecutar primera vez y luego cada 4 segundos
         rotateNews();
         setInterval(rotateNews, 4000);
+        
+        // Dark mode toggle listener
+        document.getElementById('theme-toggle')?.addEventListener('click', () => {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
     </script>
 </body>
 </html>

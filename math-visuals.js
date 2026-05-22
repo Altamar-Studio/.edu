@@ -7,40 +7,59 @@ window.renderMathFigure = function(container, questionText, meta) {
     }
     
     // Clean up previous scene/canvas
-    if (currentRenderer) {
-        if (currentRenderer.dispose) currentRenderer.dispose();
-        currentRenderer = null;
+    // Clean up previous observer
+    if (container._ro) {
+        container._ro.disconnect();
     }
-    container.innerHTML = '';
-    container.classList.remove('hidden');
-    container.style.height = 'auto';
-    container.style.minHeight = '350px';
 
     const m = meta || {};
     const type = m.type || "unknown";
 
-    if (type.startsWith('3d') && window.THREE) {
-        render3D(container, m);
-    } else {
-        render2D(container, m);
-    }
+    // Initial render
+    const runRender = () => {
+        container.innerHTML = '';
+        container.style.height = 'auto';
+        const isMobile = window.innerWidth < 768;
+        const targetHeight = isMobile ? 280 : 350;
+        container.style.minHeight = targetHeight + 'px';
+        
+        if (type.startsWith('3d') && window.THREE) {
+            render3D(container, m, targetHeight);
+        } else {
+            render2D(container, m, targetHeight);
+        }
+    };
+
+    // Responsive observer
+    const ro = new ResizeObserver(() => {
+        if (container.clientWidth > 0) runRender();
+    });
+    ro.observe(container);
+    
+    // Store observer to disconnect on next call if needed
+    container._ro = ro;
+    
+    runRender();
 };
 
-function render3D(container, m) {
+function render3D(container, m, targetHeight) {
+    if (currentRenderer && currentRenderer.dispose) currentRenderer.dispose();
+    currentRenderer = null;
+
     const wrapper = document.createElement('div');
-    wrapper.style.height = '350px';
+    wrapper.style.height = targetHeight + 'px';
     wrapper.style.width = '100%';
     container.appendChild(wrapper);
 
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0xf8fafc);
 
-    const camera = new THREE.PerspectiveCamera(75, wrapper.clientWidth / 350, 0.1, 1000);
+    const camera = new THREE.PerspectiveCamera(75, wrapper.clientWidth / targetHeight, 0.1, 1000);
     camera.position.set(4, 4, 6);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.setSize(wrapper.clientWidth, 350);
+    renderer.setSize(wrapper.clientWidth, targetHeight);
     wrapper.appendChild(renderer.domElement);
     currentRenderer = renderer;
 
@@ -81,6 +100,43 @@ function render3D(container, m) {
             scene.add(hemiMesh);
             geometry = cylGeom; // for edges
             break;
+        case '3d_cube_count':
+            const cubes = m.cubes || [[1,1],[1,0]];
+            cubes.forEach((row, i) => {
+                row.forEach((h, j) => {
+                    for(let k=0; k<h; k++) {
+                        const box = new THREE.BoxGeometry(0.95, 0.95, 0.95);
+                        const cubeMesh = new THREE.Mesh(box, material);
+                        cubeMesh.position.set(i - cubes.length/2, k, j - row.length/2);
+                        scene.add(cubeMesh);
+                        const ed = new THREE.EdgesGeometry(box);
+                        scene.add(new THREE.LineSegments(ed, new THREE.LineBasicMaterial({color: 0x000000})));
+                    }
+                });
+            });
+            geometry = null;
+            break;
+        case '3d_unfolded_cube':
+            // Logic for a flat layout of a cube
+            const faces = [
+                {p:[0,0,0], r:[0,0,0]}, {p:[1,0,0], r:[0,0,0]}, {p:[2,0,0], r:[0,0,0]},
+                {p:[1,1,0], r:[0,0,0]}, {p:[1,-1,0], r:[0,0,0]}, {p:[1,-2,0], r:[0,0,0]}
+            ];
+            faces.forEach(f => {
+                const plane = new THREE.PlaneGeometry(0.95, 0.95);
+                const faceMesh = new THREE.Mesh(plane, material);
+                faceMesh.position.set(f.p[0]-1, f.p[1], f.p[2]);
+                scene.add(faceMesh);
+                const ed = new THREE.EdgesGeometry(plane);
+                scene.add(new THREE.LineSegments(ed, new THREE.LineBasicMaterial({color: 0x000000})));
+            });
+            geometry = null;
+            camera.position.set(0,0,5);
+            controls.enableRotate = false; // Keep it 2D-like for unfolded
+            break;
+        case '3d_prism_hex':
+            geometry = new THREE.CylinderGeometry(m.r || 2, m.r || 2, m.h || 4, 6);
+            break;
         default:
             geometry = new THREE.BoxGeometry(2, 2, 2);
     }
@@ -102,34 +158,34 @@ function render3D(container, m) {
 }
 
 function drawGrid(ctx, w, h, cx, cy) {
-    ctx.strokeStyle = '#f1f5f9'; ctx.lineWidth = 1;
+    ctx.strokeStyle = '#e2e8f0'; ctx.lineWidth = 1;
     ctx.beginPath();
-    for(let x = 0; x <= w; x += 20) { ctx.moveTo(x, 0); ctx.lineTo(x, h); }
-    for(let y = 0; y <= h; y += 20) { ctx.moveTo(0, y); ctx.lineTo(w, y); }
+    for(let x = cx % 20; x <= w; x += 20) { ctx.moveTo(x, 0); ctx.lineTo(x, h); }
+    for(let y = cy % 20; y <= h; y += 20) { ctx.moveTo(0, y); ctx.lineTo(w, y); }
     ctx.stroke();
     
-    ctx.strokeStyle = '#cbd5e1'; ctx.lineWidth = 2;
+    ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 2;
     ctx.beginPath();
     ctx.moveTo(cx, 0); ctx.lineTo(cx, h);
     ctx.moveTo(0, cy); ctx.lineTo(w, cy);
     ctx.stroke();
 
-    ctx.fillStyle = '#64748b'; ctx.font = 'bold 10px Inter';
+    ctx.fillStyle = '#475569'; ctx.font = 'bold 11px Inter';
     ctx.textAlign = 'center';
-    for(let i = -10; i <= 10; i++) {
+    for(let i = -15; i <= 15; i++) {
         if(i === 0) continue;
-        ctx.fillText(i, cx + i*20, cy + 15);
+        if (cx + i*20 > 0 && cx + i*20 < w) ctx.fillText(i, cx + i*20, cy + 15);
         ctx.textAlign = 'right';
-        ctx.fillText(i, cx - 5, cy - i*20 + 4);
+        if (cy - i*20 > 0 && cy - i*20 < h) ctx.fillText(i, cx - 5, cy - i*20 + 4);
         ctx.textAlign = 'center';
     }
 }
 
-function render2D(container, m) {
+function render2D(container, m, targetHeight) {
     const canvas = document.createElement('canvas');
     const dpr = window.devicePixelRatio || 1;
     const w = container.clientWidth || 500;
-    const h = 350;
+    const h = targetHeight;
     
     canvas.width = w * dpr;
     canvas.height = h * dpr;

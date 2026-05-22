@@ -12,6 +12,7 @@
     
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
@@ -29,7 +30,7 @@
         }
     </script>
     <style>
-        body { background-color: #F9F9F9; color: #0A0A0A; }
+        /* body background styled with Tailwind classes */
         .text-serif { font-family: 'Cormorant Garamond', serif; }
         .text-handwritten { font-family: 'Homemade Apple', cursive; }
         
@@ -69,33 +70,47 @@
             to { opacity: 1; transform: translateY(0); }
         }
     </style>
+    <script>
+        // Script anti-FOUC para aplicar tema inmediatamente
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+        }
+    </script>
 </head>
-<body class="antialiased selection:bg-black selection:text-white flex flex-col min-h-screen">
+<body class="antialiased bg-ea-cream dark:bg-neutral-950 text-ea-dark dark:text-white selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black flex flex-col min-h-screen transition-colors duration-300">
 
     <!-- Navegación -->
     <header class="fixed top-6 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
-        <nav class="pointer-events-auto w-full max-w-5xl h-16 bg-white/70 backdrop-blur-xl border border-black/10 rounded-full flex items-center justify-between px-6 shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all">
+        <nav class="pointer-events-auto w-full max-w-5xl h-16 bg-white/70 dark:bg-neutral-900/80 backdrop-blur-xl border border-black/10 dark:border-white/10 rounded-full flex items-center justify-between px-6 shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all">
             <div class="flex items-center gap-8">
                 <a class='flex items-center gap-2' href='index.html'>
-                    <div class="bg-black text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">EA</div>
+                    <div class="bg-black dark:bg-white text-white dark:text-black w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm transition-colors">EA</div>
                     <span class="font-bold tracking-tight hidden sm:block">EstudiandoAndo</span>
                 </a>
                 <div class="hidden md:flex items-center gap-6 text-sm font-medium opacity-60">
                     <a class='hover:opacity-100 transition-opacity' href='biblioteca.html'>Biblioteca</a>
                     <a class="hover:opacity-100 transition-opacity" href="aprendizaje.html">Aprendizaje</a>
-                    <a class="text-black font-bold opacity-100" href='noticias.html'>Noticias</a>
+                    <a class="text-black dark:text-white font-bold opacity-100 transition-colors" href='noticias.html'>Noticias</a>
                 </div>
             </div>
             <div class="flex items-center gap-4">
+                <button id="theme-toggle" class="w-8 h-8 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors opacity-60 hover:opacity-100 flex items-center justify-center">
+                    <span class="material-symbols-outlined dark:hidden text-[20px]">dark_mode</span>
+                    <span class="material-symbols-outlined hidden dark:block text-[20px]">light_mode</span>
+                </button>
                 <a class="text-sm font-medium opacity-60 hover:opacity-100 transition-opacity hidden sm:block" href="#">Iniciar sesión</a>
-                <a class="bg-black text-white px-5 py-2.5 rounded-full text-sm font-bold shadow-sm hover:bg-neutral-800 transition-colors" href="#">Registrarse</a>
+                <a class="bg-black dark:bg-white text-white dark:text-black px-5 py-2.5 rounded-full text-sm font-bold shadow-sm hover:bg-neutral-800 dark:hover:bg-gray-200 transition-colors" href="#">Registrarse</a>
             </div>
         </nav>
     </header>
 
     <main class="pt-32 flex-grow max-w-7xl mx-auto w-full px-6 mb-20">
         
-        <div class="mb-16 mt-8 border-b border-black/10 pb-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div class="mb-16 mt-8 border-b border-black/10 dark:border-white/10 pb-8 flex flex-col md:flex-row md:items-end justify-between gap-6 transition-colors">
             <div>
                 <h1 class="text-5xl md:text-7xl text-serif font-medium tracking-tight">
                     El Periódico <span class="text-handwritten text-4xl md:text-7xl italic">Universitario</span>
@@ -112,15 +127,15 @@
         </div>
 
         <!-- Latest News Grid -->
-        <div class="flex items-center justify-between mb-8 border-b border-black/10 pb-4">
+        <div class="flex items-center justify-between mb-8 border-b border-black/10 dark:border-white/10 pb-4 transition-colors">
             <h2 class="text-2xl text-serif font-bold italic">Últimas Publicaciones</h2>
             <div class="flex items-center gap-4 text-xs font-bold uppercase tracking-widest opacity-50 overflow-x-auto no-scrollbar pb-2">
-                <button onclick="filterNews('ALL')" class="hover:opacity-100 hover:text-black transition-colors" id="filter-ALL">Todo</button>
-                <button onclick="filterNews('UNAM')" class="hover:opacity-100 hover:text-black transition-colors" id="filter-UNAM">UNAM</button>
-                <button onclick="filterNews('IPN')" class="hover:opacity-100 hover:text-black transition-colors" id="filter-IPN">IPN</button>
-                <button onclick="filterNews('UV')" class="hover:opacity-100 hover:text-black transition-colors" id="filter-UV">UV</button>
-                <button onclick="filterNews('UAM')" class="hover:opacity-100 hover:text-black transition-colors" id="filter-UAM">UAM</button>
-                <button onclick="filterNews('BUAP')" class="hover:opacity-100 hover:text-black transition-colors" id="filter-BUAP">BUAP</button>
+                <button onclick="filterNews('ALL')" class="hover:opacity-100 hover:text-black dark:hover:text-white transition-colors" id="filter-ALL">Todo</button>
+                <button onclick="filterNews('UNAM')" class="hover:opacity-100 hover:text-black dark:hover:text-white transition-colors" id="filter-UNAM">UNAM</button>
+                <button onclick="filterNews('IPN')" class="hover:opacity-100 hover:text-black dark:hover:text-white transition-colors" id="filter-IPN">IPN</button>
+                <button onclick="filterNews('UV')" class="hover:opacity-100 hover:text-black dark:hover:text-white transition-colors" id="filter-UV">UV</button>
+                <button onclick="filterNews('UAM')" class="hover:opacity-100 hover:text-black dark:hover:text-white transition-colors" id="filter-UAM">UAM</button>
+                <button onclick="filterNews('BUAP')" class="hover:opacity-100 hover:text-black dark:hover:text-white transition-colors" id="filter-BUAP">BUAP</button>
             </div>
         </div>
 
@@ -130,15 +145,15 @@
         
     </main>
 
-    <footer class="bg-white py-20 px-6 border-t border-black/5 mt-auto">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 border-t border-black/5 pt-10 pb-20 md:pb-0">
+    <footer class="bg-white dark:bg-neutral-950 py-20 px-6 border-t border-black/5 dark:border-white/5 mt-auto transition-colors">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 border-t border-black/5 dark:border-white/5 pt-10 pb-20 md:pb-0 transition-colors">
             <div class="font-black tracking-tighter text-4xl opacity-5">EstudiandoAndo</div>
             <p class="text-xs opacity-40 font-bold tracking-tight">© EstudiandoAndo 2026. Todos los derechos reservados.</p>
         </div>
     </footer>
 
     <!-- Barra de Navegación Móvil (Adaptable a celulares/tablets pequeñas) -->
-    <nav class="fixed bottom-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-xl border-t border-black/10 h-16 flex items-center justify-around px-2 md:hidden shadow-lg">
+    <nav class="fixed bottom-0 left-0 right-0 z-50 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-xl border-t border-black/10 dark:border-white/10 h-16 flex items-center justify-around px-2 md:hidden shadow-lg transition-colors">
         <a href="index.html" class="flex flex-col items-center gap-0.5 opacity-40 hover:opacity-100 transition-opacity">
             <span class="material-symbols-outlined text-[20px]">home</span>
             <span class="text-[9px] font-bold tracking-tight">Inicio</span>
@@ -151,7 +166,7 @@
             <span class="material-symbols-outlined text-[20px]">psychology</span>
             <span class="text-[9px] font-bold tracking-tight">Aprendizaje</span>
         </a>
-        <a href="noticias.html" class="flex flex-col items-center gap-0.5 opacity-100 text-black transition-opacity">
+        <a href="noticias.html" class="flex flex-col items-center gap-0.5 opacity-100 text-black dark:text-white transition-opacity">
             <span class="material-symbols-outlined text-[20px]">newspaper</span>
             <span class="text-[9px] font-bold tracking-tight">Noticias</span>
         </a>
@@ -338,23 +353,23 @@
                     </div>
                     <div class="w-full lg:w-2/5 flex flex-col justify-center">
                         <div class="flex items-center gap-3 mb-4">
-                            <span class="bg-black text-white px-3 py-1 text-[10px] font-bold uppercase tracking-widest rounded-sm">${newsItem.uni}</span>
-                            <span class="text-xs font-bold text-red-600 uppercase tracking-widest">${newsItem.category}</span>
+                            <span class="bg-black dark:bg-white text-white dark:text-black px-3 py-1 text-[10px] font-bold uppercase tracking-widest rounded-sm transition-colors">${newsItem.uni}</span>
+                            <span class="text-xs font-bold text-red-600 dark:text-red-400 uppercase tracking-widest">${newsItem.category}</span>
                             <span class="bg-red-600 text-white px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest rounded-full animate-pulse">RECIENTE</span>
                         </div>
-                        <h2 class="text-4xl md:text-5xl text-serif font-bold leading-tight mb-6 group-hover:text-blue-700 transition-colors">
+                        <h2 class="text-4xl md:text-5xl text-serif font-bold leading-tight mb-6 group-hover:text-blue-700 dark:group-hover:text-blue-400 transition-colors">
                             ${newsItem.title}
                         </h2>
                         <p class="text-lg opacity-60 font-medium leading-relaxed mb-6 line-clamp-3">
                             ${newsItem.excerpt}
                         </p>
                         
-                        <div class="flex flex-col gap-1 border-t border-black/10 pt-4 mt-2">
+                        <div class="flex flex-col gap-1 border-t border-black/10 dark:border-white/10 pt-4 mt-2 transition-colors">
                             <div class="flex items-center gap-2 text-xs font-bold opacity-50 uppercase tracking-widest">
                                 <span class="material-symbols-outlined text-[14px]">calendar_month</span>
                                 Publicado: ${formatDate(newsItem.date)}
                             </div>
-                            <div class="flex items-center gap-2 text-xs font-bold opacity-80 text-blue-600 uppercase tracking-widest mt-1">
+                            <div class="flex items-center gap-2 text-xs font-bold opacity-80 text-blue-600 dark:text-blue-400 uppercase tracking-widest mt-1">
                                 <span class="material-symbols-outlined text-[14px]">link</span>
                                 Origen: ${newsItem.origin}
                             </div>
@@ -383,21 +398,21 @@
                         </div>
                         <div class="flex items-center justify-between mb-3">
                             <div class="flex items-center gap-3">
-                                <span class="text-[10px] font-bold uppercase tracking-widest border border-black/10 px-2 py-0.5 rounded-sm">${news.uni}</span>
-                                <span class="text-[10px] font-bold text-red-600 uppercase tracking-widest">${news.category}</span>
+                                <span class="text-[10px] font-bold uppercase tracking-widest border border-black/10 dark:border-white/10 px-2 py-0.5 rounded-sm transition-colors">${news.uni}</span>
+                                <span class="text-[10px] font-bold text-red-600 dark:text-red-400 uppercase tracking-widest">${news.category}</span>
                             </div>
                         </div>
-                        <h3 class="text-2xl text-serif font-bold leading-snug mb-3 group-hover:text-blue-700 transition-colors line-clamp-3">
+                        <h3 class="text-2xl text-serif font-bold leading-snug mb-3 group-hover:text-blue-700 dark:group-hover:text-blue-400 transition-colors line-clamp-3">
                             ${news.title}
                         </h3>
                         <p class="text-sm opacity-60 font-medium leading-relaxed line-clamp-2 mb-4">
                             ${news.excerpt}
                         </p>
                         
-                        <div class="mt-auto border-t border-black/5 pt-3">
+                        <div class="mt-auto border-t border-black/5 dark:border-white/5 pt-3 transition-colors">
                             <div class="flex justify-between items-center text-[10px] font-bold opacity-50 uppercase tracking-widest">
                                 <span>${formatDate(news.date)}</span>
-                                <span class="text-blue-600 flex items-center gap-1 max-w-[150px] truncate"><span class="material-symbols-outlined text-[12px]">open_in_new</span> ${news.origin}</span>
+                                <span class="text-blue-600 dark:text-blue-400 flex items-center gap-1 max-w-[150px] truncate"><span class="material-symbols-outlined text-[12px]">open_in_new</span> ${news.origin}</span>
                             </div>
                         </div>
                     </a>
@@ -408,10 +423,10 @@
         function filterNews(uniFilter) {
             // Actualizar botones UI
             document.querySelectorAll('[id^="filter-"]').forEach(btn => {
-                btn.classList.remove('text-black', 'opacity-100', 'bg-black/5', 'rounded-md', 'px-2');
+                btn.classList.remove('text-black', 'dark:text-white', 'opacity-100', 'bg-black/5', 'dark:bg-white/10', 'rounded-md', 'px-2');
             });
             const activeBtn = document.getElementById(`filter-${uniFilter}`);
-            activeBtn.classList.add('text-black', 'opacity-100', 'bg-black/5', 'rounded-md', 'px-2');
+            activeBtn.classList.add('text-black', 'dark:text-white', 'opacity-100', 'bg-black/5', 'dark:bg-white/10', 'rounded-md', 'px-2');
 
             // Filtrar lógica usando el arreglo de noticias reales
             let sortedNews = [...realNewsData];
@@ -434,6 +449,16 @@
         // Iniciar el agregador al cargar la página
         initRealNewsAggregator();
         
+        // Dark mode toggle listener
+        document.getElementById('theme-toggle')?.addEventListener('click', () => {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
     </script>
 </body>
 </html>

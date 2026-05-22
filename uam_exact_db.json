@@ -1,0 +1,2181 @@
+{
+  "cbi": [],
+  "cbs": [
+    {
+      "id": "cbs_1",
+      "image": "assets/uam_exact/cbs_1.png",
+      "correct": "A",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_1",
+      "image": "assets/uam_exact/cbs_1.png",
+      "correct": "A",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_2",
+      "image": "assets/uam_exact/cbs_2.png",
+      "correct": "E",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_1",
+      "image": "assets/uam_exact/cbs_1.png",
+      "correct": "A",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_2",
+      "image": "assets/uam_exact/cbs_2.png",
+      "correct": "E",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_3",
+      "image": "assets/uam_exact/cbs_3.png",
+      "correct": "A",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_4",
+      "image": "assets/uam_exact/cbs_4.png",
+      "correct": "B",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_5",
+      "image": "assets/uam_exact/cbs_5.png",
+      "correct": "A",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_6",
+      "image": "assets/uam_exact/cbs_6.png",
+      "correct": "D",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_7",
+      "image": "assets/uam_exact/cbs_7.png",
+      "correct": "C",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_8",
+      "image": "assets/uam_exact/cbs_8.png",
+      "correct": "E",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_9",
+      "image": "assets/uam_exact/cbs_9.png",
+      "correct": "C",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_10",
+      "image": "assets/uam_exact/cbs_10.png",
+      "correct": "D",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_11",
+      "image": "assets/uam_exact/cbs_11.png",
+      "correct": "B",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_12",
+      "image": "assets/uam_exact/cbs_12.png",
+      "correct": "E",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_13",
+      "image": "assets/uam_exact/cbs_13.png",
+      "correct": "D",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_14",
+      "image": "assets/uam_exact/cbs_14.png",
+      "correct": "C",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_1",
+      "image": "assets/uam_exact/cbs_1.png",
+      "correct": "A",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_15",
+      "image": "assets/uam_exact/cbs_15.png",
+      "correct": "B",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_16",
+      "image": "assets/uam_exact/cbs_16.png",
+      "correct": "A",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_1",
+      "image": "assets/uam_exact/cbs_1.png",
+      "correct": "A",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_2",
+      "image": "assets/uam_exact/cbs_2.png",
+      "correct": "E",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_3",
+      "image": "assets/uam_exact/cbs_3.png",
+      "correct": "A",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_4",
+      "image": "assets/uam_exact/cbs_4.png",
+      "correct": "B",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_5",
+      "image": "assets/uam_exact/cbs_5.png",
+      "correct": "A",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_6",
+      "image": "assets/uam_exact/cbs_6.png",
+      "correct": "D",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_7",
+      "image": "assets/uam_exact/cbs_7.png",
+      "correct": "C",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_17",
+      "image": "assets/uam_exact/cbs_17.png",
+      "correct": "E",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_1",
+      "image": "assets/uam_exact/cbs_1.png",
+      "correct": "A",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_18",
+      "image": "assets/uam_exact/cbs_18.png",
+      "correct": "E",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_19",
+      "image": "assets/uam_exact/cbs_19.png",
+      "correct": "C",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_20",
+      "image": "assets/uam_exact/cbs_20.png",
+      "correct": "B",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_21",
+      "image": "assets/uam_exact/cbs_21.png",
+      "correct": "D",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_22",
+      "image": "assets/uam_exact/cbs_22.png",
+      "correct": "C",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_23",
+      "image": "assets/uam_exact/cbs_23.png",
+      "correct": "A",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_24",
+      "image": "assets/uam_exact/cbs_24.png",
+      "correct": "B",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_25",
+      "image": "assets/uam_exact/cbs_25.png",
+      "correct": "E",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_26",
+      "image": "assets/uam_exact/cbs_26.png",
+      "correct": "C",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_27",
+      "image": "assets/uam_exact/cbs_27.png",
+      "correct": "D",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_28",
+      "image": "assets/uam_exact/cbs_28.png",
+      "correct": "B",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_29",
+      "image": "assets/uam_exact/cbs_29.png",
+      "correct": "C",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_30",
+      "image": "assets/uam_exact/cbs_30.png",
+      "correct": "B",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_31",
+      "image": "assets/uam_exact/cbs_31.png",
+      "correct": "C",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_32",
+      "image": "assets/uam_exact/cbs_32.png",
+      "correct": "B",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_33",
+      "image": "assets/uam_exact/cbs_33.png",
+      "correct": "D",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_34",
+      "image": "assets/uam_exact/cbs_34.png",
+      "correct": "E",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_35",
+      "image": "assets/uam_exact/cbs_35.png",
+      "correct": "D",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_36",
+      "image": "assets/uam_exact/cbs_36.png",
+      "correct": "D",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_37",
+      "image": "assets/uam_exact/cbs_37.png",
+      "correct": "D",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_38",
+      "image": "assets/uam_exact/cbs_38.png",
+      "correct": "B",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_39",
+      "image": "assets/uam_exact/cbs_39.png",
+      "correct": "D",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_40",
+      "image": "assets/uam_exact/cbs_40.png",
+      "correct": "B",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cbs_41",
+      "image": "assets/uam_exact/cbs_41.png",
+      "correct": "B",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_42",
+      "image": "assets/uam_exact/cbs_42.png",
+      "correct": "D",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_43",
+      "image": "assets/uam_exact/cbs_43.png",
+      "correct": "D",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_44",
+      "image": "assets/uam_exact/cbs_44.png",
+      "correct": "C",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_45",
+      "image": "assets/uam_exact/cbs_45.png",
+      "correct": "B",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_46",
+      "image": "assets/uam_exact/cbs_46.png",
+      "correct": "D",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_47",
+      "image": "assets/uam_exact/cbs_47.png",
+      "correct": "C",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_48",
+      "image": "assets/uam_exact/cbs_48.png",
+      "correct": "A",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_49",
+      "image": "assets/uam_exact/cbs_49.png",
+      "correct": "B",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_50",
+      "image": "assets/uam_exact/cbs_50.png",
+      "correct": "A",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_51",
+      "image": "assets/uam_exact/cbs_51.png",
+      "correct": "B",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_52",
+      "image": "assets/uam_exact/cbs_52.png",
+      "correct": "B",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_53",
+      "image": "assets/uam_exact/cbs_53.png",
+      "correct": "A",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_54",
+      "image": "assets/uam_exact/cbs_54.png",
+      "correct": "E",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_55",
+      "image": "assets/uam_exact/cbs_55.png",
+      "correct": "D",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_56",
+      "image": "assets/uam_exact/cbs_56.png",
+      "correct": "E",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_57",
+      "image": "assets/uam_exact/cbs_57.png",
+      "correct": "B",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_58",
+      "image": "assets/uam_exact/cbs_58.png",
+      "correct": "B",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_59",
+      "image": "assets/uam_exact/cbs_59.png",
+      "correct": "E",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_60",
+      "image": "assets/uam_exact/cbs_60.png",
+      "correct": "C",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_61",
+      "image": "assets/uam_exact/cbs_61.png",
+      "correct": "D",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_62",
+      "image": "assets/uam_exact/cbs_62.png",
+      "correct": "E",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_63",
+      "image": "assets/uam_exact/cbs_63.png",
+      "correct": "D",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_64",
+      "image": "assets/uam_exact/cbs_64.png",
+      "correct": "C",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_65",
+      "image": "assets/uam_exact/cbs_65.png",
+      "correct": "E",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_66",
+      "image": "assets/uam_exact/cbs_66.png",
+      "correct": "C",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_67",
+      "image": "assets/uam_exact/cbs_67.png",
+      "correct": "E",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_68",
+      "image": "assets/uam_exact/cbs_68.png",
+      "correct": "E",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_69",
+      "image": "assets/uam_exact/cbs_69.png",
+      "correct": "C",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_70",
+      "image": "assets/uam_exact/cbs_70.png",
+      "correct": "B",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_71",
+      "image": "assets/uam_exact/cbs_71.png",
+      "correct": "A",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_72",
+      "image": "assets/uam_exact/cbs_72.png",
+      "correct": "B",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_73",
+      "image": "assets/uam_exact/cbs_73.png",
+      "correct": "E",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_74",
+      "image": "assets/uam_exact/cbs_74.png",
+      "correct": "D",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_75",
+      "image": "assets/uam_exact/cbs_75.png",
+      "correct": "B",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_76",
+      "image": "assets/uam_exact/cbs_76.png",
+      "correct": "A",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_77",
+      "image": "assets/uam_exact/cbs_77.png",
+      "correct": "A",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_78",
+      "image": "assets/uam_exact/cbs_78.png",
+      "correct": "D",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_79",
+      "image": "assets/uam_exact/cbs_79.png",
+      "correct": "C",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_81",
+      "image": "assets/uam_exact/cbs_81.png",
+      "correct": "B",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_82",
+      "image": "assets/uam_exact/cbs_82.png",
+      "correct": "B",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_83",
+      "image": "assets/uam_exact/cbs_83.png",
+      "correct": "C",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_84",
+      "image": "assets/uam_exact/cbs_84.png",
+      "correct": "D",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_86",
+      "image": "assets/uam_exact/cbs_86.png",
+      "correct": "B",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_87",
+      "image": "assets/uam_exact/cbs_87.png",
+      "correct": "D",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_88",
+      "image": "assets/uam_exact/cbs_88.png",
+      "correct": "C",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_89",
+      "image": "assets/uam_exact/cbs_89.png",
+      "correct": "A",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_90",
+      "image": "assets/uam_exact/cbs_90.png",
+      "correct": "C",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_91",
+      "image": "assets/uam_exact/cbs_91.png",
+      "correct": "E",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_92",
+      "image": "assets/uam_exact/cbs_92.png",
+      "correct": "C",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_93",
+      "image": "assets/uam_exact/cbs_93.png",
+      "correct": "E",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_95",
+      "image": "assets/uam_exact/cbs_95.png",
+      "correct": "A",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_96",
+      "image": "assets/uam_exact/cbs_96.png",
+      "correct": "C",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_97",
+      "image": "assets/uam_exact/cbs_97.png",
+      "correct": "D",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_98",
+      "image": "assets/uam_exact/cbs_98.png",
+      "correct": "C",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_99",
+      "image": "assets/uam_exact/cbs_99.png",
+      "correct": "C",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_100",
+      "image": "assets/uam_exact/cbs_100.png",
+      "correct": "B",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_102",
+      "image": "assets/uam_exact/cbs_102.png",
+      "correct": "A",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_103",
+      "image": "assets/uam_exact/cbs_103.png",
+      "correct": "E",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_104",
+      "image": "assets/uam_exact/cbs_104.png",
+      "correct": "D",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_105",
+      "image": "assets/uam_exact/cbs_105.png",
+      "correct": "C",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_106",
+      "image": "assets/uam_exact/cbs_106.png",
+      "correct": "B",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_107",
+      "image": "assets/uam_exact/cbs_107.png",
+      "correct": "B",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_108",
+      "image": "assets/uam_exact/cbs_108.png",
+      "correct": "B",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_109",
+      "image": "assets/uam_exact/cbs_109.png",
+      "correct": "E",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cbs_110",
+      "image": "assets/uam_exact/cbs_110.png",
+      "correct": "D",
+      "section": "Conocimientos Espec\u00edficos"
+    }
+  ],
+  "chs": [
+    {
+      "id": "chs_1",
+      "image": "assets/uam_exact/chs_1.png",
+      "correct": "A",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_1",
+      "image": "assets/uam_exact/chs_1.png",
+      "correct": "A",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_2",
+      "image": "assets/uam_exact/chs_2.png",
+      "correct": "E",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_1",
+      "image": "assets/uam_exact/chs_1.png",
+      "correct": "A",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_2",
+      "image": "assets/uam_exact/chs_2.png",
+      "correct": "E",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_3",
+      "image": "assets/uam_exact/chs_3.png",
+      "correct": "A",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_4",
+      "image": "assets/uam_exact/chs_4.png",
+      "correct": "B",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_5",
+      "image": "assets/uam_exact/chs_5.png",
+      "correct": "A",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_6",
+      "image": "assets/uam_exact/chs_6.png",
+      "correct": "D",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_7",
+      "image": "assets/uam_exact/chs_7.png",
+      "correct": "C",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_8",
+      "image": "assets/uam_exact/chs_8.png",
+      "correct": "E",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_9",
+      "image": "assets/uam_exact/chs_9.png",
+      "correct": "C",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_10",
+      "image": "assets/uam_exact/chs_10.png",
+      "correct": "D",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_11",
+      "image": "assets/uam_exact/chs_11.png",
+      "correct": "B",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_12",
+      "image": "assets/uam_exact/chs_12.png",
+      "correct": "E",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_13",
+      "image": "assets/uam_exact/chs_13.png",
+      "correct": "D",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_14",
+      "image": "assets/uam_exact/chs_14.png",
+      "correct": "C",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_1",
+      "image": "assets/uam_exact/chs_1.png",
+      "correct": "A",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_15",
+      "image": "assets/uam_exact/chs_15.png",
+      "correct": "B",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_16",
+      "image": "assets/uam_exact/chs_16.png",
+      "correct": "A",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_1",
+      "image": "assets/uam_exact/chs_1.png",
+      "correct": "A",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_2",
+      "image": "assets/uam_exact/chs_2.png",
+      "correct": "E",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_3",
+      "image": "assets/uam_exact/chs_3.png",
+      "correct": "A",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_4",
+      "image": "assets/uam_exact/chs_4.png",
+      "correct": "B",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_5",
+      "image": "assets/uam_exact/chs_5.png",
+      "correct": "A",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_6",
+      "image": "assets/uam_exact/chs_6.png",
+      "correct": "D",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_7",
+      "image": "assets/uam_exact/chs_7.png",
+      "correct": "C",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_17",
+      "image": "assets/uam_exact/chs_17.png",
+      "correct": "E",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_1",
+      "image": "assets/uam_exact/chs_1.png",
+      "correct": "A",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_18",
+      "image": "assets/uam_exact/chs_18.png",
+      "correct": "E",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_19",
+      "image": "assets/uam_exact/chs_19.png",
+      "correct": "C",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_20",
+      "image": "assets/uam_exact/chs_20.png",
+      "correct": "B",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_21",
+      "image": "assets/uam_exact/chs_21.png",
+      "correct": "A",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_22",
+      "image": "assets/uam_exact/chs_22.png",
+      "correct": "E",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_23",
+      "image": "assets/uam_exact/chs_23.png",
+      "correct": "A",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_24",
+      "image": "assets/uam_exact/chs_24.png",
+      "correct": "B",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_25",
+      "image": "assets/uam_exact/chs_25.png",
+      "correct": "A",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_26",
+      "image": "assets/uam_exact/chs_26.png",
+      "correct": "C",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_27",
+      "image": "assets/uam_exact/chs_27.png",
+      "correct": "D",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_28",
+      "image": "assets/uam_exact/chs_28.png",
+      "correct": "B",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_29",
+      "image": "assets/uam_exact/chs_29.png",
+      "correct": "B",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_30",
+      "image": "assets/uam_exact/chs_30.png",
+      "correct": "C",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_31",
+      "image": "assets/uam_exact/chs_31.png",
+      "correct": "E",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_32",
+      "image": "assets/uam_exact/chs_32.png",
+      "correct": "D",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_33",
+      "image": "assets/uam_exact/chs_33.png",
+      "correct": "E",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_34",
+      "image": "assets/uam_exact/chs_34.png",
+      "correct": "A",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_35",
+      "image": "assets/uam_exact/chs_35.png",
+      "correct": "D",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_36",
+      "image": "assets/uam_exact/chs_36.png",
+      "correct": "C",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_37",
+      "image": "assets/uam_exact/chs_37.png",
+      "correct": "B",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_38",
+      "image": "assets/uam_exact/chs_38.png",
+      "correct": "D",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_39",
+      "image": "assets/uam_exact/chs_39.png",
+      "correct": "E",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_40",
+      "image": "assets/uam_exact/chs_40.png",
+      "correct": "D",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "chs_41",
+      "image": "assets/uam_exact/chs_41.png",
+      "correct": "D",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_42",
+      "image": "assets/uam_exact/chs_42.png",
+      "correct": "D",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_43",
+      "image": "assets/uam_exact/chs_43.png",
+      "correct": "B",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_44",
+      "image": "assets/uam_exact/chs_44.png",
+      "correct": "B",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_45",
+      "image": "assets/uam_exact/chs_45.png",
+      "correct": "D",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_46",
+      "image": "assets/uam_exact/chs_46.png",
+      "correct": "D",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_47",
+      "image": "assets/uam_exact/chs_47.png",
+      "correct": "C",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_48",
+      "image": "assets/uam_exact/chs_48.png",
+      "correct": "A",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_49",
+      "image": "assets/uam_exact/chs_49.png",
+      "correct": "B",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_50",
+      "image": "assets/uam_exact/chs_50.png",
+      "correct": "A",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_51",
+      "image": "assets/uam_exact/chs_51.png",
+      "correct": "C",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_52",
+      "image": "assets/uam_exact/chs_52.png",
+      "correct": "D",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_53",
+      "image": "assets/uam_exact/chs_53.png",
+      "correct": "A",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_54",
+      "image": "assets/uam_exact/chs_54.png",
+      "correct": "E",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_55",
+      "image": "assets/uam_exact/chs_55.png",
+      "correct": "C",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_56",
+      "image": "assets/uam_exact/chs_56.png",
+      "correct": "B",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_57",
+      "image": "assets/uam_exact/chs_57.png",
+      "correct": "C",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_58",
+      "image": "assets/uam_exact/chs_58.png",
+      "correct": "E",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_59",
+      "image": "assets/uam_exact/chs_59.png",
+      "correct": "B",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_60",
+      "image": "assets/uam_exact/chs_60.png",
+      "correct": "C",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_61",
+      "image": "assets/uam_exact/chs_61.png",
+      "correct": "B",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_62",
+      "image": "assets/uam_exact/chs_62.png",
+      "correct": "B",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_63",
+      "image": "assets/uam_exact/chs_63.png",
+      "correct": "C",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_64",
+      "image": "assets/uam_exact/chs_64.png",
+      "correct": "A",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_65",
+      "image": "assets/uam_exact/chs_65.png",
+      "correct": "E",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_66",
+      "image": "assets/uam_exact/chs_66.png",
+      "correct": "A",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_67",
+      "image": "assets/uam_exact/chs_67.png",
+      "correct": "D",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_68",
+      "image": "assets/uam_exact/chs_68.png",
+      "correct": "D",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_69",
+      "image": "assets/uam_exact/chs_69.png",
+      "correct": "E",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_70",
+      "image": "assets/uam_exact/chs_70.png",
+      "correct": "B",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_71",
+      "image": "assets/uam_exact/chs_71.png",
+      "correct": "D",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_72",
+      "image": "assets/uam_exact/chs_72.png",
+      "correct": "D",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_73",
+      "image": "assets/uam_exact/chs_73.png",
+      "correct": "E",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_74",
+      "image": "assets/uam_exact/chs_74.png",
+      "correct": "A",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_75",
+      "image": "assets/uam_exact/chs_75.png",
+      "correct": "A",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_76",
+      "image": "assets/uam_exact/chs_76.png",
+      "correct": "E",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_77",
+      "image": "assets/uam_exact/chs_77.png",
+      "correct": "B",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_78",
+      "image": "assets/uam_exact/chs_78.png",
+      "correct": "C",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_79",
+      "image": "assets/uam_exact/chs_79.png",
+      "correct": "B",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_80",
+      "image": "assets/uam_exact/chs_80.png",
+      "correct": "A",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_81",
+      "image": "assets/uam_exact/chs_81.png",
+      "correct": "E",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_82",
+      "image": "assets/uam_exact/chs_82.png",
+      "correct": "C",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_83",
+      "image": "assets/uam_exact/chs_83.png",
+      "correct": "B",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_84",
+      "image": "assets/uam_exact/chs_84.png",
+      "correct": "E",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_85",
+      "image": "assets/uam_exact/chs_85.png",
+      "correct": "B",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_86",
+      "image": "assets/uam_exact/chs_86.png",
+      "correct": "A",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_87",
+      "image": "assets/uam_exact/chs_87.png",
+      "correct": "D",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_88",
+      "image": "assets/uam_exact/chs_88.png",
+      "correct": "C",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_89",
+      "image": "assets/uam_exact/chs_89.png",
+      "correct": "E",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_90",
+      "image": "assets/uam_exact/chs_90.png",
+      "correct": "A",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_91",
+      "image": "assets/uam_exact/chs_91.png",
+      "correct": "B",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_92",
+      "image": "assets/uam_exact/chs_92.png",
+      "correct": "A",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_94",
+      "image": "assets/uam_exact/chs_94.png",
+      "correct": "D",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_95",
+      "image": "assets/uam_exact/chs_95.png",
+      "correct": "E",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_96",
+      "image": "assets/uam_exact/chs_96.png",
+      "correct": "B",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_97",
+      "image": "assets/uam_exact/chs_97.png",
+      "correct": "C",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_98",
+      "image": "assets/uam_exact/chs_98.png",
+      "correct": "D",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_99",
+      "image": "assets/uam_exact/chs_99.png",
+      "correct": "C",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_100",
+      "image": "assets/uam_exact/chs_100.png",
+      "correct": "A",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_101",
+      "image": "assets/uam_exact/chs_101.png",
+      "correct": "E",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_102",
+      "image": "assets/uam_exact/chs_102.png",
+      "correct": "C",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_103",
+      "image": "assets/uam_exact/chs_103.png",
+      "correct": "B",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_104",
+      "image": "assets/uam_exact/chs_104.png",
+      "correct": "D",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_105",
+      "image": "assets/uam_exact/chs_105.png",
+      "correct": "D",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_106",
+      "image": "assets/uam_exact/chs_106.png",
+      "correct": "A",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_107",
+      "image": "assets/uam_exact/chs_107.png",
+      "correct": "D",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_108",
+      "image": "assets/uam_exact/chs_108.png",
+      "correct": "D",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_109",
+      "image": "assets/uam_exact/chs_109.png",
+      "correct": "A",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "chs_110",
+      "image": "assets/uam_exact/chs_110.png",
+      "correct": "C",
+      "section": "Conocimientos Espec\u00edficos"
+    }
+  ],
+  "cyad": [
+    {
+      "id": "cyad_1",
+      "image": "assets/uam_exact/cyad_1.png",
+      "correct": "A",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_1",
+      "image": "assets/uam_exact/cyad_1.png",
+      "correct": "A",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_1",
+      "image": "assets/uam_exact/cyad_1.png",
+      "correct": "A",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_2",
+      "image": "assets/uam_exact/cyad_2.png",
+      "correct": "E",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_1",
+      "image": "assets/uam_exact/cyad_1.png",
+      "correct": "A",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_2",
+      "image": "assets/uam_exact/cyad_2.png",
+      "correct": "E",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_3",
+      "image": "assets/uam_exact/cyad_3.png",
+      "correct": "A",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_4",
+      "image": "assets/uam_exact/cyad_4.png",
+      "correct": "B",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_5",
+      "image": "assets/uam_exact/cyad_5.png",
+      "correct": "A",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_6",
+      "image": "assets/uam_exact/cyad_6.png",
+      "correct": "D",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_7",
+      "image": "assets/uam_exact/cyad_7.png",
+      "correct": "C",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_8",
+      "image": "assets/uam_exact/cyad_8.png",
+      "correct": "E",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_9",
+      "image": "assets/uam_exact/cyad_9.png",
+      "correct": "C",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_10",
+      "image": "assets/uam_exact/cyad_10.png",
+      "correct": "D",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_11",
+      "image": "assets/uam_exact/cyad_11.png",
+      "correct": "B",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_12",
+      "image": "assets/uam_exact/cyad_12.png",
+      "correct": "E",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_13",
+      "image": "assets/uam_exact/cyad_13.png",
+      "correct": "D",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_14",
+      "image": "assets/uam_exact/cyad_14.png",
+      "correct": "C",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_1",
+      "image": "assets/uam_exact/cyad_1.png",
+      "correct": "A",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_15",
+      "image": "assets/uam_exact/cyad_15.png",
+      "correct": "B",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_16",
+      "image": "assets/uam_exact/cyad_16.png",
+      "correct": "A",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_1",
+      "image": "assets/uam_exact/cyad_1.png",
+      "correct": "A",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_2",
+      "image": "assets/uam_exact/cyad_2.png",
+      "correct": "E",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_3",
+      "image": "assets/uam_exact/cyad_3.png",
+      "correct": "A",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_4",
+      "image": "assets/uam_exact/cyad_4.png",
+      "correct": "B",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_5",
+      "image": "assets/uam_exact/cyad_5.png",
+      "correct": "A",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_6",
+      "image": "assets/uam_exact/cyad_6.png",
+      "correct": "D",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_7",
+      "image": "assets/uam_exact/cyad_7.png",
+      "correct": "C",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_17",
+      "image": "assets/uam_exact/cyad_17.png",
+      "correct": "E",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_1",
+      "image": "assets/uam_exact/cyad_1.png",
+      "correct": "A",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_18",
+      "image": "assets/uam_exact/cyad_18.png",
+      "correct": "E",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_19",
+      "image": "assets/uam_exact/cyad_19.png",
+      "correct": "C",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_20",
+      "image": "assets/uam_exact/cyad_20.png",
+      "correct": "B",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_21",
+      "image": "assets/uam_exact/cyad_21.png",
+      "correct": "C",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_22",
+      "image": "assets/uam_exact/cyad_22.png",
+      "correct": "D",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_23",
+      "image": "assets/uam_exact/cyad_23.png",
+      "correct": "B",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_24",
+      "image": "assets/uam_exact/cyad_24.png",
+      "correct": "C",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_25",
+      "image": "assets/uam_exact/cyad_25.png",
+      "correct": "B",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_26",
+      "image": "assets/uam_exact/cyad_26.png",
+      "correct": "C",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_27",
+      "image": "assets/uam_exact/cyad_27.png",
+      "correct": "B",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_28",
+      "image": "assets/uam_exact/cyad_28.png",
+      "correct": "D",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_29",
+      "image": "assets/uam_exact/cyad_29.png",
+      "correct": "E",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_30",
+      "image": "assets/uam_exact/cyad_30.png",
+      "correct": "D",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_31",
+      "image": "assets/uam_exact/cyad_31.png",
+      "correct": "D",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_32",
+      "image": "assets/uam_exact/cyad_32.png",
+      "correct": "D",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_33",
+      "image": "assets/uam_exact/cyad_33.png",
+      "correct": "B",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_34",
+      "image": "assets/uam_exact/cyad_34.png",
+      "correct": "D",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_35",
+      "image": "assets/uam_exact/cyad_35.png",
+      "correct": "B",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_36",
+      "image": "assets/uam_exact/cyad_36.png",
+      "correct": "B",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_37",
+      "image": "assets/uam_exact/cyad_37.png",
+      "correct": "D",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_38",
+      "image": "assets/uam_exact/cyad_38.png",
+      "correct": "D",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_39",
+      "image": "assets/uam_exact/cyad_39.png",
+      "correct": "C",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_40",
+      "image": "assets/uam_exact/cyad_40.png",
+      "correct": "B",
+      "section": "Razonamiento Matem\u00e1tico"
+    },
+    {
+      "id": "cyad_41",
+      "image": "assets/uam_exact/cyad_41.png",
+      "correct": "D",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_42",
+      "image": "assets/uam_exact/cyad_42.png",
+      "correct": "C",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_43",
+      "image": "assets/uam_exact/cyad_43.png",
+      "correct": "A",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_44",
+      "image": "assets/uam_exact/cyad_44.png",
+      "correct": "B",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_45",
+      "image": "assets/uam_exact/cyad_45.png",
+      "correct": "A",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_46",
+      "image": "assets/uam_exact/cyad_46.png",
+      "correct": "E",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_47",
+      "image": "assets/uam_exact/cyad_47.png",
+      "correct": "D",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_48",
+      "image": "assets/uam_exact/cyad_48.png",
+      "correct": "E",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_49",
+      "image": "assets/uam_exact/cyad_49.png",
+      "correct": "C",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_50",
+      "image": "assets/uam_exact/cyad_50.png",
+      "correct": "A",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_51",
+      "image": "assets/uam_exact/cyad_51.png",
+      "correct": "A",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_52",
+      "image": "assets/uam_exact/cyad_52.png",
+      "correct": "D",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_53",
+      "image": "assets/uam_exact/cyad_53.png",
+      "correct": "C",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_54",
+      "image": "assets/uam_exact/cyad_54.png",
+      "correct": "C",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_55",
+      "image": "assets/uam_exact/cyad_55.png",
+      "correct": "D",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_56",
+      "image": "assets/uam_exact/cyad_56.png",
+      "correct": "C",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_57",
+      "image": "assets/uam_exact/cyad_57.png",
+      "correct": "B",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_58",
+      "image": "assets/uam_exact/cyad_58.png",
+      "correct": "E",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_59",
+      "image": "assets/uam_exact/cyad_59.png",
+      "correct": "C",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_60",
+      "image": "assets/uam_exact/cyad_60.png",
+      "correct": "B",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_61",
+      "image": "assets/uam_exact/cyad_61.png",
+      "correct": "C",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_62",
+      "image": "assets/uam_exact/cyad_62.png",
+      "correct": "D",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_63",
+      "image": "assets/uam_exact/cyad_63.png",
+      "correct": "A",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_64",
+      "image": "assets/uam_exact/cyad_64.png",
+      "correct": "B",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_65",
+      "image": "assets/uam_exact/cyad_65.png",
+      "correct": "D",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_66",
+      "image": "assets/uam_exact/cyad_66.png",
+      "correct": "D",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_67",
+      "image": "assets/uam_exact/cyad_67.png",
+      "correct": "B",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_68",
+      "image": "assets/uam_exact/cyad_68.png",
+      "correct": "C",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_69",
+      "image": "assets/uam_exact/cyad_69.png",
+      "correct": "A",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_70",
+      "image": "assets/uam_exact/cyad_70.png",
+      "correct": "E",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_71",
+      "image": "assets/uam_exact/cyad_71.png",
+      "correct": "A",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_72",
+      "image": "assets/uam_exact/cyad_72.png",
+      "correct": "D",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_73",
+      "image": "assets/uam_exact/cyad_73.png",
+      "correct": "B",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_74",
+      "image": "assets/uam_exact/cyad_74.png",
+      "correct": "C",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_75",
+      "image": "assets/uam_exact/cyad_75.png",
+      "correct": "B",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_76",
+      "image": "assets/uam_exact/cyad_76.png",
+      "correct": "A",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_77",
+      "image": "assets/uam_exact/cyad_77.png",
+      "correct": "C",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_78",
+      "image": "assets/uam_exact/cyad_78.png",
+      "correct": "E",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_79",
+      "image": "assets/uam_exact/cyad_79.png",
+      "correct": "E",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_80",
+      "image": "assets/uam_exact/cyad_80.png",
+      "correct": "B",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_81",
+      "image": "assets/uam_exact/cyad_81.png",
+      "correct": "E",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_82",
+      "image": "assets/uam_exact/cyad_82.png",
+      "correct": "E",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_83",
+      "image": "assets/uam_exact/cyad_83.png",
+      "correct": "E",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_84",
+      "image": "assets/uam_exact/cyad_84.png",
+      "correct": "A",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_85",
+      "image": "assets/uam_exact/cyad_85.png",
+      "correct": "D",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_86",
+      "image": "assets/uam_exact/cyad_86.png",
+      "correct": "B",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_87",
+      "image": "assets/uam_exact/cyad_87.png",
+      "correct": "C",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_88",
+      "image": "assets/uam_exact/cyad_88.png",
+      "correct": "C",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_89",
+      "image": "assets/uam_exact/cyad_89.png",
+      "correct": "E",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_90",
+      "image": "assets/uam_exact/cyad_90.png",
+      "correct": "E",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_91",
+      "image": "assets/uam_exact/cyad_91.png",
+      "correct": "E",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_92",
+      "image": "assets/uam_exact/cyad_92.png",
+      "correct": "B",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_93",
+      "image": "assets/uam_exact/cyad_93.png",
+      "correct": "C",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_94",
+      "image": "assets/uam_exact/cyad_94.png",
+      "correct": "E",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_95",
+      "image": "assets/uam_exact/cyad_95.png",
+      "correct": "C",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_96",
+      "image": "assets/uam_exact/cyad_96.png",
+      "correct": "C",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_97",
+      "image": "assets/uam_exact/cyad_97.png",
+      "correct": "B",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_98",
+      "image": "assets/uam_exact/cyad_98.png",
+      "correct": "D",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_99",
+      "image": "assets/uam_exact/cyad_99.png",
+      "correct": "A",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_100",
+      "image": "assets/uam_exact/cyad_100.png",
+      "correct": "D",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_101",
+      "image": "assets/uam_exact/cyad_101.png",
+      "correct": "D",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_102",
+      "image": "assets/uam_exact/cyad_102.png",
+      "correct": "E",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_103",
+      "image": "assets/uam_exact/cyad_103.png",
+      "correct": "B",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_104",
+      "image": "assets/uam_exact/cyad_104.png",
+      "correct": "C",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_105",
+      "image": "assets/uam_exact/cyad_105.png",
+      "correct": "C",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_106",
+      "image": "assets/uam_exact/cyad_106.png",
+      "correct": "A",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_107",
+      "image": "assets/uam_exact/cyad_107.png",
+      "correct": "D",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_108",
+      "image": "assets/uam_exact/cyad_108.png",
+      "correct": "C",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_109",
+      "image": "assets/uam_exact/cyad_109.png",
+      "correct": "E",
+      "section": "Conocimientos Espec\u00edficos"
+    },
+    {
+      "id": "cyad_110",
+      "image": "assets/uam_exact/cyad_110.png",
+      "correct": "B",
+      "section": "Conocimientos Espec\u00edficos"
+    }
+  ]
+}
