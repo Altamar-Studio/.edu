@@ -192,9 +192,8 @@
                     </div>
                 </div>
 
-                <!-- UAM - ACTIVO -->
-                <div class="group relative bg-white dark:bg-neutral-900 border border-black/10 dark:border-white/10 p-8 rounded-3xl shadow-sm hover:shadow-xl transition-all flex flex-col justify-between overflow-hidden border-l-4 border-l-maroon-800" style="border-left-color: #800000;">
-                    <div class="absolute top-0 right-0 bg-uam-maroon text-white text-[9px] font-bold uppercase tracking-widest px-3 py-1 rounded-bl-xl shadow-sm" style="background-color: #800000;">Activo</div>
+                <!-- UAM - INACTIVO -->
+                <div class="group bg-white dark:bg-neutral-900 border border-black/10 dark:border-white/10 p-8 rounded-3xl shadow-sm hover:shadow-md transition-all flex flex-col justify-between opacity-70 grayscale hover:grayscale-0">
                     <div>
                         <div class="flex items-center gap-3 mb-6">
                             <div class="w-12 h-12 rounded-full bg-red-50 dark:bg-red-900/20 text-maroon-800 dark:text-red-400 flex items-center justify-center font-bold text-lg border border-red-100 dark:border-red-900/50" style="color: #800000;">UAM</div>
@@ -203,15 +202,44 @@
                                 <span class="text-xs opacity-50 font-medium">División Académica</span>
                             </div>
                         </div>
-                        <p class="text-sm opacity-60 leading-relaxed mb-6">
+                        <p class="text-sm opacity-60 leading-relaxed mb-8">
                             Simuladores con copias 100% exactas y fieles de los cuadernillos reales de las 4 divisiones de la Universidad Autónoma Metropolitana.
                         </p>
                     </div>
-                    <div class="grid grid-cols-2 gap-2 mt-4">
-                        <a href="simulador-uam-exacto.html?div=cbi" class="text-[10px] font-bold text-center bg-neutral-50 dark:bg-neutral-800 dark:text-white border border-black/5 dark:border-white/5 py-2 rounded-lg hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black transition-all">CBI</a>
-                        <a href="simulador-uam-exacto.html?div=cbs" class="text-[10px] font-bold text-center bg-neutral-50 dark:bg-neutral-800 dark:text-white border border-black/5 dark:border-white/5 py-2 rounded-lg hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black transition-all">CBS</a>
-                        <a href="simulador-uam-exacto.html?div=chs" class="text-[10px] font-bold text-center bg-neutral-50 dark:bg-neutral-800 dark:text-white border border-black/5 dark:border-white/5 py-2 rounded-lg hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black transition-all">CHS</a>
-                        <a href="simulador-uam-exacto.html?div=cyad" class="text-[10px] font-bold text-center bg-neutral-50 dark:bg-neutral-800 dark:text-white border border-black/5 dark:border-white/5 py-2 rounded-lg hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black transition-all">CyAD</a>
+                    <div class="space-y-3">
+                        <div class="flex justify-between text-xs font-bold opacity-40 pb-2 border-b border-black/5 dark:border-white/5 transition-colors">
+                            <span>Áreas: 4 Divisiones</span>
+                            <span>Estructura 2026</span>
+                        </div>
+                        <button onclick="alert('Simulador UAM en fase de rediseño. ¡Estará disponible muy pronto!')" class="w-full bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 py-3 rounded-xl text-sm font-bold hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black transition-colors">
+                            Acceder (Próximamente)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- CHAPINGO -->
+                <div class="group bg-white dark:bg-neutral-900 border border-black/10 dark:border-white/10 p-8 rounded-3xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green-700 to-emerald-500 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500"></div>
+                    <div>
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-12 h-12 rounded-full bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-400 flex items-center justify-center font-bold text-lg border border-green-100 dark:border-green-800/50">UACh</div>
+                            <div>
+                                <h3 class="font-bold text-lg leading-tight">Universidad Autónoma Chapingo</h3>
+                                <span class="text-xs opacity-50 font-medium">Examen Propedéutico</span>
+                            </div>
+                        </div>
+                        <p class="text-sm opacity-60 leading-relaxed mb-8">
+                            Simulador web oficial de 130 reactivos enfocado en ciencias, matemáticas y agronomía, con cronómetro de 4 horas.
+                        </p>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="flex justify-between text-xs font-bold opacity-40 pb-2 border-b border-black/5 dark:border-white/5 transition-colors">
+                            <span>Áreas: 12 Oficiales</span>
+                            <span>Propedéutico</span>
+                        </div>
+                        <a href="simulador-chapingo.html" class="block w-full text-center bg-black dark:bg-white text-white dark:text-black py-3 rounded-xl text-sm font-bold hover:bg-green-700 dark:hover:bg-green-500 transition-colors shadow-sm">
+                            Iniciar Simulador UACh
+                        </a>
                     </div>
                 </div>
 
