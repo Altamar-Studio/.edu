@@ -492,7 +492,7 @@ const allQuestionsData =
   {
     "number": 40,
     "section": "Redacción Indirecta",
-    "text": "Seleccione la opción cuyo significado es opuesto a la palabra marcada en negritas.\n\nAunque la expedición atravesó tormentas, escasez de provisiones y múltiples desacuerdos internos, la arqueóloga permaneció impertérrita frente a las dificultades y continuó dirigiendo las excavaciones con absoluta firmeza.",
+    "text": "Seleccione la opción cuyo significado es opuesto a la palabra marcada en negritas.\n\nAunque la expedición atravesó tormentas, escasez de provisiones y múltiples desacuerdos internos, la arqueóloga permaneció <b>impertérrita</b> frente a las dificultades y continuó dirigiendo las excavaciones con absoluta firmeza.",
     "options": {
       "A": "impávida",
       "B": "vacilante",
