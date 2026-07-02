@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Idiomas | EstudiandoAndo</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@400;500;600;700&family=Homemade+Apple&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet" />
+    
+    <script>
+        // Configuración inicial de Tailwind con darkMode
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'ea-cream': '#F9F9F9',
+                        'ea-dark': '#0A0A0A',
+                        'ea-gray-light': '#F3F4F6',
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                        handwritten: ['"Homemade Apple"', 'cursive'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        .text-serif { font-family: 'Cormorant Garamond', serif; }
+        .text-handwritten { font-family: 'Homemade Apple', cursive; }
+        
+        .highlight-gray {
+            background-color: #E5E7EB;
+            padding: 0 6px;
+            border-radius: 4px;
+        }
+        
+        .btn-dark {
+            background-color: #0A0A0A;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        .btn-dark:hover {
+            background-color: #262626;
+            transform: translateY(-1px);
+        }
+        
+        .watermark-text {
+            font-size: 11vw;
+            line-height: 1;
+            color: rgba(0,0,0,0.02);
+            pointer-events: none;
+            user-select: none;
+            white-space: nowrap;
+        }
+
+        #live-news-content { transition: opacity 0.4s ease-in-out; }
+    </style>
+    <script>
+        // Script anti-FOUC para aplicar tema inmediatamente
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+        }
+    </script>
+</head>
+<body class="bg-[#F9F9F9] dark:bg-neutral-950 text-ea-dark dark:text-white font-sans selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black transition-colors duration-300">
+
+    <header class="fixed top-6 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
+        <nav class="pointer-events-auto w-full max-w-5xl h-16 bg-white/70 dark:bg-neutral-900/80 backdrop-blur-xl border border-black/10 dark:border-white/10 rounded-full flex items-center justify-between px-6 shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all">
+            <div class="flex items-center gap-8">
+                <a class="flex items-center gap-2" href="#">
+                    <div class="bg-black dark:bg-white text-white dark:text-black w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm transition-colors">EA</div>
+                    <span class="font-bold tracking-tight hidden sm:block">EstudiandoAndo</span>
+                </a>
+                <div class="hidden md:flex items-center gap-6 text-sm font-medium opacity-60">
+                    <a class='hover:opacity-100 transition-opacity' href='biblioteca.html'>Biblioteca</a>
+                    <a class='hover:opacity-100 transition-opacity' href='aprendizaje.html'>Aprendizaje</a>
+                    <a class="hover:opacity-100 transition-opacity" href="noticias.html">Noticias</a>
+                    <a class="hover:opacity-100 transition-opacity" href="idiomas.html">Idiomas</a>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <button id="theme-toggle" class="w-8 h-8 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors opacity-60 hover:opacity-100 flex items-center justify-center">
+                    <span class="material-symbols-outlined dark:hidden text-[20px]">dark_mode</span>
+                    <span class="material-symbols-outlined hidden dark:block text-[20px]">light_mode</span>
+                </button>
+                <a class="text-sm font-medium opacity-60 hover:opacity-100 transition-opacity hidden sm:block" href="#">Iniciar sesión</a>
+                <a class="btn-dark dark:bg-white dark:text-black dark:hover:bg-gray-200 px-5 py-2.5 rounded-full text-sm font-bold shadow-sm transition-colors" href="#">Registrarse</a>
+            </div>
+        </nav>
+    </header>
+
+    
+    <main class="pt-32 pb-24 px-4 min-h-screen">
+        
+        <!-- Gamification Status Header -->
+        <div class="max-w-4xl mx-auto mb-12 flex justify-center gap-4 sm:gap-6">
+            <div class="bg-white/70 dark:bg-neutral-900/80 backdrop-blur-xl border border-black/10 dark:border-white/10 px-4 sm:px-6 py-2.5 rounded-full shadow-sm flex items-center gap-2 transition-transform hover:scale-105 cursor-default">
+                <span class="text-orange-500 text-lg drop-shadow-sm">🔥</span>
+                <span class="font-bold text-sm dark:text-white text-ea-dark" id="ui-streak">0</span>
+            </div>
+            <div class="bg-white/70 dark:bg-neutral-900/80 backdrop-blur-xl border border-black/10 dark:border-white/10 px-4 sm:px-6 py-2.5 rounded-full shadow-sm flex items-center gap-2 transition-transform hover:scale-105 cursor-default">
+                <span class="text-yellow-400 text-lg drop-shadow-sm">⭐</span>
+                <span class="font-bold text-sm dark:text-white text-ea-dark" id="ui-xp">0</span>
+            </div>
+            <div class="bg-white/70 dark:bg-neutral-900/80 backdrop-blur-xl border border-black/10 dark:border-white/10 px-4 sm:px-6 py-2.5 rounded-full shadow-sm flex items-center gap-2 transition-transform hover:scale-105 cursor-default">
+                <span class="text-red-500 text-lg drop-shadow-sm">❤️</span>
+                <span class="font-bold text-sm dark:text-white text-ea-dark" id="ui-lives">5/5</span>
+            </div>
+        </div>
+
+        
+        <section class="max-w-4xl mx-auto mb-8 text-center px-6">
+            <div class="inline-flex items-center gap-3 bg-white dark:bg-neutral-900 border border-black/10 dark:border-white/10 px-6 py-3 rounded-[20px] shadow-sm mb-6">
+                <span class="text-2xl">🇺🇸</span>
+                <h1 class="text-2xl font-bold tracking-tight text-ea-dark dark:text-white">Inglés</h1>
+            </div>
+        </section>
+
+        <!-- Lesson Path -->
+        <section class="max-w-3xl mx-auto bg-white dark:bg-neutral-900 border border-black/10 dark:border-white/10 rounded-[40px] shadow-sm overflow-hidden p-8 sm:p-12 mb-20">
+            
+            <div class="mb-10 pb-6 border-b border-black/5 dark:border-white/5 flex justify-between items-end">
+                <div>
+                    <h2 class="text-xl font-bold mb-1">Unidad 1</h2>
+                    <p class="text-sm opacity-60 font-medium">Bases, saludos y viajes</p>
+                </div>
+                <div class="text-black dark:text-white bg-gray-100 dark:bg-neutral-800 px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-widest">
+                    4/5 Lecciones
+                </div>
+            </div>
+
+            <!-- Path Container -->
+            <div class="relative flex flex-col items-center gap-8 py-8 w-full max-w-sm mx-auto">
+                
+                <!-- Path Line (SVG) -->
+                <svg class="absolute top-8 bottom-8 left-1/2 -translate-x-1/2 w-[120px] h-full pointer-events-none z-0" preserveAspectRatio="none" viewBox="0 0 100 400">
+                    <path d="M 50 0 C -20 100, 120 200, 50 300 C -20 400, 50 400, 50 400" fill="none" stroke="currentColor" stroke-width="8" class="text-gray-200 dark:text-neutral-800 stroke-linecap-round" stroke-linecap="round" />
+                    <!-- Highlighted part (Completed) -->
+                    <path d="M 50 0 C -20 100, 120 200, 50 300" fill="none" stroke="#2563eb" stroke-width="8" stroke-linecap="round" class="stroke-linecap-round" />
+                </svg>
+
+                <!-- Node 1: Completed -->
+                <div class="z-10 relative flex flex-col items-center group cursor-pointer -ml-16">
+                    <div class="w-16 h-16 rounded-full bg-blue-600 border-b-4 border-blue-800 flex items-center justify-center text-white shadow-lg transform transition-transform group-hover:scale-110">
+                        <span class="material-symbols-outlined font-bold text-[28px]">check</span>
+                    </div>
+                </div>
+
+                <!-- Node 2: Completed -->
+                <div class="z-10 relative flex flex-col items-center group cursor-pointer ml-8">
+                    <div class="w-16 h-16 rounded-full bg-blue-600 border-b-4 border-blue-800 flex items-center justify-center text-white shadow-lg transform transition-transform group-hover:scale-110">
+                        <span class="material-symbols-outlined font-bold text-[28px]">check</span>
+                    </div>
+                </div>
+
+                <!-- Node 3: Completed -->
+                <div class="z-10 relative flex flex-col items-center group cursor-pointer -ml-8">
+                    <div class="w-16 h-16 rounded-full bg-blue-600 border-b-4 border-blue-800 flex items-center justify-center text-white shadow-lg transform transition-transform group-hover:scale-110">
+                        <span class="material-symbols-outlined font-bold text-[28px]">check</span>
+                    </div>
+                </div>
+
+                <!-- Node 4: Active (Available) -->
+                <a href="leccion.html" class="z-20 relative flex flex-col items-center group cursor-pointer ml-12 mt-4">
+                    
+                    <!-- Mac Floating Mascot -->
+                    <div class="absolute -top-24 -right-28 animate-bounce w-32 pointer-events-none hidden sm:block">
+                        <img src="mac-greeting.png" alt="Mac Tutor" class="w-full h-auto drop-shadow-xl" />
+                        <div class="absolute -bottom-2 -left-4 bg-white dark:bg-neutral-800 text-black dark:text-white text-[10px] font-bold px-3 py-1.5 rounded-2xl rounded-br-none shadow-sm border border-black/5 dark:border-white/5">
+                            ¡Tú puedes!
+                        </div>
+                    </div>
+
+                    <div class="w-20 h-20 rounded-full bg-blue-600 border-b-8 border-blue-800 flex items-center justify-center text-white shadow-2xl transform transition-transform group-hover:scale-105 group-active:translate-y-2 group-active:border-b-0 ring-4 ring-blue-600/30">
+                        <span class="material-symbols-outlined font-bold text-[36px]">play_arrow</span>
+                    </div>
+                </a>
+
+                <!-- Node 5: Locked -->
+                <div class="z-10 relative flex flex-col items-center group cursor-not-allowed -ml-4 mt-4">
+                    <div class="w-16 h-16 rounded-full bg-gray-200 dark:bg-neutral-800 border-b-4 border-gray-300 dark:border-neutral-700 flex items-center justify-center text-black/20 dark:text-white/20 transition-transform">
+                        <span class="material-symbols-outlined font-bold text-[28px]">lock</span>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Course Selector Cards -->
+        <section class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+            
+            <!-- Inglés Card -->
+            <div class="group relative bg-white dark:bg-neutral-900 border border-black/10 dark:border-white/10 p-8 rounded-[32px] shadow-[0_2px_10px_rgb(0,0,0,0.02)] hover:shadow-xl transition-all flex flex-col justify-between overflow-hidden border-l-4 border-l-blue-600 dark:border-l-blue-500 cursor-pointer">
+                <div class="absolute top-0 right-0 bg-blue-600 text-white text-[9px] font-bold uppercase tracking-widest px-3 py-1 rounded-bl-xl shadow-sm">En progreso</div>
+                <div>
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="w-14 h-14 rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-2xl border border-blue-100 dark:border-blue-800/50">🇺🇸</div>
+                        <div>
+                            <h3 class="font-bold text-xl leading-tight text-ea-dark dark:text-white">Inglés</h3>
+                            <span class="text-xs opacity-50 font-medium">Básico a Avanzado</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Progress Bar -->
+                    <div class="mb-2 flex justify-between text-xs font-bold opacity-40">
+                        <span>Nivel 3: Viajes</span>
+                        <span>45%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 dark:bg-neutral-800 rounded-full h-3 mb-8 overflow-hidden border border-black/5 dark:border-white/5">
+                        <div class="bg-blue-600 h-full rounded-full transition-all duration-1000 ease-out" style="width: 45%"></div>
+                    </div>
+                </div>
+                
+                <div class="space-y-3">
+                    <a href="curso-ingles.html" class="block w-full text-center bg-black dark:bg-white text-white dark:text-black py-3.5 rounded-xl text-sm font-bold shadow-sm hover:-translate-y-1 transition-transform border border-transparent">
+                        Continuar Aprendiendo
+                    </a>
+                </div>
+            </div>
+
+            <!-- Francés Card -->
+            <div class="group relative bg-white dark:bg-neutral-900 border border-black/10 dark:border-white/10 p-8 rounded-[32px] shadow-[0_2px_10px_rgb(0,0,0,0.02)] hover:shadow-xl transition-all flex flex-col justify-between overflow-hidden border-l-4 border-l-purple-600 dark:border-l-purple-500 cursor-pointer">
+                <div>
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="w-14 h-14 rounded-full bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 flex items-center justify-center font-bold text-2xl border border-purple-100 dark:border-purple-800/50">🇫🇷</div>
+                        <div>
+                            <h3 class="font-bold text-xl leading-tight text-ea-dark dark:text-white">Francés</h3>
+                            <span class="text-xs opacity-50 font-medium">Introducción</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Progress Bar -->
+                    <div class="mb-2 flex justify-between text-xs font-bold opacity-40">
+                        <span>Nivel 1: Saludos</span>
+                        <span>0%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 dark:bg-neutral-800 rounded-full h-3 mb-8 overflow-hidden border border-black/5 dark:border-white/5">
+                        <div class="bg-purple-600 h-full rounded-full transition-all duration-1000 ease-out" style="width: 0%"></div>
+                    </div>
+                </div>
+                
+                <div class="space-y-3">
+                    <button class="block w-full text-center bg-white dark:bg-neutral-900 text-black dark:text-white border border-black/10 dark:border-white/10 py-3.5 rounded-xl text-sm font-bold shadow-sm hover:bg-purple-50 dark:hover:bg-purple-900/20 hover:border-purple-200 dark:hover:border-purple-700 transition-colors">
+                        Empezar Curso
+                    </button>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+
+    <footer class="bg-white dark:bg-neutral-950 py-20 px-6 border-t border-black/5 dark:border-white/5 transition-colors">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-12 mb-20">
+                <div class="col-span-2 md:col-span-1">
+                    <div class="bg-black dark:bg-white text-white dark:text-black w-10 h-10 rounded flex items-center justify-center font-bold text-sm mb-6 transition-colors">EA</div>
+                    <p class="text-xs opacity-50 font-medium leading-relaxed max-w-xs">
+                        Elevando el estándar de la educación digital en México. Preparación de alto rendimiento.
+                    </p>
+                </div>
+                <div>
+                    <h5 class="text-[10px] font-bold opacity-40 uppercase tracking-widest mb-6">Plataforma</h5>
+                    <ul class="space-y-4 text-sm font-medium opacity-60">
+                        <li><a class="hover:opacity-100 transition-opacity" href="simulador.html">Simuladores IA</a></li>
+                        <li><a class="hover:opacity-100 transition-opacity" href="#">Tutoría Privada</a></li>
+                        <li><a class="hover:opacity-100 transition-opacity" href="#">Biblioteca</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="text-[10px] font-bold opacity-40 uppercase tracking-widest mb-6">Compañía</h5>
+                    <ul class="space-y-4 text-sm font-medium opacity-60">
+                        <li><a class="hover:opacity-100 transition-opacity" href="#">Sobre Nosotros</a></li>
+                        <li><a class="hover:opacity-100 transition-opacity" href="#">Blog / Noticias</a></li>
+                        <li><a class="hover:opacity-100 transition-opacity" href="#">Contacto</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="text-[10px] font-bold opacity-40 uppercase tracking-widest mb-6">Legal</h5>
+                    <ul class="space-y-4 text-sm font-medium opacity-60">
+                        <li><a class="hover:opacity-100 transition-opacity" href="#">Privacidad</a></li>
+                        <li><a class="hover:opacity-100 transition-opacity" href="#">Términos</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6 border-t border-black/5 pt-10 pb-20 md:pb-0">
+                <div class="watermark-text font-black tracking-tighter hidden md:block">EstudiandoAndo</div>
+                <p class="text-xs opacity-40 font-bold tracking-tight">© EstudiandoAndo 2026. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Barra de Navegación Móvil (Adaptable a celulares/tablets pequeñas) -->
+    <nav class="fixed bottom-0 left-0 right-0 z-50 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-xl border-t border-black/10 dark:border-white/10 h-16 flex items-center justify-around px-1 md:hidden shadow-lg transition-colors">
+        <a href="index.html" class="flex flex-col items-center gap-0.5 opacity-100 text-black dark:text-white transition-opacity">
+            <span class="material-symbols-outlined text-[20px]">home</span>
+            <span class="text-[9px] font-bold tracking-tight">Inicio</span>
+        </a>
+        <a href="biblioteca.html" class="flex flex-col items-center gap-0.5 opacity-40 hover:opacity-100 transition-opacity">
+            <span class="material-symbols-outlined text-[20px]">local_library</span>
+            <span class="text-[9px] font-bold tracking-tight">Biblioteca</span>
+        </a>
+        <a href="aprendizaje.html" class="flex flex-col items-center gap-0.5 opacity-40 hover:opacity-100 transition-opacity">
+            <span class="material-symbols-outlined text-[20px]">psychology</span>
+            <span class="text-[9px] font-bold tracking-tight">Aprendizaje</span>
+        </a>
+        <a href="noticias.html" class="flex flex-col items-center gap-0.5 opacity-40 hover:opacity-100 transition-opacity">
+            <span class="material-symbols-outlined text-[20px]">newspaper</span>
+            <span class="text-[9px] font-bold tracking-tight">Noticias</span>
+        </a>
+        <a href="idiomas.html" class="flex flex-col items-center gap-0.5 opacity-40 hover:opacity-100 transition-opacity">
+            <span class="material-symbols-outlined text-[20px]">language</span>
+            <span class="text-[9px] font-bold tracking-tight">Idiomas</span>
+        </a>
+    </nav>
+
+    <script>
+        
+        
+        // Dark mode toggle listener
+        document.getElementById('theme-toggle')?.addEventListener('click', () => {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+    </script>
+    <script src="userProfile.js"></script>
+</body>
+</html>
