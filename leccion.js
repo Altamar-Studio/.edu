@@ -253,7 +253,14 @@ function renderExercise() {
 
     // Use 'prompt' (new schema) with fallback to 'question' (legacy placeholder)
     const questionText = ex.question || ex.prompt || '';
-    let html = `<h2 class="text-2xl sm:text-3xl font-bold mb-8 text-ea-dark dark:text-white">${questionText}</h2>`;
+    let html = `<div class="mb-8">
+        <h2 class="text-2xl sm:text-3xl font-bold text-ea-dark dark:text-white">${questionText}</h2>`;
+    
+    if (ex.spanish_translation) {
+        html += `<p class="text-sm font-medium text-gray-500 dark:text-neutral-400 mt-2">${ex.spanish_translation}</p>`;
+    }
+    
+    html += `</div>`;
 
     if (ex.image) {
         html += `<div class="mb-6 w-full max-w-sm mx-auto rounded-3xl overflow-hidden shadow-sm border border-black/5"><img src="${ex.image}" alt="Imagen del ejercicio" class="w-full h-auto object-cover"/></div>`;
@@ -461,8 +468,10 @@ function attachExerciseEvents(ex) {
                     // Check if match
                     let isMatch = false;
                     ex.pairs.forEach(p => {
-                        if ((p.a === selectedA.dataset.val && p.b === btn.dataset.val) ||
-                            (p.b === selectedA.dataset.val && p.a === btn.dataset.val)) {
+                        const leftVal = p.left || p.a;
+                        const rightVal = p.right || p.b;
+                        if ((leftVal === selectedA.dataset.val && rightVal === btn.dataset.val) ||
+                            (rightVal === selectedA.dataset.val && leftVal === btn.dataset.val)) {
                             isMatch = true;
                         }
                     });
