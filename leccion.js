@@ -255,12 +255,11 @@ function renderExercise() {
     const questionText = ex.question || ex.prompt || '';
     let html = `<h2 class="text-2xl sm:text-3xl font-bold mb-8 text-ea-dark dark:text-white">${questionText}</h2>`;
 
+    if (ex.image) {
+        html += `<div class="mb-6 w-full max-w-sm mx-auto rounded-3xl overflow-hidden shadow-sm border border-black/5"><img src="${ex.image}" alt="Imagen del ejercicio" class="w-full h-auto object-cover"/></div>`;
+    }
+
     if (ex.type === 'multiple_choice') {
-        let imageHtml = '';
-        if (ex.image) {
-            imageHtml = `<div class="mb-6 w-full max-w-sm mx-auto rounded-3xl overflow-hidden shadow-sm border border-black/5"><img src="${ex.image}" alt="Imagen del ejercicio" class="w-full h-auto object-cover"/></div>`;
-        }
-        html += imageHtml;
         
         // New schema: answer + distractors. Legacy: options array.
         const correctAnswer = ex.correct_answer || ex.answer;

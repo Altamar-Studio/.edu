@@ -19,9 +19,9 @@
           ],
           "target_vocab": "hello",
           "difficulty": 1,
-          "image_prompt": "A friendly person waving hello",
           "spanish_translation": "Elige la traducción correcta: 'Hola'",
-          "explanation": "'Hello' es el saludo universal en inglés para decir 'Hola'."
+          "explanation": "'Hello' es el saludo universal en inglés para decir 'Hola'.",
+          "image": "contenido/img/vocab_hello.png"
         },
         {
           "type": "multiple_choice",
@@ -34,9 +34,9 @@
           ],
           "target_vocab": "good morning",
           "difficulty": 1,
-          "image_prompt": "A bright sunrise over a city, morning coffee",
           "spanish_translation": "¿Qué significa 'Good morning'?",
-          "explanation": "'Morning' significa mañana, así que 'Good morning' es Buenos días."
+          "explanation": "'Morning' significa mañana, así que 'Good morning' es Buenos días.",
+          "image": "contenido/img/vocab_morning.png"
         },
         {
           "type": "order_words",
@@ -219,9 +219,9 @@
           ],
           "target_vocab": "how are you",
           "difficulty": 1,
-          "image_prompt": "Two friends meeting and asking how they are",
           "spanish_translation": "¿Qué significa 'How are you?'",
-          "explanation": "Es la forma más común de preguntar el estado de alguien."
+          "explanation": "Es la forma más común de preguntar el estado de alguien.",
+          "image": "contenido/img/vocab_how_are_you.png"
         },
         {
           "type": "order_words",
@@ -261,9 +261,9 @@
           "correct_answer": "Nice to meet you",
           "target_vocab": "nice to meet you",
           "difficulty": 3,
-          "image_prompt": "Two people shaking hands, business casual",
           "spanish_translation": "Escribe en inglés: 'Mucho gusto'",
-          "explanation": "Es la expresión típica al conocer a alguien por primera vez."
+          "explanation": "Es la expresión típica al conocer a alguien por primera vez.",
+          "image": "contenido/img/vocab_business.png"
         },
         {
           "type": "match_pairs",
@@ -482,9 +482,9 @@
           ],
           "target_vocab": "he is",
           "difficulty": 2,
-          "image_prompt": "A young male student with a backpack",
           "spanish_translation": "Traduce: 'Él es un estudiante'",
-          "explanation": "'He' para él, 'is' para es."
+          "explanation": "'He' para él, 'is' para es.",
+          "image": "contenido/img/vocab_student.png"
         },
         {
           "type": "match_pairs",
@@ -530,9 +530,9 @@
           "correct_answer": "We are happy",
           "target_vocab": "we are",
           "difficulty": 3,
-          "image_prompt": "A happy group of friends laughing",
           "spanish_translation": "Escribe en inglés: 'Nosotros somos felices'",
-          "explanation": "'We' (nosotros) usa 'are'. Happy significa feliz."
+          "explanation": "'We' (nosotros) usa 'are'. Happy significa feliz.",
+          "image": "contenido/img/vocab_friends.png"
         },
         {
           "type": "order_words",
@@ -585,9 +585,9 @@
           ],
           "target_vocab": "it is",
           "difficulty": 4,
-          "image_prompt": "A very large dog standing on grass",
           "spanish_translation": "¿Cómo traduces usando el pronombre para animales?",
-          "explanation": "Para un animal u objeto singular, usamos 'It'."
+          "explanation": "Para un animal u objeto singular, usamos 'It'.",
+          "image": "contenido/img/vocab_big.png"
         },
         {
           "type": "order_words",
@@ -690,9 +690,9 @@
           ],
           "target_vocab": "is not",
           "difficulty": 3,
-          "image_prompt": "A happy woman smiling",
           "spanish_translation": "¿Cuál es correcta para decir 'Ella no está triste'?",
-          "explanation": "Usamos 'isn't' para He/She/It."
+          "explanation": "Usamos 'isn't' para He/She/It.",
+          "image": "contenido/img/vocab_happy.png"
         },
         {
           "type": "translate",
@@ -804,9 +804,9 @@
           "correct_answer": "Am I late",
           "target_vocab": "am i",
           "difficulty": 5,
-          "image_prompt": "A person looking at their watch running",
           "spanish_translation": "Escribe en inglés: '¿Llego tarde?' (lit. ¿Estoy tarde?)",
-          "explanation": "Pregunta contigo mismo: 'Am I...?'"
+          "explanation": "Pregunta contigo mismo: 'Am I...?'",
+          "image": "contenido/img/vocab_late.png"
         }
       ]
     },
@@ -825,9 +825,9 @@
           ],
           "target_vocab": "where are you from",
           "difficulty": 1,
-          "image_prompt": "A globe with pins on different countries",
           "spanish_translation": "¿Qué significa 'Where are you from?'",
-          "explanation": "Es la pregunta estándar para preguntar el país de origen."
+          "explanation": "Es la pregunta estándar para preguntar el país de origen.",
+          "image": "contenido/img/vocab_countries.png"
         },
         {
           "type": "order_words",
