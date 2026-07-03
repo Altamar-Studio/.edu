@@ -52,7 +52,7 @@ export default async function handler(req, res) {
     const openRouterApiKey = process.env.OPENROUTER_API_KEY || "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";
 
     const payload = {
-      model: 'deepinfra/fp4', // Modelo rápido y económico sugerido
+      model: 'google/gemma-2-9b-it', // Modelo de Google (Gemma 2)
       messages: [
         { role: 'system', content: SYSTEM_PROMPT },
         ...messages
