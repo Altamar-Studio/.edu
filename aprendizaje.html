@@ -522,32 +522,10 @@
         const chatInput = document.getElementById('chat-input');
         const typingIndicator = document.getElementById('typing-indicator');
 
-        // Respuestas inteligentes programadas
-        const aiKnowledgeBase = [
-            {
-                keywords: ['matematica', 'matemática', 'matematicas', 'pensamiento', 'numeros'],
-                response: "¡Excelente pregunta! En **Pensamiento Matemático del EXANI-II**, los temas más evaluados son:\n\n1. **Ecuaciones lineales y cuadráticas** (modelado de problemas).\n2. **Trigonometría básica** (teorema de Pitágoras y razones sen/cos/tan).\n3. **Porcentajes y regla de tres compuesta**.\n4. **Análisis de datos** (media, mediana, moda y lectura de gráficas).\n\nTe sugiero dominar primero las leyes de los signos y despejes rápidos. En nuestro simulador UV tienes decenas de estos reactivos para practicar."
-            },
-            {
-                keywords: ['tiempo', 'estrategia', 'horas', 'rapido', 'distribuir'],
-                response: "Para el EXANI-II tienes exactamente **180 minutos para 120 preguntas**, lo que te da un promedio de **1.5 minutos por reactivo**.\n\nMi recomendación estratégica:\n* **Fase 1 (Primeros 60 min):** Resuelve todas las preguntas teóricas o fáciles que sepas al instante (usualmente Redacción e Inglés).\n* **Fase 2 (Siguientes 90 min):** Dedícalo a los problemas de Pensamiento Matemático y lecturas largas.\n* **Fase 3 (Últimos 30 min):** Revisa respuestas dudosas y asegúrate de no dejar ningún alveolo en blanco."
-            },
-            {
-                keywords: ['redaccion', 'redacción', 'indirecta', 'escribir', 'gramatica'],
-                response: "Para subir tu puntaje en **Redacción Indirecta**, concéntrate en estos 3 pilares que CENEVAL adora poner trampas:\n\n1. **Concordancia gramatical:** Asegúrate de que el sujeto y el verbo coincidan en número y género.\n2. **Signos de puntuación:** Aprende a distinguir cuándo usar punto y coma (;) vs. coma (,).\n3. **Conectores discursivos:** Identifica si el texto requiere una conclusión ('por lo tanto') o una adversativa ('sin embargo').\n\nLee mucho y presta atención a la ortografía de palabras homófonas (ahí, hay, ¡ay!)."
-            },
-            {
-                keywords: ['unam', 'licenciatura', 'carreras', 'convocatoria'],
-                response: "El examen de la **UNAM** es diferente al EXANI-II. Evalúa hasta 10 materias dependiendo del área de tu carrera (Físico-Matemáticas, Biológicas, Sociales o Humanidades).\n\nEl temario abarca desde Historia de México hasta Literatura y Filosofía (para área 4). Te sugiero estudiar con los temarios oficiales de la DGAE y complementar viendo los videos de *Unibetas* recomendados aquí abajo."
-            },
-            {
-                keywords: ['ipn', 'politecnico', 'ingenieria'],
-                response: "El examen del **IPN** se caracteriza por tener un peso altísimo en **Matemáticas** (álgebra, geometría analítica, cálculo) y **Ciencias** (Física y Química).\n\nSi vas para ingeniería, te recomiendo encarecidamente repasar el canal de *Matemáticas con Grajeda* que listamos abajo. Sus explicaciones sobre derivadas y despejes son espectaculares para el nivel del Politécnico."
-            }
-        ];
+let chatHistory = [];
 
-        function handleChatMessage(e) { e.preventDefault(); const text = chatInput.value.trim(); if (!text) return; addUserMessage(text); chatInput.value = ''; simulateAiResponse(text); }
-        function sendQuickPrompt(promptText) { addUserMessage(promptText); simulateAiResponse(promptText); }
+        function handleChatMessage(e) { e.preventDefault(); const text = chatInput.value.trim(); if (!text) return; addUserMessage(text); chatInput.value = ''; fetchAiResponse(text); }
+        function sendQuickPrompt(promptText) { addUserMessage(promptText); fetchAiResponse(promptText); }
         
         function addUserMessage(text) {
             const userMsgHtml = `

@@ -136,7 +136,8 @@
                 <button onclick="filterNews('IPN')" class="hover:opacity-100 hover:text-black dark:hover:text-white transition-colors" id="filter-IPN">IPN</button>
                 <button onclick="filterNews('UV')" class="hover:opacity-100 hover:text-black dark:hover:text-white transition-colors" id="filter-UV">UV</button>
                 <button onclick="filterNews('UAM')" class="hover:opacity-100 hover:text-black dark:hover:text-white transition-colors" id="filter-UAM">UAM</button>
-                <button onclick="filterNews('BUAP')" class="hover:opacity-100 hover:text-black dark:hover:text-white transition-colors" id="filter-BUAP">BUAP</button>
+                <button onclick="filterNews(\'BUAP\')" class="hover:opacity-100 hover:text-black dark:hover:text-white transition-colors" id="filter-BUAP">BUAP</button>
+                <button onclick="filterNews(\'CHAPINGO\')" class="hover:opacity-100 hover:text-black dark:hover:text-white transition-colors" id="filter-CHAPINGO">UACh</button>
             </div>
         </div>
 
@@ -201,83 +202,6 @@
 
         let realNewsData = [];
 
-        // Función para consultar noticias reales de Google News usando rss2json
-        async function fetchUniNews(uni, queryName) {
-            try {
-                const rssUrl = `https://news.google.com/rss/search?q=${encodeURIComponent(queryName)}&hl=es-419&gl=MX&ceid=MX:es-419`;
-                const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
-                
-                const response = await fetch(apiUrl);
-                const data = await response.json();
-                
-                if (data.status !== 'ok') throw new Error('RSS conversion failed');
-                
-                let parsedItems = [];
-                for (let i = 0; i < data.items.length; i++) {
-                    const item = data.items[i];
-                    const title = item.title;
-                    const link = item.link;
-                    // Fechas de rss2json vienen como string "YYYY-MM-DD HH:mm:ss"
-                    const pubDate = new Date(item.pubDate.replace(" ", "T")); 
-                    
-                    // Extraer nombre de la fuente del título (ej. "Noticia - El Universal") si no viene source explícito
-                    let source = 'Noticias Google';
-                    const parts = title.split(' - ');
-                    if(parts.length > 1) {
-                        source = parts[parts.length - 1];
-                    }
-                    
-                    // Extraer texto limpio de la descripción
-                    const tempDiv = document.createElement("div");
-                    tempDiv.innerHTML = item.description;
-                    let excerpt = tempDiv.textContent || tempDiv.innerText || "";
-                    
-                    // Limpiar fragmentos repetidos y agregar info por defecto
-                    excerpt = excerpt.replace(title, '').replace(source, '').trim();
-                    if(excerpt.length < 15) excerpt = "Ingresa para leer el artículo completo en el portal web oficial del medio de comunicación.";
-
-                    // Asignar un puntaje de prioridad basado en palabras clave de admisión
-                    let priorityScore = 0;
-                    const textToSearch = (title + " " + excerpt).toLowerCase();
-                    const priorityKeywords = ['admisión', 'admision', 'convocatoria', 'ingreso', 'aspirantes', 'examen', 'resultados', 'inscripción', 'inscripcion', 'fechas', 'registro', 'exani'];
-                    
-                    priorityKeywords.forEach(kw => {
-                        if (textToSearch.includes(kw)) {
-                            priorityScore += 1;
-                        }
-                    });
-
-                    parsedItems.push({
-                        id: Math.random().toString(36).substr(2, 9),
-                        uni: uni,
-                        title: parts.length > 1 ? parts.slice(0, -1).join(' - ') : title, // Título sin el nombre del medio
-                        excerpt: excerpt,
-                        image: MOCK_IMAGES[Math.floor(Math.random() * MOCK_IMAGES.length)], 
-                        date: pubDate,
-                        category: priorityScore > 0 ? 'Convocatoria / Ingreso' : 'Actualidad',
-                        priorityScore: priorityScore,
-                        url: link,
-                        origin: source,
-                        featured: false
-                    });
-                }
-                
-                // Ordenar primero por prioridad (noticias de admisión), luego por recencia
-                parsedItems.sort((a, b) => {
-                    if (b.priorityScore !== a.priorityScore) {
-                        return b.priorityScore - a.priorityScore;
-                    }
-                    return b.date - a.date;
-                });
-
-                // Retornar solo las 4 noticias más relevantes/recientes por universidad
-                return parsedItems.slice(0, 4);
-            } catch (error) {
-                console.warn(`Falló la red para ${uni}, se usarán datos de respaldo. Error:`, error);
-                return null; // Retornamos null para identificar fallo
-            }
-        }
-
         async function initRealNewsAggregator() {
             const gridContainer = document.getElementById('news-grid');
             const heroContainer = document.getElementById('hero-article');
@@ -286,44 +210,30 @@
             gridContainer.innerHTML = `
                 <div class="col-span-full py-20 flex flex-col items-center justify-center gap-4 opacity-50 fade-in">
                     <span class="material-symbols-outlined text-4xl animate-spin">sync</span>
-                    <p class="font-serif text-2xl italic">El algoritmo está rastreando noticias reales de toda la web...</p>
+                    <p class="font-serif text-2xl italic">Cargando archivo de noticias...</p>
                 </div>
             `;
 
-            // Hacemos las peticiones en paralelo
-            const results = await Promise.all([
-                fetchUniNews('UNAM', 'UNAM Universidad Nacional Autónoma de México'),
-                fetchUniNews('IPN', 'IPN Instituto Politécnico Nacional'),
-                fetchUniNews('UV', 'Universidad Veracruzana'),
-                fetchUniNews('UAM', 'UAM Universidad Autónoma Metropolitana'),
-                fetchUniNews('BUAP', 'BUAP Universidad Autónoma de Puebla')
-            ]);
-
-            // Comprobamos si las peticiones fallaron
-            const allFailed = results.every(res => res === null || res.length === 0);
-            
-            if (allFailed) {
-                // Si todo falla, usamos fallback. Les asignamos un priorityScore temporal para que no rompa el orden
-                realNewsData = fallbackNewsData.map(n => ({...n, priorityScore: n.category === 'Convocatoria Oficial' ? 1 : 0}));
-            } else {
-                // Filtramos los nulos y combinamos arreglos
-                realNewsData = results.filter(res => res !== null).flat();
+            try {
+                // Hacemos un solo fetch ultra rápido al archivo local cacheado
+                const response = await fetch('news_cache.json');
+                if (!response.ok) throw new Error('Archivo no encontrado');
+                const data = await response.json();
+                
+                // Parseamos las fechas ISO a objetos Date de JS
+                realNewsData = data.map(n => ({
+                    ...n,
+                    date: new Date(n.date)
+                }));
+            } catch (error) {
+                console.warn('Fallo cargando news_cache.json, usando fallback', error);
+                realNewsData = fallbackNewsData.map(n => ({...n}));
             }
-            
-            // Ordenamos el listado global: Primero las de mayor prioridad (Ingreso/Examen), luego las más recientes
-            realNewsData.sort((a, b) => {
-                if (b.priorityScore !== a.priorityScore) {
-                    return b.priorityScore - a.priorityScore; // Las de mayor prioridad arriba
-                }
-                return b.date - a.date; // Si tienen misma prioridad, manda la fecha
-            });
 
-            // Marcamos la noticia global número 1 como Destacada (Hero)
+            // Seleccionamos la primera noticia general como destacada y renderizamos
             if (realNewsData.length > 0) {
                 realNewsData[0].featured = true;
             }
-
-            // Mostramos los resultados
             filterNews('ALL');
         }
 
@@ -396,7 +306,7 @@
 
             newsList.forEach((news, index) => {
                 gridContainer.innerHTML += `
-                    <a href="${news.url}" target="_blank" rel="noopener noreferrer" class="article-card group cursor-pointer flex flex-col fade-in block" style="animation-delay: ${index * 0.05}s">
+                    <a href="${news.url}" target="_blank" rel="noopener noreferrer" class="article-card group cursor-pointer flex flex-col fade-in block bg-white/70 dark:bg-neutral-900/80 backdrop-blur-xl border border-black/10 dark:border-white/10 rounded-3xl p-5" style="animation-delay: ${index * 0.05}s">
                         <div class="img-container h-[220px] mb-5 relative">
                             <div class="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors z-10"></div>
                             <img src="${news.image}" alt="${news.title}" class="relative z-0">
