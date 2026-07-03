@@ -103,14 +103,19 @@
     <main class="pt-32 pb-24 px-4 min-h-screen">
         
         <!-- Gamification Status Header -->
-        <div class="max-w-4xl mx-auto mb-12 flex justify-center gap-4 sm:gap-6">
-            <div class="group bg-white/70 dark:bg-neutral-900/80 backdrop-blur-xl border border-black/10 dark:border-white/10 px-5 sm:px-8 py-3 rounded-full shadow-sm flex items-center gap-3 transition-all hover:scale-110 hover:shadow-md hover:border-orange-500/30 cursor-default">
-                <span class="text-orange-500 text-xl drop-shadow-sm transform transition-transform group-hover:scale-125 group-hover:-rotate-12">🔥</span>
-                <span class="font-bold text-base dark:text-white text-ea-dark" id="ui-streak">0</span>
-            </div>
-            <div class="group bg-white/70 dark:bg-neutral-900/80 backdrop-blur-xl border border-black/10 dark:border-white/10 px-5 sm:px-8 py-3 rounded-full shadow-sm flex items-center gap-3 transition-all hover:scale-110 hover:shadow-md hover:border-red-500/30 cursor-default">
-                <span class="text-red-500 text-xl drop-shadow-sm transform transition-transform group-hover:scale-125 group-hover:rotate-12" id="ui-heart-icon">❤️</span>
-                <span class="font-bold text-base dark:text-white text-ea-dark" id="ui-lives">5/5</span>
+        <div class="max-w-4xl mx-auto mb-12 relative flex items-center justify-center">
+            <a href="idiomas.html" title="Volver a Idiomas" class="absolute left-0 w-12 h-12 rounded-full hover:bg-black/5 dark:hover:bg-white/10 flex items-center justify-center transition-colors text-black/50 dark:text-white/50 hover:text-black dark:hover:text-white group">
+                <span class="material-symbols-outlined text-[28px] group-hover:scale-110 transition-transform">close</span>
+            </a>
+            <div class="flex gap-4 sm:gap-6">
+                <div class="group bg-white/70 dark:bg-neutral-900/80 backdrop-blur-xl border border-black/10 dark:border-white/10 px-5 sm:px-8 py-3 rounded-full shadow-sm flex items-center gap-3 transition-all hover:scale-110 hover:shadow-md hover:border-orange-500/30 cursor-default">
+                    <span class="text-orange-500 text-xl drop-shadow-sm transform transition-transform group-hover:scale-125 group-hover:-rotate-12">🔥</span>
+                    <span class="font-bold text-base dark:text-white text-ea-dark" id="ui-streak">0</span>
+                </div>
+                <div class="group bg-white/70 dark:bg-neutral-900/80 backdrop-blur-xl border border-black/10 dark:border-white/10 px-5 sm:px-8 py-3 rounded-full shadow-sm flex items-center gap-3 transition-all hover:scale-110 hover:shadow-md hover:border-red-500/30 cursor-default">
+                    <span class="text-red-500 text-xl drop-shadow-sm transform transition-transform group-hover:scale-125 group-hover:rotate-12" id="ui-heart-icon">❤️</span>
+                    <span class="font-bold text-base dark:text-white text-ea-dark" id="ui-lives">5/5</span>
+                </div>
             </div>
         </div>
 

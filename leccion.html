@@ -83,13 +83,19 @@
         } else {
             document.documentElement.classList.remove('dark');
         }
+        function exitLesson() {
+            const p = new URLSearchParams(window.location.search);
+            const lang = p.get('lang') || 'en';
+            if (lang === 'fr') window.location.href = 'curso-frances.html';
+            else window.location.href = 'curso-ingles.html';
+        }
     </script>
 </head>
 <body class="bg-white dark:bg-neutral-950 text-ea-dark dark:text-white font-sans selection:bg-black selection:text-white transition-colors duration-300 h-screen flex flex-col overflow-hidden">
 
     <!-- Top Bar: Close, Progress, Lives -->
     <header class="w-full max-w-4xl mx-auto px-4 sm:px-8 py-6 flex items-center justify-between gap-4 sm:gap-8 shrink-0">
-        <a href="curso-ingles.html" class="w-10 h-10 rounded-full hover:bg-black/5 dark:hover:bg-white/10 flex items-center justify-center transition-colors text-black/50 dark:text-white/50 hover:text-black dark:hover:text-white">
+        <a href="javascript:exitLesson()" class="w-10 h-10 rounded-full hover:bg-black/5 dark:hover:bg-white/10 flex items-center justify-center transition-colors text-black/50 dark:text-white/50 hover:text-black dark:hover:text-white">
             <span class="material-symbols-outlined text-[28px]">close</span>
         </a>
         
@@ -150,7 +156,7 @@
             <div class="text-6xl mb-6 drop-shadow-md">💔</div>
             <h2 class="text-3xl font-bold mb-4 text-ea-dark dark:text-white">Te quedaste sin vidas</h2>
             <p class="text-sm opacity-60 mb-8 font-medium">Espera un momento para que se recarguen tus vidas o repasa la teoría.</p>
-            <button onclick="window.location.href='curso-ingles.html'" class="w-full block bg-black dark:bg-white text-white dark:text-black py-4 rounded-xl text-lg font-bold shadow-sm hover:scale-105 transition-transform">
+            <button onclick="exitLesson()" class="w-full block bg-black dark:bg-white text-white dark:text-black py-4 rounded-xl text-lg font-bold shadow-sm hover:scale-105 transition-transform">
                 Terminar por hoy
             </button>
         </div>
@@ -200,7 +206,7 @@
                 <div class="flex flex-col gap-2" id="achievements-list"></div>
             </div>
 
-            <button onclick="window.location.href='curso-ingles.html'" class="w-full block bg-black dark:bg-white text-white dark:text-black py-4 rounded-xl text-lg font-bold shadow-sm hover:scale-105 transition-transform border border-transparent">
+            <button onclick="exitLesson()" class="w-full block bg-black dark:bg-white text-white dark:text-black py-4 rounded-xl text-lg font-bold shadow-sm hover:scale-105 transition-transform border border-transparent">
                 Continuar
             </button>
         </div>

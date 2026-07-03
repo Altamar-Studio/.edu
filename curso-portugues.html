@@ -122,8 +122,8 @@
         
         <section class="max-w-4xl mx-auto mb-8 text-center px-6">
             <div class="inline-flex items-center gap-3 bg-white dark:bg-neutral-900 border border-black/10 dark:border-white/10 px-6 py-3 rounded-[20px] shadow-sm mb-6">
-                <span class="text-2xl">🇺🇸</span>
-                <h1 class="text-2xl font-bold tracking-tight text-ea-dark dark:text-white">Inglés</h1>
+                <span class="text-2xl">🇧🇷</span>
+                <h1 class="text-2xl font-bold tracking-tight text-ea-dark dark:text-white">Portugués</h1>
             </div>
         </section>
 
@@ -135,7 +135,7 @@
                 <div class="relative z-10">
                     <h2 class="text-xl font-bold mb-1 text-gray-700 dark:text-gray-300 drop-shadow-sm">Tu Camino</h2>
                 </div>
-                <div id="lesson-counter" class="relative z-10 text-blue-800 dark:text-blue-100 bg-blue-100/50 dark:bg-blue-900/50 backdrop-blur-md border border-blue-200 dark:border-blue-800 px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-widest shadow-sm">
+                <div id="lesson-counter" class="relative z-10 text-green-800 dark:text-green-100 bg-green-100/50 dark:bg-green-900/50 backdrop-blur-md border border-green-200 dark:border-green-800 px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-widest shadow-sm">
                     0 Lecciones
                 </div>
             </div>
@@ -251,19 +251,19 @@
             "¡A darle!"
         ];
 
-        const LANG = 'en', LEVEL = 'a1';
+        const LANG = 'pt', LEVEL = 'a1';
         const TOTAL_UNITS = 8;
         const LESSONS_PER_UNIT = 5;
         
         const UNIT_TITLES = {
-            1: "Saludos y Presentaciones",
-            2: "Mi Familia y Yo",
-            3: "En la Ciudad",
-            4: "Rutina Diaria",
-            5: "Comida y Bebida",
-            6: "Ropa y Compras",
-            7: "Hobbies y Tiempo Libre",
-            8: "Planes Futuros"
+            1: "Saudações e Apresentações",
+            2: "Minha Família",
+            3: "Na Cidade",
+            4: "Rotina Diária",
+            5: "Comida e Bebida",
+            6: "Roupas e Compras",
+            7: "Hobbies e Tempo Livre",
+            8: "Planos Futuros"
         };
         
         // Zigzag offsets (Tailwind classes for margin)
@@ -332,7 +332,7 @@
                             
                             outHtml += `
                                 <a href="leccion.html?lang=${LANG}&level=${LEVEL}&unit=${item.unit}&lesson=${item.index}" class="path-node relative flex flex-col items-center group cursor-pointer ${offset} mb-6" data-state="completed">
-                                    <div class="w-16 h-16 rounded-full bg-blue-600 border-4 border-white dark:border-neutral-900 flex items-center justify-center text-white shadow-[0_0_15px_rgba(37,99,235,0.5)] transform transition-transform group-hover:scale-110">
+                                    <div class="w-16 h-16 rounded-full bg-green-600 border-4 border-white dark:border-neutral-900 flex items-center justify-center text-white shadow-[0_0_15px_rgba(22,163,74,0.5)] transform transition-transform group-hover:scale-110">
                                         <span class="material-symbols-outlined font-bold text-[28px]">check</span>
                                     </div>
                                     ${starsHtml}
@@ -348,7 +348,7 @@
                                             <div class="absolute -bottom-1.5 left-4 w-3 h-3 bg-white dark:bg-neutral-800 border-b border-r border-black/10 dark:border-white/10 transform rotate-45"></div>
                                         </div>
                                     </div>
-                                    <div class="w-20 h-20 rounded-full bg-blue-600 border-b-8 border-blue-800 flex items-center justify-center text-white shadow-[0_0_30px_rgba(37,99,235,0.6)] transform transition-transform group-hover:scale-105 group-active:translate-y-2 group-active:border-b-0 ring-4 ring-blue-400/50 animate-pulse">
+                                    <div class="w-20 h-20 rounded-full bg-green-600 border-b-8 border-green-800 flex items-center justify-center text-white shadow-[0_0_30px_rgba(22,163,74,0.6)] transform transition-transform group-hover:scale-105 group-active:translate-y-2 group-active:border-b-0 ring-4 ring-green-400/50 animate-pulse">
                                         <span class="material-symbols-outlined font-bold text-[36px]">play_arrow</span>
                                     </div>
                                 </a>`;
@@ -453,7 +453,7 @@
             
             svg.innerHTML = `
                 <path d="${pathD}" fill="none" stroke="currentColor" stroke-width="12" class="text-gray-200 dark:text-neutral-800" stroke-linecap="round" />
-                <path d="${completedPathD}" fill="none" stroke="#2563eb" stroke-width="12" stroke-linecap="round" class="drop-shadow-[0_0_10px_rgba(37,99,235,0.4)]" />
+                <path d="${completedPathD}" fill="none" stroke="#16a34a" stroke-width="12" stroke-linecap="round" class="drop-shadow-[0_0_10px_rgba(22,163,74,0.4)]" />
             `;
         }
 
