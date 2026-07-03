@@ -84,8 +84,8 @@
                 <div class="hidden md:flex items-center gap-6 text-sm font-medium opacity-60">
                     <a class='hover:opacity-100 transition-opacity' href='biblioteca.html'>Biblioteca</a>
                     <a class='hover:opacity-100 transition-opacity' href='aprendizaje.html'>Aprendizaje</a>
-                    <a class="hover:opacity-100 transition-opacity" href="noticias.html">Noticias</a>
                     <a class="hover:opacity-100 transition-opacity" href="idiomas.html">Idiomas</a>
+                    <a class="hover:opacity-100 transition-opacity" href="noticias.html">Noticias</a>
                 </div>
             </div>
             <div class="flex items-center gap-4">
@@ -127,6 +127,22 @@
             </p>
         </section>
 
+        <!-- Smart Review Banner -->
+        <section class="max-w-4xl mx-auto mb-12">
+            <div class="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-3xl p-6 sm:p-8 text-white shadow-lg flex flex-col sm:flex-row items-center justify-between gap-6 overflow-hidden relative">
+                <div class="absolute -right-10 -top-10 opacity-20 transform rotate-12 scale-150 text-8xl">🧠</div>
+                <div class="relative z-10 text-center sm:text-left">
+                    <h2 class="text-2xl font-bold mb-2">Práctica Personalizada</h2>
+                    <p class="text-blue-100 font-medium text-sm sm:text-base max-w-md">Fortalece tus puntos débiles. Nuestro algoritmo detecta las palabras que más fallas y te arma una lección a medida.</p>
+                </div>
+                <div class="relative z-10 shrink-0 w-full sm:w-auto">
+                    <a href="leccion.html?lang=en&mode=review" class="block w-full sm:w-auto text-center bg-white text-blue-700 px-8 py-3.5 rounded-xl font-bold shadow-md hover:bg-blue-50 hover:-translate-y-1 transition-transform">
+                        Practicar Inglés
+                    </a>
+                </div>
+            </div>
+        </section>
+
         <!-- Course Selector Cards -->
         <section class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
             
@@ -144,11 +160,11 @@
                     
                     <!-- Progress Bar -->
                     <div class="mb-2 flex justify-between text-xs font-bold opacity-40">
-                        <span>Nivel 3: Viajes</span>
-                        <span>45%</span>
+                        <span>Nivel 1: Saludos</span>
+                        <span id="en-progress-text">0%</span>
                     </div>
                     <div class="w-full bg-gray-200 dark:bg-neutral-800 rounded-full h-3 mb-8 overflow-hidden border border-black/5 dark:border-white/5">
-                        <div class="bg-blue-600 h-full rounded-full transition-all duration-1000 ease-out" style="width: 45%"></div>
+                        <div id="en-progress-bar" class="bg-blue-600 h-full rounded-full transition-all duration-1000 ease-out" style="width: 0%"></div>
                     </div>
                 </div>
                 
@@ -173,15 +189,71 @@
                     <!-- Progress Bar -->
                     <div class="mb-2 flex justify-between text-xs font-bold opacity-40">
                         <span>Nivel 1: Saludos</span>
-                        <span>0%</span>
+                        <span id="fr-progress-text">0%</span>
                     </div>
                     <div class="w-full bg-gray-200 dark:bg-neutral-800 rounded-full h-3 mb-8 overflow-hidden border border-black/5 dark:border-white/5">
-                        <div class="bg-purple-600 h-full rounded-full transition-all duration-1000 ease-out" style="width: 0%"></div>
+                        <div id="fr-progress-bar" class="bg-purple-600 h-full rounded-full transition-all duration-1000 ease-out" style="width: 0%"></div>
                     </div>
                 </div>
                 
                 <div class="space-y-3">
                     <button class="block w-full text-center bg-white dark:bg-neutral-900 text-black dark:text-white border border-black/10 dark:border-white/10 py-3.5 rounded-xl text-sm font-bold shadow-sm hover:bg-purple-50 dark:hover:bg-purple-900/20 hover:border-purple-200 dark:hover:border-purple-700 transition-colors">
+                        Empezar Curso
+                    </button>
+                </div>
+            </div>
+
+            <!-- Portugués Card -->
+            <div class="group relative bg-white dark:bg-neutral-900 border border-black/10 dark:border-white/10 p-8 rounded-[32px] shadow-[0_2px_10px_rgb(0,0,0,0.02)] hover:shadow-xl transition-all flex flex-col justify-between overflow-hidden border-l-4 border-l-green-600 dark:border-l-green-500 cursor-pointer">
+                <div>
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="w-14 h-14 rounded-full bg-green-50 dark:bg-green-900/30 text-green-600 dark:text-green-400 flex items-center justify-center font-bold text-2xl border border-green-100 dark:border-green-800/50">🇧🇷</div>
+                        <div>
+                            <h3 class="font-bold text-xl leading-tight text-ea-dark dark:text-white">Portugués</h3>
+                            <span class="text-xs opacity-50 font-medium">Introducción</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Progress Bar -->
+                    <div class="mb-2 flex justify-between text-xs font-bold opacity-40">
+                        <span>Nivel 1: Saludos</span>
+                        <span id="pt-progress-text">0%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 dark:bg-neutral-800 rounded-full h-3 mb-8 overflow-hidden border border-black/5 dark:border-white/5">
+                        <div id="pt-progress-bar" class="bg-green-600 h-full rounded-full transition-all duration-1000 ease-out" style="width: 0%"></div>
+                    </div>
+                </div>
+                
+                <div class="space-y-3">
+                    <button class="block w-full text-center bg-white dark:bg-neutral-900 text-black dark:text-white border border-black/10 dark:border-white/10 py-3.5 rounded-xl text-sm font-bold shadow-sm hover:bg-green-50 dark:hover:bg-green-900/20 hover:border-green-200 dark:hover:border-green-700 transition-colors">
+                        Empezar Curso
+                    </button>
+                </div>
+            </div>
+
+            <!-- Japonés Card -->
+            <div class="group relative bg-white dark:bg-neutral-900 border border-black/10 dark:border-white/10 p-8 rounded-[32px] shadow-[0_2px_10px_rgb(0,0,0,0.02)] hover:shadow-xl transition-all flex flex-col justify-between overflow-hidden border-l-4 border-l-red-600 dark:border-l-red-500 cursor-pointer">
+                <div>
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="w-14 h-14 rounded-full bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center font-bold text-2xl border border-red-100 dark:border-red-800/50">🇯🇵</div>
+                        <div>
+                            <h3 class="font-bold text-xl leading-tight text-ea-dark dark:text-white">Japonés</h3>
+                            <span class="text-xs opacity-50 font-medium">Introducción</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Progress Bar -->
+                    <div class="mb-2 flex justify-between text-xs font-bold opacity-40">
+                        <span>Nivel 1: Saludos</span>
+                        <span id="ja-progress-text">0%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 dark:bg-neutral-800 rounded-full h-3 mb-8 overflow-hidden border border-black/5 dark:border-white/5">
+                        <div id="ja-progress-bar" class="bg-red-600 h-full rounded-full transition-all duration-1000 ease-out" style="width: 0%"></div>
+                    </div>
+                </div>
+                
+                <div class="space-y-3">
+                    <button class="block w-full text-center bg-white dark:bg-neutral-900 text-black dark:text-white border border-black/10 dark:border-white/10 py-3.5 rounded-xl text-sm font-bold shadow-sm hover:bg-red-50 dark:hover:bg-red-900/20 hover:border-red-200 dark:hover:border-red-700 transition-colors">
                         Empezar Curso
                     </button>
                 </div>
@@ -234,7 +306,7 @@
 
     <!-- Barra de Navegación Móvil (Adaptable a celulares/tablets pequeñas) -->
     <nav class="fixed bottom-0 left-0 right-0 z-50 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-xl border-t border-black/10 dark:border-white/10 h-16 flex items-center justify-around px-1 md:hidden shadow-lg transition-colors">
-        <a href="index.html" class="flex flex-col items-center gap-0.5 opacity-100 text-black dark:text-white transition-opacity">
+        <a href="index.html" class="flex flex-col items-center gap-0.5 opacity-40 hover:opacity-100 transition-opacity">
             <span class="material-symbols-outlined text-[20px]">home</span>
             <span class="text-[9px] font-bold tracking-tight">Inicio</span>
         </a>
@@ -246,13 +318,13 @@
             <span class="material-symbols-outlined text-[20px]">psychology</span>
             <span class="text-[9px] font-bold tracking-tight">Aprendizaje</span>
         </a>
+        <a href="idiomas.html" class="flex flex-col items-center gap-0.5 opacity-100 text-black dark:text-white transition-opacity">
+            <span class="material-symbols-outlined text-[20px]">language</span>
+            <span class="text-[9px] font-bold tracking-tight">Idiomas</span>
+        </a>
         <a href="noticias.html" class="flex flex-col items-center gap-0.5 opacity-40 hover:opacity-100 transition-opacity">
             <span class="material-symbols-outlined text-[20px]">newspaper</span>
             <span class="text-[9px] font-bold tracking-tight">Noticias</span>
-        </a>
-        <a href="idiomas.html" class="flex flex-col items-center gap-0.5 opacity-40 hover:opacity-100 transition-opacity">
-            <span class="material-symbols-outlined text-[20px]">language</span>
-            <span class="text-[9px] font-bold tracking-tight">Idiomas</span>
         </a>
     </nav>
 
@@ -271,5 +343,28 @@
         });
     </script>
     <script src="userProfile.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            function updateCardProgress(lang, unitIdStr, totalLessons, textId, barId) {
+                const lessonsCompleted = getUnitProgress(lang, 'a1', unitIdStr, totalLessons);
+                const progressPercentage = Math.round((lessonsCompleted / totalLessons) * 100);
+                const progressText = document.getElementById(textId);
+                const progressBar = document.getElementById(barId);
+                
+                if (progressText) progressText.textContent = `${progressPercentage}%`;
+                if (progressBar) {
+                    setTimeout(() => {
+                        progressBar.style.width = `${progressPercentage}%`;
+                    }, 100);
+                }
+            }
+
+            // Update all cards
+            updateCardProgress('en', '1', 5, 'en-progress-text', 'en-progress-bar');
+            updateCardProgress('fr', '1', 5, 'fr-progress-text', 'fr-progress-bar');
+            updateCardProgress('pt', '1', 5, 'pt-progress-text', 'pt-progress-bar');
+            updateCardProgress('ja', '1', 5, 'ja-progress-text', 'ja-progress-bar');
+        });
+    </script>
 </body>
 </html>

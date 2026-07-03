@@ -19,20 +19,127 @@ const feedbackSubtitle = document.getElementById('feedback-subtitle');
 const modalGameOver = document.getElementById('modal-game-over');
 const modalSuccess = document.getElementById('modal-success');
 
+// URL params: ?lang=en&level=a1&unit=1&lesson=0&mode=normal
+// If not provided, defaults to English A1 Unit 1 Lesson 0.
+function getLessonParams() {
+    const p = new URLSearchParams(window.location.search);
+    return {
+        lang:   p.get('lang')   || 'en',
+        level:  p.get('level')  || 'a1',
+        unit:   p.get('unit')   || '1',
+        lesson: parseInt(p.get('lesson') || '0', 10),
+        mode:   p.get('mode')   || 'normal'
+    };
+}
+
 async function loadExercises() {
+    const params = getLessonParams();
+
+    if (params.mode === 'review') {
+        await buildReviewLesson(params.lang);
+        return;
+    }
+
+    const unitFile = `contenido/${params.lang}_${params.level}_u${params.unit}.json`;
+
     try {
-        const response = await fetch('idiomas-ejercicios.json');
+        // ── Intentar cargar el JSON versionado generado por el pipeline ──
+        const response = await fetch(unitFile);
+        if (!response.ok) throw new Error(`No se encontró: ${unitFile}`);
+
         const data = await response.json();
-        // Just take the first lesson for demo
-        exercises = data.unit1.lessons[0].exercises;
+        const lesson = data.lessons[params.lesson];
+
+        if (!lesson) throw new Error(`Lección ${params.lesson} no existe en ${unitFile}`);
+
+        exercises = lesson.exercises;
         totalExercises = exercises.length;
+
+        // Actualizar el título en la página si hay un elemento para ello
+        const titleEl = document.getElementById('lesson-title');
+        if (titleEl) titleEl.textContent = lesson.title;
+
         renderExercise();
         updateProgress();
+
     } catch (e) {
-        console.error("Error loading exercises", e);
-        container.innerHTML = '<p class="text-center mt-10">Error loading exercises.</p>';
+        console.warn(`[leccion.js] ${e.message}. Usando datos de respaldo...`);
+
+        // ── Fallback: leer del archivo original (placeholder) ──
+        try {
+            const fallback = await fetch('idiomas-ejercicios.json');
+            const data = await fallback.json();
+            exercises = data.unit1.lessons[0].exercises;
+            totalExercises = exercises.length;
+            renderExercise();
+            updateProgress();
+        } catch (e2) {
+            console.error("Error cargando ejercicios:", e2);
+            container.innerHTML = '<p class="text-center mt-10 opacity-60">Error al cargar los ejercicios.</p>';
+        }
     }
 }
+
+async function buildReviewLesson(lang) {
+    const weakVocab = getWeakestVocab(lang, 10);
+    if (weakVocab.length === 0) {
+        container.innerHTML = '<p class="text-center mt-10 opacity-60 font-bold text-xl">Aún no hay palabras suficientes para repasar. ¡Completa algunas lecciones primero!</p>';
+        btnCheck.classList.add('hidden');
+        return;
+    }
+
+    const weakWords = weakVocab.map(v => v.word);
+    let allReviewExercises = [];
+    
+    // Scan locally available unit JSONs for these words (Assuming units 1-6 max for A1)
+    for (let i = 1; i <= 6; i++) {
+        try {
+            const res = await fetch(`contenido/${lang}_a1_u${i}.json`);
+            if (res.ok) {
+                const data = await res.json();
+                data.lessons.forEach(lesson => {
+                    lesson.exercises.forEach(ex => {
+                        if (ex.vocab && ex.vocab.word && weakWords.includes(ex.vocab.word)) {
+                            allReviewExercises.push(ex);
+                        }
+                    });
+                });
+            }
+        } catch (e) {
+            // Ignore missing files gracefully
+        }
+    }
+    
+    // Shuffle and pick 10
+    allReviewExercises = allReviewExercises.sort(() => Math.random() - 0.5);
+    
+    // Deduplicate so we don't ask the exact same exercise ID twice
+    const uniqueExercises = [];
+    const seenIds = new Set();
+    for (const ex of allReviewExercises) {
+        if (!seenIds.has(ex.id)) {
+            seenIds.add(ex.id);
+            uniqueExercises.push(ex);
+        }
+    }
+
+    exercises = uniqueExercises.slice(0, 7); // 7 questions per review
+    
+    if (exercises.length === 0) {
+        container.innerHTML = '<p class="text-center mt-10 opacity-60 font-bold text-xl">No hay suficientes ejercicios generados para repasar.</p>';
+        btnCheck.classList.add('hidden');
+        return;
+    }
+    
+    totalExercises = exercises.length;
+    
+    const titleEl = document.getElementById('lesson-title');
+    if (titleEl) titleEl.textContent = 'Práctica Personalizada';
+    
+    renderExercise();
+    updateProgress();
+}
+
 
 function updateProgress() {
     const percent = (currentIndex / exercises.length) * 100;
@@ -40,7 +147,9 @@ function updateProgress() {
 }
 
 function updateLives() {
-    livesCounter.textContent = lives;
+    if (livesCounter) {
+        livesCounter.textContent = lives + '/5';
+    }
     if (lives <= 0) {
         modalGameOver.classList.remove('hidden');
         modalGameOver.classList.add('flex');
@@ -48,18 +157,32 @@ function updateLives() {
 }
 
 function renderExercise() {
+    container.classList.remove('animate-fade-in');
+    void container.offsetWidth; // trigger reflow
+    container.classList.add('animate-fade-in');
+
     if (currentIndex >= exercises.length) {
         // Win state
         
         updateProgress();
         
-        // Calculate XP and Accuracy
+        // Calculate XP, Accuracy and Stars
         const accuracy = Math.round((correctOnFirstTry / totalExercises) * 100);
         const xpEarned = 10 + (correctOnFirstTry * 2); // 10 base + 2 per perfect answer
         
-        // Save to Profile
-        const result = recordLessonCompletion(xpEarned, accuracy);
+        let starsEarned = 1;
+        if (accuracy >= 90) starsEarned = 3;
+        else if (accuracy >= 60) starsEarned = 2;
         
+        // Save to Profile (XP, streak, achievements)
+        const result = recordLessonCompletion(xpEarned, accuracy);
+
+        const params = getLessonParams();
+        if (params.mode !== 'review') {
+            // Mark this specific lesson as completed and save stars
+            recordLessonCompleted(params.lang, params.level, params.unit, params.lesson, starsEarned);
+        }
+
         // Populate Summary UI
         document.getElementById('summary-xp').textContent = `+${xpEarned}`;
         document.getElementById('summary-accuracy').textContent = `${accuracy}%`;
@@ -105,6 +228,18 @@ function renderExercise() {
 
         modalSuccess.classList.remove('hidden');
         modalSuccess.classList.add('flex');
+        
+        // Animate stars
+        const starIcons = document.querySelectorAll('#success-stars-container .star-icon');
+        starIcons.forEach((el, idx) => {
+            if (idx < starsEarned) {
+                setTimeout(() => {
+                    el.classList.remove('grayscale', 'opacity-30');
+                    el.classList.add('animate-star-pop', 'text-yellow-400');
+                }, 400 + (idx * 300));
+            }
+        });
+        
         return;
 
     }
@@ -115,40 +250,83 @@ function renderExercise() {
     disableCheckBtn();
     hideFeedback();
 
-    let html = `<h2 class="text-2xl sm:text-3xl font-bold mb-8 text-ea-dark dark:text-white">${ex.question}</h2>`;
+    // Use 'prompt' (new schema) with fallback to 'question' (legacy placeholder)
+    const questionText = ex.prompt || ex.question || '';
+    let html = `<h2 class="text-2xl sm:text-3xl font-bold mb-8 text-ea-dark dark:text-white">${questionText}</h2>`;
 
     if (ex.type === 'multiple_choice') {
+        let imageHtml = '';
+        if (ex.image) {
+            imageHtml = `<div class="mb-6 w-full max-w-sm mx-auto rounded-3xl overflow-hidden shadow-sm border border-black/5"><img src="${ex.image}" alt="Imagen del ejercicio" class="w-full h-auto object-cover"/></div>`;
+        }
+        html += imageHtml;
+        
+        // New schema: answer + distractors. Legacy: options array.
+        const mcOptions = ex.options && ex.options.length
+            ? ex.options
+            : [ex.answer, ...(ex.distractors || [])].sort(() => Math.random() - 0.5);
+            
         html += `<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">`;
-        ex.options.forEach((opt, i) => {
-            html += `<button class="opt-btn border-2 border-black/10 dark:border-white/10 rounded-2xl p-4 sm:p-6 text-lg font-medium text-left hover:bg-gray-50 dark:hover:bg-neutral-900 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500" data-val="${opt}" aria-label="Opción: ${opt}">${opt}</button>`;
+        mcOptions.forEach((opt) => {
+            html += `<button class="opt-btn bg-white dark:bg-neutral-900 border-2 border-black/10 dark:border-white/10 rounded-2xl p-4 sm:p-6 text-lg font-medium text-center shadow-sm hover:shadow-md hover:-translate-y-1 hover:border-blue-300 dark:hover:border-blue-700 active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-blue-500" data-val="${opt}" aria-label="Opción: ${opt}">${opt}</button>`;
         });
         html += `</div>`;
     } 
     else if (ex.type === 'fill_in_blank') {
-        const parts = ex.phrase.split('_____');
+        // New schema: blank is inside ex.prompt as "_______". Legacy: ex.phrase with '_____'.
+        const blankSource = ex.phrase || ex.prompt || '';
+        // Normalize any sequence of underscores to a single marker
+        const normalized = blankSource.replace(/_{3,}/g, '_____');
+        const parts = normalized.includes('_____') ? normalized.split('_____') : ['', ''];
         html += `<div class="text-2xl sm:text-3xl font-medium mb-8 flex flex-wrap items-center gap-2">`;
         html += `<span>${parts[0]}</span>`;
         html += `<button id="dropzone" aria-label="Espacio para completar, presiona para vaciar" class="border-b-4 border-dashed border-gray-400 dark:border-gray-600 min-w-[8rem] h-10 mx-2 flex items-center justify-center text-blue-600 font-bold transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"></button>`;
-        html += `<span>${parts[1]}</span>`;
+        html += `<span>${parts[1] || ''}</span>`;
         html += `</div>`;
+        // Word bank: use options (both schemas agree on this field)
+        const fibOptions = ex.options && ex.options.length ? ex.options : [ex.answer];
         html += `<div class="flex flex-wrap gap-4" id="word-bank">`;
-        ex.options.forEach(opt => {
+        fibOptions.forEach(opt => {
             html += `<button class="word-btn border-2 border-black/10 dark:border-white/10 rounded-xl px-6 py-3 font-bold text-lg shadow-sm hover:shadow-md hover:-translate-y-1 transition-all focus:outline-none focus:ring-2 focus:ring-blue-500" data-val="${opt}" aria-label="Palabra: ${opt}">${opt}</button>`;
         });
         html += `</div>`;
     }
     else if (ex.type === 'translate') {
+        // New schema: the phrase to translate is in ex.prompt (e.g. "Traduce: 'I am Ana.'")
+        // Extract text in quotes if present, otherwise use the whole prompt as the phrase.
+        const phraseMatch = (ex.prompt || '').match(/['“«](.+?)['”»]/);
+        const displayPhrase = ex.phrase || (phraseMatch ? phraseMatch[1] : ex.prompt) || '';
         html += `<div class="flex items-start gap-4 mb-8">
-                    <img src="mac-greeting.png" class="w-24 h-24 hidden sm:block drop-shadow-md" alt="Mac">
-                    <div class="border-2 border-black/10 dark:border-white/10 rounded-2xl rounded-tl-none p-4 font-medium text-lg bg-white dark:bg-neutral-900 shadow-sm relative">
-                        ${ex.phrase}
-                        <div class="absolute -left-2 top-0 w-4 h-4 border-t-2 border-l-2 border-black/10 dark:border-white/10 bg-white dark:bg-neutral-900 transform -rotate-45 -mt-2 -ml-2"></div>
+                    <div class="relative w-24 h-24 hidden sm:block">
+                        <img src="mac-greeting.png" class="absolute -top-4 w-full h-full object-contain animate-[bounce_3s_infinite] drop-shadow-md" alt="Mac">
+                    </div>
+                    <div class="border-2 border-black/10 dark:border-white/10 rounded-3xl rounded-tl-none p-5 font-medium text-xl bg-white dark:bg-neutral-900 shadow-sm relative w-full">
+                        ${displayPhrase}
+                        <div class="absolute -left-2 top-0 w-4 h-4 border-t-2 border-l-2 border-black/10 dark:border-white/10 bg-white dark:bg-neutral-900 transform -rotate-45 -mt-2 -ml-2 hidden sm:block"></div>
                     </div>
                  </div>`;
-        html += `<textarea id="translate-input" aria-label="Escribe tu traducción aquí" class="w-full bg-gray-100 dark:bg-neutral-900 border-2 border-black/10 dark:border-white/10 rounded-2xl p-4 text-lg outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500 transition-colors resize-none" rows="3" placeholder="Escribe tu traducción..."></textarea>`;
+        html += `<textarea id="translate-input" aria-label="Escribe tu traducción aquí" class="w-full bg-gray-50 dark:bg-neutral-900 border-2 border-black/10 dark:border-white/10 rounded-2xl p-4 text-xl outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/30 transition-all shadow-inner resize-none" rows="3" placeholder="Escribe tu traducción..."></textarea>`;
+        
+        // Teclado virtual si aplica
+        const p = getLessonParams();
+        if (p.lang === 'fr') {
+            const chars = ['é', 'è', 'ç', 'à', 'ù', 'â', 'ê', 'î', 'ô', 'û'];
+            html += `<div class="flex flex-wrap gap-2 mt-4 justify-center" id="virtual-keyboard">`;
+            chars.forEach(c => html += `<button class="vk-btn focus:outline-none focus:ring-2 focus:ring-blue-500" data-char="${c}">${c}</button>`);
+            html += `</div>`;
+        } else if (p.lang === 'ja') {
+            // Ejemplo reducido para A1
+            const chars = ['あ', 'い', 'う', 'え', 'お', 'か', 'き', 'く', 'け', 'こ', 'ー', '。', '、'];
+            html += `<div class="flex flex-wrap gap-2 mt-4 justify-center" id="virtual-keyboard">`;
+            chars.forEach(c => html += `<button class="vk-btn focus:outline-none focus:ring-2 focus:ring-blue-500" data-char="${c}">${c}</button>`);
+            html += `</div>`;
+        }
     }
     else if (ex.type === 'order_words') {
-        let shuffled = [...ex.words].sort(() => Math.random() - 0.5);
+        // New schema uses 'options' for the shuffled word bank; legacy used 'words'.
+        const wordBank = ex.options && ex.options.length ? ex.options : (ex.words || []);
+        // Shuffle to avoid showing words in the correct order
+        const shuffled = [...wordBank].sort(() => Math.random() - 0.5);
         html += `<div id="dropzone" role="list" aria-label="Oración formada" class="border-b-2 border-black/10 dark:border-white/10 min-h-[60px] mb-8 flex flex-wrap gap-2 pb-2"></div>`;
         html += `<div class="flex flex-wrap gap-2" id="word-bank">`;
         shuffled.forEach(w => {
@@ -227,19 +405,38 @@ function attachExerciseEvents(ex) {
             if (currentAnswerState.length > 0) enableCheckBtn();
             else disableCheckBtn();
         });
+        
+        const vkBtns = container.querySelectorAll('.vk-btn');
+        vkBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                input.value += btn.dataset.char;
+                input.focus();
+                currentAnswerState = input.value.trim();
+                enableCheckBtn();
+                
+                btn.classList.remove('animate-pop');
+                void btn.offsetWidth;
+                btn.classList.add('animate-pop');
+            });
+        });
     }
     else if (ex.type === 'order_words') {
         const btns = container.querySelectorAll('.order-word-btn');
         const dropzone = document.getElementById('dropzone');
+        const bank = document.getElementById('word-bank');
         let selectedWords = [];
         
         btns.forEach(btn => {
             btn.addEventListener('click', () => {
+                btn.classList.remove('animate-pop');
+                void btn.offsetWidth;
+                btn.classList.add('animate-pop');
+
                 if(btn.parentElement.id === 'word-bank') {
                     dropzone.appendChild(btn);
                     selectedWords.push(btn.dataset.val);
                 } else {
-                    document.getElementById('word-bank').appendChild(btn);
+                    bank.appendChild(btn);
                     selectedWords = selectedWords.filter(w => w !== btn.dataset.val);
                 }
                 currentAnswerState = selectedWords;
@@ -335,9 +532,9 @@ function checkAnswer() {
     else if (ex.type === 'translate') {
         let normInput = currentAnswerState.toLowerCase().replace(/[.,!?]/g, '');
         let accepted = [ex.answer.toLowerCase().replace(/[.,!?]/g, '')];
-        if(ex.accepted) {
-            ex.accepted.forEach(a => accepted.push(a.toLowerCase().replace(/[.,!?]/g, '')));
-        }
+        // Support both field names: 'accepted_answers' (new schema) and 'accepted' (legacy)
+        const acceptedList = ex.accepted_answers || ex.accepted || [];
+        acceptedList.forEach(a => accepted.push(a.toLowerCase().replace(/[.,!?]/g, '')));
         isCorrect = accepted.includes(normInput);
         correctAnswerStr = ex.answer;
     }
@@ -355,44 +552,74 @@ function checkAnswer() {
     } else {
         hasFailedCurrent = true;
         lives = decrementLife();
-        updateLives();
+        
+        // Animar el ícono de corazón roto
+        const heartIcon = document.getElementById('ui-heart-icon');
+        if (heartIcon) {
+            heartIcon.classList.remove('animate-heart-break');
+            void heartIcon.offsetWidth;
+            heartIcon.classList.add('animate-heart-break');
+            setTimeout(() => {
+                heartIcon.classList.remove('animate-heart-break');
+                updateLives();
+            }, 600);
+        } else {
+            updateLives();
+        }
+        
         container.classList.add('animate-shake');
         setTimeout(() => container.classList.remove('animate-shake'), 400);
         showFeedback(false, correctAnswerStr);
     }
+    
+    // TRACKING MASTERY
+    if (ex.vocab && ex.vocab.word) {
+        const params = getLessonParams();
+        if (typeof recordVocabAttempt === 'function') {
+            // Don't penalize repeatedly in the same session if they retry
+            if (!ex._masteryRecorded) {
+                recordVocabAttempt(params.lang, ex.vocab.word, isCorrect);
+                ex._masteryRecorded = true;
+            }
+        }
+    }
 }
 
 function showFeedback(isCorrect, correctStr = "") {
-    feedbackBar.classList.remove('hidden', 'bg-green-100', 'dark:bg-green-900', 'text-green-800', 'dark:text-green-100', 'bg-red-100', 'dark:bg-red-900', 'text-red-800', 'dark:text-red-100');
-    btnContinue.classList.remove('bg-green-600', 'text-white', 'hover:bg-green-700', 'bg-red-600', 'hover:bg-red-700');
-    
-    if(isCorrect) {
-        feedbackBar.classList.add('bg-green-100', 'dark:bg-green-900', 'text-green-800', 'dark:text-green-100');
-        btnContinue.classList.add('bg-green-600', 'text-white', 'hover:bg-green-700');
-        feedbackIconContainer.classList.add('text-green-600');
-        feedbackIconContainer.classList.remove('text-red-600');
+    const checkBar = document.getElementById('check-bar');
+
+    feedbackBar.classList.remove('hidden',
+        'bg-green-500', 'dark:bg-green-700',
+        'bg-red-500', 'dark:bg-red-700',
+        'text-white');
+    btnContinue.classList.remove('bg-white', 'text-green-700', 'bg-white', 'text-red-700');
+
+    if (isCorrect) {
+        feedbackBar.classList.add('bg-green-500', 'dark:bg-green-700', 'text-white');
+        btnContinue.classList.add('bg-white', 'text-green-700');
+        feedbackIconContainer.className = 'w-12 h-12 rounded-full flex items-center justify-center bg-white/20 shrink-0';
         feedbackIcon.textContent = 'check';
         feedbackTitle.textContent = '¡Correcto!';
         feedbackSubtitle.classList.add('hidden');
     } else {
-        feedbackBar.classList.add('bg-red-100', 'dark:bg-red-900', 'text-red-800', 'dark:text-red-100');
-        btnContinue.classList.add('bg-red-600', 'text-white', 'hover:bg-red-700');
-        feedbackIconContainer.classList.add('text-red-600');
-        feedbackIconContainer.classList.remove('text-green-600');
+        feedbackBar.classList.add('bg-red-500', 'dark:bg-red-700', 'text-white');
+        btnContinue.classList.add('bg-white', 'text-red-700');
+        feedbackIconContainer.className = 'w-12 h-12 rounded-full flex items-center justify-center bg-white/20 shrink-0';
         feedbackIcon.textContent = 'close';
         feedbackTitle.textContent = 'Respuesta incorrecta';
         feedbackSubtitle.textContent = `Solución: ${correctStr}`;
         feedbackSubtitle.classList.remove('hidden');
     }
-    
+
     feedbackBar.classList.add('flex', 'show');
-    btnCheck.parentElement.classList.add('hidden');
+    if (checkBar) checkBar.classList.add('hidden');
 }
 
 function hideFeedback() {
+    const checkBar = document.getElementById('check-bar');
     feedbackBar.classList.remove('flex', 'show');
     feedbackBar.classList.add('hidden');
-    btnCheck.parentElement.classList.remove('hidden');
+    if (checkBar) checkBar.classList.remove('hidden');
 }
 
 btnContinue.addEventListener('click', () => {
