@@ -1,6 +1,5 @@
 let exercises = [];
 let currentIndex = 0;
-let lives = getLives();
 let correctOnFirstTry = 0;
 let totalExercises = 0;
 let hasFailedCurrent = false;
@@ -10,7 +9,6 @@ const container = document.getElementById('exercise-container');
 const btnCheck = document.getElementById('btn-check');
 const btnContinue = document.getElementById('btn-continue');
 const progressBar = document.getElementById('progress-bar');
-const livesCounter = document.getElementById('lives-counter');
 const feedbackBar = document.getElementById('feedback-bar');
 const feedbackIcon = document.getElementById('feedback-icon');
 const feedbackIconContainer = document.getElementById('feedback-icon-container');
@@ -18,6 +16,55 @@ const feedbackTitle = document.getElementById('feedback-title');
 const feedbackSubtitle = document.getElementById('feedback-subtitle');
 const modalGameOver = document.getElementById('modal-game-over');
 const modalSuccess = document.getElementById('modal-success');
+
+// --- SOUND FX SYNTHESIZER ---
+const SoundFX = {
+    ctx: null,
+    init() {
+        if (!this.ctx) {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            this.ctx = new AudioContext();
+        }
+    },
+    playTone(freq, type, duration, vol=0.1) {
+        if (!this.ctx) return;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+        gain.gain.setValueAtTime(vol, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start();
+        osc.stop(this.ctx.currentTime + duration);
+    },
+    correct() {
+        this.init();
+        this.playTone(523.25, 'sine', 0.1); // C5
+        setTimeout(() => this.playTone(659.25, 'sine', 0.2), 100); // E5
+    },
+    incorrect() {
+        this.init();
+        this.playTone(150, 'sawtooth', 0.2);
+        setTimeout(() => this.playTone(130, 'sawtooth', 0.3), 150);
+    },
+    victory() {
+        this.init();
+        const notes = [523.25, 659.25, 783.99, 1046.50]; // C, E, G, C6
+        notes.forEach((freq, i) => {
+            setTimeout(() => this.playTone(freq, 'square', 0.2, 0.05), i * 150);
+        });
+    },
+    gameOver() {
+        this.init();
+        const notes = [300, 280, 260, 200];
+        notes.forEach((freq, i) => {
+            setTimeout(() => this.playTone(freq, 'sawtooth', 0.3, 0.08), i * 200);
+        });
+    }
+};
+// ----------------------------
 
 // URL params: ?lang=en&level=a1&unit=1&lesson=0&mode=normal
 // If not provided, defaults to English A1 Unit 1 Lesson 0.
@@ -152,6 +199,7 @@ function updateLives() {
         livesCounter.textContent = lives + '/5';
     }
     if (lives <= 0) {
+        SoundFX.gameOver();
         modalGameOver.classList.remove('hidden');
         modalGameOver.classList.add('flex');
     }
@@ -207,25 +255,32 @@ function renderExercise() {
             });
         }
 
-        // Celebrate Confetti logic
-        const confettiContainer = document.getElementById('confetti-container');
-        if(confettiContainer) {
-            for(let i=0; i<30; i++) {
-                const conf = document.createElement('div');
-                conf.className = `absolute w-2 h-2 rounded-full ${['bg-red-500', 'bg-blue-500', 'bg-yellow-500', 'bg-green-500'][Math.floor(Math.random()*4)]}`;
-                conf.style.left = Math.random() * 100 + '%';
-                conf.style.top = -10 + 'px';
-                conf.style.opacity = Math.random();
-                conf.style.transform = `scale(${Math.random() * 1.5})`;
-                confettiContainer.appendChild(conf);
-                
-                // Animate falling
-                conf.animate([
-                    { transform: `translate3d(0,0,0) rotate(0deg)`, opacity: 1 },
-                    { transform: `translate3d(${Math.random()*100 - 50}px, ${window.innerHeight}px, 0) rotate(${Math.random()*360}deg)`, opacity: 0 }
-                ], { duration: 1500 + Math.random()*2000, easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)', fill: 'forwards' });
-            }
+        // Celebrate Confetti logic using canvas-confetti
+        if (window.confetti) {
+            var duration = 3000;
+            var end = Date.now() + duration;
+            (function frame() {
+                confetti({
+                    particleCount: 5,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 },
+                    colors: ['#26ccff', '#a25afd', '#ff5e7e', '#88ff5a', '#fcff42', '#ffa62d', '#ff36ff']
+                });
+                confetti({
+                    particleCount: 5,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 },
+                    colors: ['#26ccff', '#a25afd', '#ff5e7e', '#88ff5a', '#fcff42', '#ffa62d', '#ff36ff']
+                });
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
         }
+        
+        SoundFX.victory();
 
         modalSuccess.classList.remove('hidden');
         modalSuccess.classList.add('flex');
@@ -501,10 +556,7 @@ function attachExerciseEvents(ex) {
                             btn.classList.remove('animate-shake', 'border-red-500');
                             selectedA.classList.remove('animate-shake', 'border-red-500', 'border-blue-500', 'bg-blue-50');
                             selectedA = null;
-                        }, 500);
-                        lives--;
-                        updateLives();
-                    }
+                        }, 500);}
                 }
             });
         });
@@ -558,22 +610,15 @@ function checkAnswer() {
         if (!hasFailedCurrent) correctOnFirstTry++;
         showFeedback(true);
     } else {
-        hasFailedCurrent = true;
-        lives = decrementLife();
-        
-        // Animar el ícono de corazón roto
+        hasFailedCurrent = true;// Animar el ícono de corazón roto
         const heartIcon = document.getElementById('ui-heart-icon');
         if (heartIcon) {
             heartIcon.classList.remove('animate-heart-break');
             void heartIcon.offsetWidth;
             heartIcon.classList.add('animate-heart-break');
             setTimeout(() => {
-                heartIcon.classList.remove('animate-heart-break');
-                updateLives();
-            }, 600);
-        } else {
-            updateLives();
-        }
+                heartIcon.classList.remove('animate-heart-break');}, 600);
+        } else {}
         
         container.classList.add('animate-shake');
         setTimeout(() => container.classList.remove('animate-shake'), 400);
@@ -603,6 +648,11 @@ function showFeedback(isCorrect, correctStr = "") {
     btnContinue.classList.remove('bg-white', 'text-green-700', 'bg-white', 'text-red-700');
 
     if (isCorrect) {
+        SoundFX.correct();
+        // Screen Flash Green
+        document.body.classList.add('flash-green');
+        setTimeout(() => document.body.classList.remove('flash-green'), 300);
+        
         feedbackBar.classList.add('bg-green-500', 'dark:bg-green-700', 'text-white');
         btnContinue.classList.add('bg-white', 'text-green-700');
         feedbackIconContainer.className = 'w-12 h-12 rounded-full flex items-center justify-center bg-white/20 shrink-0';
@@ -610,6 +660,16 @@ function showFeedback(isCorrect, correctStr = "") {
         feedbackTitle.textContent = '¡Correcto!';
         feedbackSubtitle.classList.add('hidden');
     } else {
+        SoundFX.incorrect();
+        // Screen Shake and Flash Red
+        const mainContainer = document.querySelector('main');
+        if(mainContainer) {
+            mainContainer.classList.add('shake-horizontal');
+            setTimeout(() => mainContainer.classList.remove('shake-horizontal'), 500);
+        }
+        document.body.classList.add('flash-red');
+        setTimeout(() => document.body.classList.remove('flash-red'), 300);
+
         feedbackBar.classList.add('bg-red-500', 'dark:bg-red-700', 'text-white');
         btnContinue.classList.add('bg-white', 'text-red-700');
         feedbackIconContainer.className = 'w-12 h-12 rounded-full flex items-center justify-center bg-white/20 shrink-0';
@@ -633,7 +693,7 @@ function hideFeedback() {
 btnContinue.addEventListener('click', () => {
     // If correct, move next. If wrong, we can just move next for this demo, or re-push to end of queue.
     // Duolingo pushes wrong answers to the end. Let's do that.
-    if(feedbackTitle.textContent === 'Respuesta incorrecta' && lives > 0) {
+    if(feedbackTitle.textContent === 'Respuesta incorrecta') {
         const failedEx = exercises.splice(currentIndex, 1)[0];
         exercises.push(failedEx);
         // Do not increment currentIndex, so we render the next one in the queue
