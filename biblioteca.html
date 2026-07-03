@@ -153,6 +153,10 @@
                         CHAPINGO
                         <span class="material-symbols-outlined text-[16px] opacity-0 group-hover:opacity-50 hidden md:block">chevron_right</span>
                     </button>
+                    <button onclick="filterDocs('IDIOMAS')" id="btn-IDIOMAS" class="w-auto md:w-full text-left px-4 py-2.5 md:px-5 md:py-3 rounded-xl md:rounded-2xl font-bold text-xs md:text-sm transition-all tab-inactive flex items-center justify-between group flex-shrink-0 whitespace-nowrap">
+                        Material de Idiomas
+                        <span class="material-symbols-outlined text-[16px] opacity-0 group-hover:opacity-50 hidden md:block">language</span>
+                    </button>
                 </div>
             </aside>
 
@@ -252,6 +256,34 @@
                 tipo: 'Directorio Drive',
                 descripcion: 'Recursos exclusivos para preparar con éxito el examen de admisión a la Universidad Autónoma Chapingo. Incluye guías oficiales, cuestionarios de práctica y temarios desarrollados específicamente para el ingreso a la Preparatoria Agrícola y al Propedéutico Universitario.',
                 linkDrive: 'https://drive.google.com/drive/folders/1sJDC8LYRcYYWCPEX6-aM-Xs1HL6x_Qya?usp=drive_link'
+            },
+            {
+                universidad: 'IDIOMAS',
+                titulo: 'Material de Inglés',
+                tipo: 'Carpeta Externa',
+                descripcion: 'Recursos oficiales, listas de vocabulario, lecturas guiadas y libros de gramática nivel A1-B2 para el curso de Inglés.',
+                linkDrive: '#' // TODO [ZAHIR]: Insertar link real a la carpeta de inglés aquí. Abrirá en nueva pestaña.
+            },
+            {
+                universidad: 'IDIOMAS',
+                titulo: 'Material de Francés',
+                tipo: 'Carpeta Externa',
+                descripcion: 'Libros de texto, audios de comprensión y guías de conjugación verbal esenciales para el curso de Francés.',
+                linkDrive: '#' // TODO [ZAHIR]: Insertar link real a la carpeta de francés aquí. Abrirá en nueva pestaña.
+            },
+            {
+                universidad: 'IDIOMAS',
+                titulo: 'Material de Portugués',
+                tipo: 'Carpeta Externa',
+                descripcion: 'Material de inmersión, vocabulario de uso diario y recursos auditivos para acelerar tu aprendizaje de Portugués.',
+                linkDrive: '#' // TODO [ZAHIR]: Insertar link real a la carpeta de portugués aquí. Abrirá en nueva pestaña.
+            },
+            {
+                universidad: 'IDIOMAS',
+                titulo: 'Material de Japonés',
+                tipo: 'Carpeta Externa',
+                descripcion: 'Guías de escritura (Hiragana, Katakana, Kanji básicos), cuadernos de práctica y audios fundamentales para el curso de Japonés.',
+                linkDrive: '#' // TODO [ZAHIR]: Insertar link real a la carpeta de japonés aquí. Abrirá en nueva pestaña.
             }
         ];
 
@@ -268,7 +300,8 @@
             'UNAM': 'Universidad Nacional Autónoma de México',
             'UAM': 'Universidad Autónoma Metropolitana',
             'BUAP': 'Benemérita Univ. Autónoma de Puebla',
-            'CHAPINGO': 'Universidad Autónoma Chapingo'
+            'CHAPINGO': 'Universidad Autónoma Chapingo',
+            'IDIOMAS': 'Material de Idiomas'
         };
 
         // Función de Efecto Máquina de Escribir (mantenida por compatibilidad)
