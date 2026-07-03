@@ -99,7 +99,8 @@ async function buildReviewLesson(lang) {
                 const data = await res.json();
                 data.lessons.forEach(lesson => {
                     lesson.exercises.forEach(ex => {
-                        if (ex.vocab && ex.vocab.word && weakWords.includes(ex.vocab.word)) {
+                        const wordTarget = ex.target_vocab || (ex.vocab && ex.vocab.word);
+                        if (wordTarget && weakWords.includes(wordTarget)) {
                             allReviewExercises.push(ex);
                         }
                     });
@@ -251,7 +252,7 @@ function renderExercise() {
     hideFeedback();
 
     // Use 'prompt' (new schema) with fallback to 'question' (legacy placeholder)
-    const questionText = ex.prompt || ex.question || '';
+    const questionText = ex.question || ex.prompt || '';
     let html = `<h2 class="text-2xl sm:text-3xl font-bold mb-8 text-ea-dark dark:text-white">${questionText}</h2>`;
 
     if (ex.type === 'multiple_choice') {
@@ -262,9 +263,10 @@ function renderExercise() {
         html += imageHtml;
         
         // New schema: answer + distractors. Legacy: options array.
+        const correctAnswer = ex.correct_answer || ex.answer;
         const mcOptions = ex.options && ex.options.length
             ? ex.options
-            : [ex.answer, ...(ex.distractors || [])].sort(() => Math.random() - 0.5);
+            : [correctAnswer, ...(ex.distractors || [])].sort(() => Math.random() - 0.5);
             
         html += `<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">`;
         mcOptions.forEach((opt) => {
@@ -284,7 +286,7 @@ function renderExercise() {
         html += `<span>${parts[1] || ''}</span>`;
         html += `</div>`;
         // Word bank: use options (both schemas agree on this field)
-        const fibOptions = ex.options && ex.options.length ? ex.options : [ex.answer];
+        const fibOptions = ex.options && ex.options.length ? ex.options : [ex.correct_answer || ex.answer];
         html += `<div class="flex flex-wrap gap-4" id="word-bank">`;
         fibOptions.forEach(opt => {
             html += `<button class="word-btn border-2 border-black/10 dark:border-white/10 rounded-xl px-6 py-3 font-bold text-lg shadow-sm hover:shadow-md hover:-translate-y-1 transition-all focus:outline-none focus:ring-2 focus:ring-blue-500" data-val="${opt}" aria-label="Palabra: ${opt}">${opt}</button>`;
@@ -294,8 +296,8 @@ function renderExercise() {
     else if (ex.type === 'translate') {
         // New schema: the phrase to translate is in ex.prompt (e.g. "Traduce: 'I am Ana.'")
         // Extract text in quotes if present, otherwise use the whole prompt as the phrase.
-        const phraseMatch = (ex.prompt || '').match(/['“«](.+?)['”»]/);
-        const displayPhrase = ex.phrase || (phraseMatch ? phraseMatch[1] : ex.prompt) || '';
+        const phraseMatch = (ex.question || ex.prompt || '').match(/['“«](.+?)['”»]/);
+        const displayPhrase = ex.phrase || (phraseMatch ? phraseMatch[1] : (ex.question || ex.prompt)) || '';
         html += `<div class="flex items-start gap-4 mb-8">
                     <div class="relative w-24 h-24 hidden sm:block">
                         <img src="mac-greeting.png" class="absolute -top-4 w-full h-full object-contain animate-[bounce_3s_infinite] drop-shadow-md" alt="Mac">
@@ -324,7 +326,7 @@ function renderExercise() {
     }
     else if (ex.type === 'order_words') {
         // New schema uses 'options' for the shuffled word bank; legacy used 'words'.
-        const wordBank = ex.options && ex.options.length ? ex.options : (ex.words || []);
+        const wordBank = ex.word_bank || ex.options || ex.words || [];
         // Shuffle to avoid showing words in the correct order
         const shuffled = [...wordBank].sort(() => Math.random() - 0.5);
         html += `<div id="dropzone" role="list" aria-label="Oración formada" class="border-b-2 border-black/10 dark:border-white/10 min-h-[60px] mb-8 flex flex-wrap gap-2 pb-2"></div>`;
@@ -337,8 +339,8 @@ function renderExercise() {
     else if (ex.type === 'match_pairs') {
         let allItems = [];
         ex.pairs.forEach(p => {
-            allItems.push({ val: p.a, type: 'a' });
-            allItems.push({ val: p.b, type: 'b' });
+            allItems.push({ val: p.left || p.a, type: 'a' });
+            allItems.push({ val: p.right || p.b, type: 'b' });
         });
         allItems = allItems.sort(() => Math.random() - 0.5);
         html += `<div class="grid grid-cols-2 gap-4">`;
@@ -524,23 +526,25 @@ function checkAnswer() {
     const ex = exercises[currentIndex];
     let isCorrect = false;
     let correctAnswerStr = "";
+    
+    const correctAnswer = ex.correct_answer || ex.answer;
 
     if (ex.type === 'multiple_choice' || ex.type === 'fill_in_blank') {
-        isCorrect = (currentAnswerState === ex.answer);
-        correctAnswerStr = ex.answer;
+        isCorrect = (currentAnswerState === correctAnswer);
+        correctAnswerStr = correctAnswer;
     } 
     else if (ex.type === 'translate') {
-        let normInput = currentAnswerState.toLowerCase().replace(/[.,!?]/g, '');
-        let accepted = [ex.answer.toLowerCase().replace(/[.,!?]/g, '')];
-        // Support both field names: 'accepted_answers' (new schema) and 'accepted' (legacy)
+        let normInput = currentAnswerState.toLowerCase().replace(/[.,!?¿¡]/g, '');
+        let accepted = [correctAnswer.toLowerCase().replace(/[.,!?¿¡]/g, '')];
         const acceptedList = ex.accepted_answers || ex.accepted || [];
-        acceptedList.forEach(a => accepted.push(a.toLowerCase().replace(/[.,!?]/g, '')));
+        acceptedList.forEach(a => accepted.push(a.toLowerCase().replace(/[.,!?¿¡]/g, '')));
         isCorrect = accepted.includes(normInput);
-        correctAnswerStr = ex.answer;
+        correctAnswerStr = correctAnswer;
     }
     else if (ex.type === 'order_words') {
-        isCorrect = JSON.stringify(currentAnswerState) === JSON.stringify(ex.answer);
-        correctAnswerStr = ex.answer.join(" ");
+        const correctArr = typeof correctAnswer === 'string' ? correctAnswer.split(' ') : correctAnswer;
+        isCorrect = JSON.stringify(currentAnswerState) === JSON.stringify(correctArr);
+        correctAnswerStr = Array.isArray(correctAnswer) ? correctAnswer.join(" ") : correctAnswer;
     }
     else if (ex.type === 'match_pairs') {
         isCorrect = true; // Auto checked during interactions
@@ -573,12 +577,12 @@ function checkAnswer() {
     }
     
     // TRACKING MASTERY
-    if (ex.vocab && ex.vocab.word) {
+    const wordTarget = ex.target_vocab || (ex.vocab && ex.vocab.word);
+    if (wordTarget) {
         const params = getLessonParams();
         if (typeof recordVocabAttempt === 'function') {
-            // Don't penalize repeatedly in the same session if they retry
             if (!ex._masteryRecorded) {
-                recordVocabAttempt(params.lang, ex.vocab.word, isCorrect);
+                recordVocabAttempt(params.lang, wordTarget, isCorrect);
                 ex._masteryRecorded = true;
             }
         }
