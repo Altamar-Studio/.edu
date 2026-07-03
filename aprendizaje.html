@@ -578,11 +578,8 @@ let chatHistory = [];
 
                 const formattedText = replyText
                     .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                    .replace(/
-
-/g, '</p><p class="mt-2">')
-                    .replace(/
-/g, '<br>');
+                    .replace(/\n\n/g, '</p><p class="mt-2">')
+                    .replace(/\n/g, '<br>');
 
                 const aiMsgHtml = `
                     <div class="flex gap-4 max-w-2xl fade-in">
