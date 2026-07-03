@@ -47,39 +47,43 @@ export default async function handler(req, res) {
   try {
     const messages = req.body.messages || [];
 
-    // 2. Extraer API Key de variables de entorno (Oculta del cliente)
-    // Usamos el key proporcionado por el usuario temporalmente si no existe la var
-    const openRouterApiKey = process.env.OPENROUTER_API_KEY || "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";
+    // 2. Extraer API Key de Google (Gemini)
+    const googleApiKey = process.env.GEMINI_API_KEY || "AIzaSyDkfqqKjU02EWi7CZ7M-54sKV-F0IaqYAU";
+
+    // 3. Formatear mensajes para Google Generative Language API
+    // El frontend nos manda: { role: 'user'|'assistant', content: '...' }
+    const formattedContents = messages.map(msg => ({
+      role: msg.role === 'assistant' ? 'model' : 'user',
+      parts: [{ text: msg.content }]
+    }));
 
     const payload = {
-      model: 'google/gemma-2-9b-it', // Modelo de Google (Gemma 2)
-      messages: [
-        { role: 'system', content: SYSTEM_PROMPT },
-        ...messages
-      ]
+      systemInstruction: {
+        parts: [{ text: SYSTEM_PROMPT }]
+      },
+      contents: formattedContents
     };
 
-    // 3. Llamar a la API de OpenRouter
-    const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+    // 4. Llamar a la API nativa de Google Gemini
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${googleApiKey}`;
+    const response = await fetch(url, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${openRouterApiKey}`,
-        'HTTP-Referer': 'https://estudiandoando.com', // Headers recomendados por OpenRouter
-        'X-Title': 'EstudiandoAndo' 
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify(payload)
     });
 
     const data = await response.json();
     
-    // 4. Devolver la respuesta al cliente
-    if (data.choices && data.choices.length > 0) {
-       return res.status(200).json({ reply: data.choices[0].message.content });
+    // 5. Devolver la respuesta al cliente
+    if (data.candidates && data.candidates.length > 0) {
+       const textReply = data.candidates[0].content.parts[0].text;
+       return res.status(200).json({ reply: textReply });
     } else if (data.error) {
-       return res.status(200).json({ reply: `❌ Error de OpenRouter: ${data.error.message || JSON.stringify(data.error)}` });
+       return res.status(200).json({ reply: `❌ Error de Google API: ${data.error.message || JSON.stringify(data.error)}` });
     } else {
-       return res.status(200).json({ reply: `❌ Respuesta inesperada de OpenRouter: ${JSON.stringify(data)}` });
+       return res.status(200).json({ reply: `❌ Respuesta inesperada de Google: ${JSON.stringify(data)}` });
     }
 
   } catch (err) {
