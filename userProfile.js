@@ -14,8 +14,6 @@ const DEFAULT_PROFILE = {
     streak: 0,
     lastActiveDate: null,
     activeDays: [], // Track all days active for calendar
-    lives: 5,
-    lastLivesUpdate: Date.now(),
     achievements: [],
     completedLessons: [],
     lessonStars: {}, // "en_a1_u1_l0": 3
@@ -24,7 +22,7 @@ const DEFAULT_PROFILE = {
     // que el progreso no se pierda si el usuario borra su localStorage.
 };
 
-const LIFE_RECHARGE_MS = 15 * 60 * 1000; // 15 minutes per life
+
 
 const AVAILABLE_ACHIEVEMENTS = {
     'first_lesson': { id: 'first_lesson', name: 'Primer Paso', icon: '🐣', desc: 'Completaste tu primera lección' },
@@ -46,8 +44,6 @@ function getProfile() {
     if (!parsed.vocabMastery) parsed.vocabMastery = {};
     if (!parsed.activeDays) parsed.activeDays = parsed.lastActiveDate ? [parsed.lastActiveDate] : [];
     if (!parsed.lessonStars) parsed.lessonStars = {};
-    if (parsed.lives === undefined) parsed.lives = 5;
-    if (!parsed.lastLivesUpdate) parsed.lastLivesUpdate = Date.now();
     return parsed;
 }
 
@@ -88,7 +84,6 @@ function initProfile() {
     
     saveProfile(profile);
     updateUIHeaders();
-    startLivesTimer();
 }
 
 function startLivesTimer() {
