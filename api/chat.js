@@ -48,7 +48,7 @@ export default async function handler(req, res) {
     const messages = req.body.messages || [];
 
     // 2. Extraer API Key de Google (Gemini)
-    const googleApiKey = process.env.GEMINI_API_KEY || "AIzaSyDkfqqKjU02EWi7CZ7M-54sKV-F0IaqYAU";
+    const googleApiKey = process.env.GEMINI_API_KEY || "AQ.Ab8RN6KXGHp2YjLsPErY8g42CfuSCXfEVLsk1a2nVgydW4k2kA";
 
     // 3. Formatear mensajes para Google Generative Language API
     // El frontend nos manda: { role: 'user'|'assistant', content: '...' }
