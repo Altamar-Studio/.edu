@@ -299,12 +299,8 @@ function renderExercise() {
         const phraseMatch = (ex.question || ex.prompt || '').match(/['“«](.+?)['”»]/);
         const displayPhrase = ex.phrase || (phraseMatch ? phraseMatch[1] : (ex.question || ex.prompt)) || '';
         html += `<div class="flex items-start gap-4 mb-8">
-                    <div class="relative w-24 h-24 hidden sm:block">
-                        <img src="mac-greeting.png" class="absolute -top-4 w-full h-full object-contain animate-[bounce_3s_infinite] drop-shadow-md" alt="Mac">
-                    </div>
-                    <div class="border-2 border-black/10 dark:border-white/10 rounded-3xl rounded-tl-none p-5 font-medium text-xl bg-white dark:bg-neutral-900 shadow-sm relative w-full">
+                    <div class="border-2 border-black/10 dark:border-white/10 rounded-3xl p-5 font-medium text-xl bg-white dark:bg-neutral-900 shadow-sm relative w-full text-center">
                         ${displayPhrase}
-                        <div class="absolute -left-2 top-0 w-4 h-4 border-t-2 border-l-2 border-black/10 dark:border-white/10 bg-white dark:bg-neutral-900 transform -rotate-45 -mt-2 -ml-2 hidden sm:block"></div>
                     </div>
                  </div>`;
         html += `<textarea id="translate-input" aria-label="Escribe tu traducción aquí" class="w-full bg-gray-50 dark:bg-neutral-900 border-2 border-black/10 dark:border-white/10 rounded-2xl p-4 text-xl outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/30 transition-all shadow-inner resize-none" rows="3" placeholder="Escribe tu traducción..."></textarea>`;

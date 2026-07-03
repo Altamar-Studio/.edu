@@ -296,6 +296,20 @@
         });
 
         // ── Dynamic Lesson Path ──────────────────────────────────────────
+        
+        const motivationalPhrases = [
+            "¡Tú puedes!",
+            "Un paso a la vez",
+            "Sigue así",
+            "Excelente esfuerzo",
+            "Aprender es crecer",
+            "¡No te rindas!",
+            "Hoy serás mejor",
+            "Sigue brillando",
+            "El éxito te espera",
+            "¡A darle!"
+        ];
+
         const LANG = 'en', LEVEL = 'a1', UNIT = '1';
         const TOTAL_LESSONS = 5;
         // Zigzag offsets (Tailwind classes for margin)
@@ -366,9 +380,12 @@
                             html += `
                                 <a href="leccion.html?lang=${LANG}&level=${LEVEL}&unit=${UNIT}&lesson=${item.index}"
                                    class="path-node z-20 relative flex flex-col items-center group cursor-pointer ${offset} my-4" data-state="active">
-                                    <!-- Mac Mascot with idle bounce -->
-                                    <div class="absolute -top-20 -right-28 animate-[bounce_3s_infinite] w-32 pointer-events-none hidden sm:block">
-                                        <img src="mac-greeting.png" alt="Mac Tutor" class="w-full h-auto drop-shadow-2xl" />
+                                    <!-- Motivational Bubble -->
+                                    <div class="absolute -top-12 -right-24 animate-[bounce_3s_infinite] pointer-events-none hidden sm:block z-50">
+                                        <div class="bg-white dark:bg-neutral-800 text-ea-dark dark:text-white text-xs font-bold px-4 py-2 rounded-2xl shadow-lg border border-black/10 dark:border-white/10 whitespace-nowrap relative">
+                                            ${motivationalPhrases[Math.floor(Math.random() * motivationalPhrases.length)]}
+                                            <div class="absolute -bottom-1.5 left-4 w-3 h-3 bg-white dark:bg-neutral-800 border-b border-r border-black/10 dark:border-white/10 transform rotate-45"></div>
+                                        </div>
                                     </div>
                                     <div class="w-20 h-20 rounded-full bg-blue-600 border-b-8 border-blue-800 flex items-center justify-center text-white shadow-[0_0_30px_rgba(37,99,235,0.6)] transform transition-transform group-hover:scale-105 group-active:translate-y-2 group-active:border-b-0 ring-4 ring-blue-400/50 animate-pulse">
                                         <span class="material-symbols-outlined font-bold text-[36px]">play_arrow</span>
