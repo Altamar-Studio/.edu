@@ -76,12 +76,14 @@ export default async function handler(req, res) {
     // 4. Devolver la respuesta al cliente
     if (data.choices && data.choices.length > 0) {
        return res.status(200).json({ reply: data.choices[0].message.content });
+    } else if (data.error) {
+       return res.status(200).json({ reply: `❌ Error de OpenRouter: ${data.error.message || JSON.stringify(data.error)}` });
     } else {
-       return res.status(500).json({ error: 'No response from AI', details: data });
+       return res.status(200).json({ reply: `❌ Respuesta inesperada de OpenRouter: ${JSON.stringify(data)}` });
     }
 
   } catch (err) {
     console.error("Error en API /chat:", err);
-    return res.status(500).json({ error: 'Internal Server Error' });
+    return res.status(200).json({ reply: `❌ Error interno del servidor: ${err.message}` });
   }
 }
