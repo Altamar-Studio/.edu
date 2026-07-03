@@ -49,10 +49,10 @@ export default async function handler(req, res) {
 
     // 2. Extraer API Key de variables de entorno (Oculta del cliente)
     // Usamos el key proporcionado por el usuario temporalmente si no existe la var
-    const openRouterApiKey = process.env.OPENROUTER_API_KEY || "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";
+    const openRouterApiKey = process.env.OPENROUTER_API_KEY || "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";
 
     const payload = {
-      model: 'openai/gpt-4o-mini', // Modelo rápido y económico sugerido
+      model: 'deepinfra/fp4', // Modelo rápido y económico sugerido
       messages: [
         { role: 'system', content: SYSTEM_PROMPT },
         ...messages
