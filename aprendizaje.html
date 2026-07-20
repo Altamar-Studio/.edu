@@ -38,8 +38,16 @@
         .custom-scroll::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 10px; }
         .custom-scroll::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.2); }
         
-        .fade-in { animation: fadeIn 0.5s ease-out forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeInUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) both;
+        }
+        .animate-delay-1 { animation-delay: 0.1s; }
+        .animate-delay-2 { animation-delay: 0.2s; }
+        .animate-delay-3 { animation-delay: 0.3s; }
         
         /* Chat styles */
         .typing-dot {
@@ -62,6 +70,7 @@
             localStorage.setItem('theme', 'light');
         }
     </script>
+<script src="auth.js"></script>
 </head>
 <body class="antialiased bg-[#F9F9F9] dark:bg-neutral-950 text-[#0A0A0A] dark:text-white selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black transition-colors duration-300 flex flex-col min-h-screen">
 
@@ -77,7 +86,7 @@
                     <a class='hover:opacity-100 transition-opacity' href='biblioteca.html'>Biblioteca</a>
                     <a class="text-black dark:text-white font-bold opacity-100 transition-colors" href='aprendizaje.html'>Aprendizaje</a>
                     <a class="hover:opacity-100 transition-opacity" href="idiomas.html">Idiomas</a>
-                    <a class="hover:opacity-100 transition-opacity" href='noticias.html'>Noticias</a>
+                    <a class="hover:opacity-100 transition-opacity" href="blog.html">Blog</a>
                 </div>
             </div>
             <div class="flex items-center gap-4">
@@ -85,28 +94,27 @@
                     <span class="material-symbols-outlined dark:hidden text-[20px]">dark_mode</span>
                     <span class="material-symbols-outlined hidden dark:block text-[20px]">light_mode</span>
                 </button>
-                <a class="text-sm font-medium opacity-60 hover:opacity-100 transition-opacity hidden sm:block" href="#">Iniciar sesión</a>
-                <a class="bg-black dark:bg-white text-white dark:text-black px-5 py-2.5 rounded-full text-sm font-bold shadow-sm hover:bg-neutral-800 dark:hover:bg-gray-200 transition-colors" href="#">Registrarse</a>
+                <a class="text-sm font-medium opacity-60 hover:opacity-100 transition-opacity hidden sm:block" href="login.html">Iniciar sesión</a>
+                <a class="bg-black dark:bg-white text-white dark:text-black px-5 py-2.5 rounded-full text-sm font-bold shadow-sm hover:bg-neutral-800 dark:hover:bg-gray-200 transition-colors" href="registro.html">Registrarse</a>
             </div>
         </nav>
     </header>
 
-    <main class="pt-32 flex-grow max-w-7xl mx-auto w-full px-6 mb-20 space-y-32">
-        
+    <main class="pt-32 flex-grow max-w-[90%] 2xl:max-w-[1600px] mx-auto w-full px-6 mb-20 space-y-32">
         <!-- Título General -->
-        <div class="mt-4 border-b border-black/10 dark:border-white/10 pb-8 flex flex-col md:flex-row md:items-end justify-between gap-6 transition-colors">
+        <div class="mt-4 border-b border-black/10 dark:border-white/10 pb-8 flex flex-col md:flex-row md:items-end justify-between gap-6 transition-colors animate-fade-in">
             <div>
                 <h1 class="text-5xl md:text-7xl text-serif font-medium tracking-tight leading-tight md:leading-none">
-                    Simuladores & <span class="text-handwritten text-4xl md:text-6xl lg:text-7xl italic whitespace-nowrap block sm:inline-block mt-2 sm:mt-0">Mentoría IA</span>
+                    Simuladores <span class="text-handwritten text-4xl md:text-6xl lg:text-7xl italic whitespace-nowrap block sm:inline-block mt-2 sm:mt-0">de Admisión</span>
                 </h1>
             </div>
             <div class="max-w-sm text-sm font-medium opacity-60 leading-relaxed">
-                Domina tu examen de admisión practicando con simuladores específicos y optimizando tu rendimiento guiado por inteligencia artificial.
+                Domina tu examen de admisión practicando con simuladores específicos diseñados para asegurar tu ingreso.
             </div>
         </div>
 
         <!-- PARTE 1: SIMULADORES POR UNIVERSIDAD -->
-        <section class="space-y-8">
+        <section class="space-y-8 animate-fade-in animate-delay-1">
             <div class="flex items-center justify-between">
                 <div>
                     <h2 class="text-3xl text-serif font-bold italic">1. Simuladores Oficiales</h2>
@@ -115,369 +123,371 @@
                 <span class="text-xs font-bold uppercase tracking-widest opacity-40 hidden sm:block">Pruebas Dinámicas</span>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-8 md:gap-10">
                 
                 <!-- UNIVERSIDAD VERACRUZANA (EXANI-II) - DISPONIBLE -->
-                <div class="group relative bg-white dark:bg-neutral-900 border border-black/10 dark:border-white/10 p-8 rounded-3xl shadow-sm hover:shadow-xl transition-all flex flex-col justify-between overflow-hidden border-l-4 border-l-blue-600 dark:border-l-blue-500">
-                    <div class="absolute top-0 right-0 bg-blue-600 text-white text-[9px] font-bold uppercase tracking-widest px-3 py-1 rounded-bl-xl shadow-sm">Activo</div>
+                <div class="group relative bg-white dark:bg-neutral-900 border border-black/10 dark:border-white/10 p-8 md:p-12 rounded-[32px] shadow-sm hover:shadow-xl transition-all flex flex-col justify-between overflow-hidden border-l-8 border-l-blue-600 dark:border-l-blue-500">
+                    <div class="absolute top-0 right-0 bg-blue-600 text-white text-[10px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-bl-2xl shadow-sm">Activo</div>
                     <div>
-                        <div class="flex items-center gap-3 mb-6">
-                            <div class="w-12 h-12 rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-lg border border-blue-100 dark:border-blue-800/50">UV</div>
+                        <div class="flex items-center gap-4 mb-8">
+                            <div class="w-16 h-16 rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-xl md:text-2xl border border-blue-100 dark:border-blue-800/50 flex-shrink-0">UV</div>
                             <div>
-                                <h3 class="font-bold text-lg leading-tight">Universidad Veracruzana</h3>
-                                <span class="text-xs opacity-50 font-medium">Formato EXANI-II (CENEVAL)</span>
+                                <h3 class="font-bold text-xl md:text-2xl leading-tight">Universidad Veracruzana</h3>
+                                <span class="text-sm opacity-50 font-medium">Formato EXANI-II (CENEVAL)</span>
                             </div>
                         </div>
-                        <p class="text-sm opacity-60 leading-relaxed mb-8">
+                        <p class="text-base opacity-70 leading-relaxed mb-10">
                             Simulador web premium con 120 reactivos dinámicos, cronómetro oficial de 3 horas y retroalimentación inteligente al finalizar.
                         </p>
                     </div>
-                    <div class="space-y-3">
-                        <div class="flex justify-between text-xs font-bold opacity-40 pb-2 border-b border-black/5 dark:border-white/5 transition-colors">
+                    <div class="space-y-4">
+                        <div class="flex justify-between text-xs md:text-sm font-bold opacity-40 pb-3 border-b border-black/5 dark:border-white/5 transition-colors">
                             <span>Áreas: 4 módulos</span>
                             <span>Reactivos: 360 en banco</span>
                         </div>
-                        <a href="simulador-uv.html" class="block w-full text-center bg-black dark:bg-white text-white dark:text-black py-3 rounded-xl text-sm font-bold hover:bg-blue-600 dark:hover:bg-blue-400 transition-colors shadow-sm">
+                        <a href="simulador-uv.html" class="block w-full text-center bg-black dark:bg-white text-white dark:text-black py-4 rounded-2xl text-base font-bold hover:bg-blue-600 dark:hover:bg-blue-400 transition-colors shadow-sm">
                             Iniciar Simulador UV
                         </a>
                     </div>
                 </div>
 
                 <!-- UNAM -->
-                <div class="group bg-white dark:bg-neutral-900 border border-black/10 dark:border-white/10 p-8 rounded-3xl shadow-sm hover:shadow-md transition-all flex flex-col justify-between relative overflow-hidden">
+                <div class="group relative bg-white dark:bg-neutral-900 border border-black/10 dark:border-white/10 p-8 md:p-12 rounded-[32px] shadow-sm hover:shadow-md transition-all flex flex-col justify-between overflow-hidden border-l-8 border-l-[#D4AF37] opacity-75 hover:opacity-100">
+                    <div class="absolute top-0 right-0 bg-neutral-200 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 text-[10px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-bl-2xl shadow-sm">Próximamente</div>
                     <div>
-                        <div class="flex items-center gap-3 mb-6">
-                            <div class="w-12 h-12 rounded-full bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold text-lg border border-amber-100 dark:border-amber-800/50">UNAM</div>
+                        <div class="flex items-center gap-4 mb-8">
+                            <div class="w-16 h-16 rounded-full bg-amber-50 dark:bg-amber-950/30 text-[#B8860B] dark:text-amber-400 flex items-center justify-center font-bold text-xl md:text-2xl border border-amber-100 dark:border-amber-900/50 flex-shrink-0">UNAM</div>
                             <div>
-                                <h3 class="font-bold text-lg leading-tight">UNAM</h3>
-                                <span class="text-xs opacity-50 font-medium">Concurso de Selección Licenciatura</span>
+                                <h3 class="font-bold text-xl md:text-2xl leading-tight">UNAM</h3>
+                                <span class="text-sm opacity-50 font-medium">Selección Licenciatura</span>
                             </div>
                         </div>
-                        <p class="text-sm opacity-60 leading-relaxed mb-8">
-                            Pruebas adaptadas a las 4 áreas de conocimiento. Incluye física, química, literatura e historia de México y universal.
+                        <p class="text-base opacity-70 leading-relaxed mb-10">
+                            Simulador específico estructurado para las 4 áreas de conocimiento del examen de selección UNAM.
                         </p>
                     </div>
-                    <div class="space-y-3">
-                        <div class="flex justify-between text-xs font-bold opacity-40 pb-2 border-b border-black/5 dark:border-white/5 transition-colors">
-                            <span>Áreas: 10 materias</span>
-                            <span>Reactivos: 120 por prueba</span>
+                    <div class="space-y-4">
+                        <div class="flex justify-between text-xs md:text-sm font-bold opacity-40 pb-3 border-b border-black/5 dark:border-white/5 transition-colors">
+                            <span>Estado: En desarrollo</span>
+                            <span>Estructura 2026</span>
                         </div>
-                        <button onclick="alert('Simulador UNAM en fase de optimización. ¡Estará disponible muy pronto!')" class="w-full bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 py-3 rounded-xl text-sm font-bold hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black transition-colors">
-                            Acceder (Próximamente)
+                        <button disabled class="w-full bg-neutral-100 dark:bg-neutral-800 text-neutral-400 dark:text-neutral-500 py-4 rounded-2xl text-base font-bold cursor-not-allowed">
+                            Próximamente disponible
                         </button>
                     </div>
                 </div>
 
                 <!-- IPN -->
-                <div class="group bg-white dark:bg-neutral-900 border border-black/10 dark:border-white/10 p-8 rounded-3xl shadow-sm hover:shadow-md transition-all flex flex-col justify-between relative overflow-hidden">
+                <div class="group relative bg-white dark:bg-neutral-900 border border-black/10 dark:border-white/10 p-8 md:p-12 rounded-[32px] shadow-sm hover:shadow-md transition-all flex flex-col justify-between overflow-hidden border-l-8 border-l-[#7A1C47] opacity-75 hover:opacity-100">
+                    <div class="absolute top-0 right-0 bg-neutral-200 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 text-[10px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-bl-2xl shadow-sm">Próximamente</div>
                     <div>
-                        <div class="flex items-center gap-3 mb-6">
-                            <div class="w-12 h-12 rounded-full bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center font-bold text-lg border border-red-100 dark:border-red-800/50">IPN</div>
+                        <div class="flex items-center gap-4 mb-8">
+                            <div class="w-16 h-16 rounded-full bg-rose-50 dark:bg-rose-950/30 text-[#7A1C47] dark:text-rose-400 flex items-center justify-center font-bold text-xl md:text-2xl border border-rose-100 dark:border-rose-900/50 flex-shrink-0">IPN</div>
                             <div>
-                                <h3 class="font-bold text-lg leading-tight">Instituto Politécnico Nacional</h3>
-                                <span class="text-xs opacity-50 font-medium">Nivel Superior (Ingeniería y Ciencias)</span>
+                                <h3 class="font-bold text-xl md:text-2xl leading-tight">Inst. Politécnico Nacional</h3>
+                                <span class="text-sm opacity-50 font-medium">Nivel Superior</span>
                             </div>
                         </div>
-                        <p class="text-sm opacity-60 leading-relaxed mb-8">
-                            Enfocado en razonamiento matemático avanzado, física y comprensión de textos científicos. Preparado para el nuevo temario.
+                        <p class="text-base opacity-70 leading-relaxed mb-10">
+                            Simulador especializado con enfoque avanzado en razonamiento matemático, física y química.
                         </p>
                     </div>
-                    <div class="space-y-3">
-                        <div class="flex justify-between text-xs font-bold opacity-40 pb-2 border-b border-black/5 dark:border-white/5 transition-colors">
-                            <span>Áreas: Matemáticas y Ciencias</span>
-                            <span>Reactivos: 140 por prueba</span>
+                    <div class="space-y-4">
+                        <div class="flex justify-between text-xs md:text-sm font-bold opacity-40 pb-3 border-b border-black/5 dark:border-white/5 transition-colors">
+                            <span>Estado: En desarrollo</span>
+                            <span>Estructura 2026</span>
                         </div>
-                        <button onclick="alert('Simulador IPN en desarrollo. ¡Pronto disponible para la comunidad!')" class="w-full bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 py-3 rounded-xl text-sm font-bold hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black transition-colors">
-                            Acceder (Próximamente)
+                        <button disabled class="w-full bg-neutral-100 dark:bg-neutral-800 text-neutral-400 dark:text-neutral-500 py-4 rounded-2xl text-base font-bold cursor-not-allowed">
+                            Próximamente disponible
                         </button>
                     </div>
                 </div>
 
-                <!-- UAM - INACTIVO -->
-                <div class="group bg-white dark:bg-neutral-900 border border-black/10 dark:border-white/10 p-8 rounded-3xl shadow-sm hover:shadow-md transition-all flex flex-col justify-between opacity-70 grayscale hover:grayscale-0">
+                <!-- UAM -->
+                <div class="group relative bg-white dark:bg-neutral-900 border border-black/10 dark:border-white/10 p-8 md:p-12 rounded-[32px] shadow-sm hover:shadow-md transition-all flex flex-col justify-between overflow-hidden border-l-8 border-l-[#800000] opacity-75 hover:opacity-100">
+                    <div class="absolute top-0 right-0 bg-neutral-200 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 text-[10px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-bl-2xl shadow-sm">Próximamente</div>
                     <div>
-                        <div class="flex items-center gap-3 mb-6">
-                            <div class="w-12 h-12 rounded-full bg-red-50 dark:bg-red-900/20 text-maroon-800 dark:text-red-400 flex items-center justify-center font-bold text-lg border border-red-100 dark:border-red-900/50" style="color: #800000;">UAM</div>
+                        <div class="flex items-center gap-4 mb-8">
+                            <div class="w-16 h-16 rounded-full bg-red-50 dark:bg-red-950/20 text-[#800000] dark:text-red-400 flex items-center justify-center font-bold text-xl md:text-2xl border border-red-100 dark:border-red-900/50 flex-shrink-0">UAM</div>
                             <div>
-                                <h3 class="font-bold text-lg leading-tight">UAM</h3>
-                                <span class="text-xs opacity-50 font-medium">División Académica</span>
+                                <h3 class="font-bold text-xl md:text-2xl leading-tight">Univ. Autónoma Metropolitana</h3>
+                                <span class="text-sm opacity-50 font-medium">Prueba de Selección</span>
                             </div>
                         </div>
-                        <p class="text-sm opacity-60 leading-relaxed mb-8">
-                            Simuladores con copias 100% exactas y fieles de los cuadernillos reales de las 4 divisiones de la Universidad Autónoma Metropolitana.
+                        <p class="text-base opacity-70 leading-relaxed mb-10">
+                            Preparación enfocada en las divisiones académicas (CBI, CSH, CBS, CAD) de la UAM.
                         </p>
                     </div>
-                    <div class="space-y-3">
-                        <div class="flex justify-between text-xs font-bold opacity-40 pb-2 border-b border-black/5 dark:border-white/5 transition-colors">
-                            <span>Áreas: 4 Divisiones</span>
+                    <div class="space-y-4">
+                        <div class="flex justify-between text-xs md:text-sm font-bold opacity-40 pb-3 border-b border-black/5 dark:border-white/5 transition-colors">
+                            <span>Estado: En desarrollo</span>
                             <span>Estructura 2026</span>
                         </div>
-                        <button onclick="alert('Simulador UAM en fase de rediseño. ¡Estará disponible muy pronto!')" class="w-full bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 py-3 rounded-xl text-sm font-bold hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black transition-colors">
-                            Acceder (Próximamente)
+                        <button disabled class="w-full bg-neutral-100 dark:bg-neutral-800 text-neutral-400 dark:text-neutral-500 py-4 rounded-2xl text-base font-bold cursor-not-allowed">
+                            Próximamente disponible
+                        </button>
+                    </div>
+                </div>
+
+                <!-- BUAP -->
+                <div class="group relative bg-white dark:bg-neutral-900 border border-black/10 dark:border-white/10 p-8 md:p-12 rounded-[32px] shadow-sm hover:shadow-md transition-all flex flex-col justify-between overflow-hidden border-l-8 border-l-indigo-600 opacity-75 hover:opacity-100">
+                    <div class="absolute top-0 right-0 bg-neutral-200 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 text-[10px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-bl-2xl shadow-sm">Próximamente</div>
+                    <div>
+                        <div class="flex items-center gap-4 mb-8">
+                            <div class="w-16 h-16 rounded-full bg-indigo-50 dark:bg-indigo-950/30 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold text-xl md:text-2xl border border-indigo-100 dark:border-indigo-800/50 flex-shrink-0">BUAP</div>
+                            <div>
+                                <h3 class="font-bold text-xl md:text-2xl leading-tight">BUAP</h3>
+                                <span class="text-sm opacity-50 font-medium">Examen EGA-I</span>
+                            </div>
+                        </div>
+                        <p class="text-base opacity-70 leading-relaxed mb-10">
+                            Reactivos adaptados al Examen General de Admisión de la Benemérita Univ. Autónoma de Puebla.
+                        </p>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex justify-between text-xs md:text-sm font-bold opacity-40 pb-3 border-b border-black/5 dark:border-white/5 transition-colors">
+                            <span>Estado: En desarrollo</span>
+                            <span>Estructura 2026</span>
+                        </div>
+                        <button disabled class="w-full bg-neutral-100 dark:bg-neutral-800 text-neutral-400 dark:text-neutral-500 py-4 rounded-2xl text-base font-bold cursor-not-allowed">
+                            Próximamente disponible
+                        </button>
+                    </div>
+                </div>
+
+                <!-- UANL -->
+                <div class="group relative bg-white dark:bg-neutral-900 border border-black/10 dark:border-white/10 p-8 md:p-12 rounded-[32px] shadow-sm hover:shadow-md transition-all flex flex-col justify-between overflow-hidden border-l-8 border-l-[#003B71] opacity-75 hover:opacity-100">
+                    <div class="absolute top-0 right-0 bg-neutral-200 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 text-[10px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-bl-2xl shadow-sm">Próximamente</div>
+                    <div>
+                        <div class="flex items-center gap-4 mb-8">
+                            <div class="w-16 h-16 rounded-full bg-blue-50 dark:bg-blue-950/30 text-[#003B71] dark:text-blue-400 flex items-center justify-center font-bold text-xl md:text-2xl border border-blue-100 dark:border-blue-900/50 flex-shrink-0">UANL</div>
+                            <div>
+                                <h3 class="font-bold text-xl md:text-2xl leading-tight">Univ. Autónoma de Nuevo León</h3>
+                                <span class="text-sm opacity-50 font-medium">Examen de Admisión</span>
+                            </div>
+                        </div>
+                        <p class="text-base opacity-70 leading-relaxed mb-10">
+                            Simulador web adaptado al formato oficial de ingreso de la Universidad Autónoma de Nuevo León.
+                        </p>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex justify-between text-xs md:text-sm font-bold opacity-40 pb-3 border-b border-black/5 dark:border-white/5 transition-colors">
+                            <span>Estado: En desarrollo</span>
+                            <span>Estructura 2026</span>
+                        </div>
+                        <button disabled class="w-full bg-neutral-100 dark:bg-neutral-800 text-neutral-400 dark:text-neutral-500 py-4 rounded-2xl text-base font-bold cursor-not-allowed">
+                            Próximamente disponible
+                        </button>
+                    </div>
+                </div>
+
+                <!-- UDG -->
+                <div class="group relative bg-white dark:bg-neutral-900 border border-black/10 dark:border-white/10 p-8 md:p-12 rounded-[32px] shadow-sm hover:shadow-md transition-all flex flex-col justify-between overflow-hidden border-l-8 border-l-red-600 opacity-75 hover:opacity-100">
+                    <div class="absolute top-0 right-0 bg-neutral-200 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 text-[10px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-bl-2xl shadow-sm">Próximamente</div>
+                    <div>
+                        <div class="flex items-center gap-4 mb-8">
+                            <div class="w-16 h-16 rounded-full bg-red-50 dark:bg-red-950/30 text-red-600 dark:text-red-400 flex items-center justify-center font-bold text-xl md:text-2xl border border-red-100 dark:border-red-900/50 flex-shrink-0">UDG</div>
+                            <div>
+                                <h3 class="font-bold text-xl md:text-2xl leading-tight">Universidad de Guadalajara</h3>
+                                <span class="text-sm opacity-50 font-medium">Prueba PAA (College Board)</span>
+                            </div>
+                        </div>
+                        <p class="text-base opacity-70 leading-relaxed mb-10">
+                            Evaluación adaptada a la Prueba de Aptitud Académica (PAA) aplicada para el ingreso a la UDG.
+                        </p>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex justify-between text-xs md:text-sm font-bold opacity-40 pb-3 border-b border-black/5 dark:border-white/5 transition-colors">
+                            <span>Estado: En desarrollo</span>
+                            <span>Estructura 2026</span>
+                        </div>
+                        <button disabled class="w-full bg-neutral-100 dark:bg-neutral-800 text-neutral-400 dark:text-neutral-500 py-4 rounded-2xl text-base font-bold cursor-not-allowed">
+                            Próximamente disponible
+                        </button>
+                    </div>
+                </div>
+
+                <!-- NORMAL -->
+                <div class="group relative bg-white dark:bg-neutral-900 border border-black/10 dark:border-white/10 p-8 md:p-12 rounded-[32px] shadow-sm hover:shadow-md transition-all flex flex-col justify-between overflow-hidden border-l-8 border-l-emerald-600 opacity-75 hover:opacity-100">
+                    <div class="absolute top-0 right-0 bg-neutral-200 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 text-[10px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-bl-2xl shadow-sm">Próximamente</div>
+                    <div>
+                        <div class="flex items-center gap-4 mb-8">
+                            <div class="w-16 h-16 rounded-full bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold text-xl md:text-2xl border border-emerald-100 dark:border-emerald-900/50 flex-shrink-0">NORMAL</div>
+                            <div>
+                                <h3 class="font-bold text-xl md:text-2xl leading-tight">Escuelas Normales</h3>
+                                <span class="text-sm opacity-50 font-medium">EXANI-II Docencia</span>
+                            </div>
+                        </div>
+                        <p class="text-base opacity-70 leading-relaxed mb-10">
+                            Preparación para las Escuelas Normales con enfoque especial en los módulos de pedagogía y docencia.
+                        </p>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex justify-between text-xs md:text-sm font-bold opacity-40 pb-3 border-b border-black/5 dark:border-white/5 transition-colors">
+                            <span>Estado: En desarrollo</span>
+                            <span>Estructura 2026</span>
+                        </div>
+                        <button disabled class="w-full bg-neutral-100 dark:bg-neutral-800 text-neutral-400 dark:text-neutral-500 py-4 rounded-2xl text-base font-bold cursor-not-allowed">
+                            Próximamente disponible
                         </button>
                     </div>
                 </div>
 
                 <!-- CHAPINGO -->
-                <div class="group bg-white dark:bg-neutral-900 border border-black/10 dark:border-white/10 p-8 rounded-3xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between relative overflow-hidden">
-                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green-700 to-emerald-500 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500"></div>
+                <div class="group relative bg-white dark:bg-neutral-900 border border-black/10 dark:border-white/10 p-8 md:p-12 rounded-[32px] shadow-sm hover:shadow-md transition-all flex flex-col justify-between overflow-hidden border-l-8 border-l-green-700 opacity-75 hover:opacity-100">
+                    <div class="absolute top-0 right-0 bg-neutral-200 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 text-[10px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-bl-2xl shadow-sm">Próximamente</div>
                     <div>
-                        <div class="flex items-center gap-3 mb-6">
-                            <div class="w-12 h-12 rounded-full bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-400 flex items-center justify-center font-bold text-lg border border-green-100 dark:border-green-800/50">UACh</div>
+                        <div class="flex items-center gap-4 mb-8">
+                            <div class="w-16 h-16 rounded-full bg-green-50 dark:bg-green-950/30 text-green-700 dark:text-green-400 flex items-center justify-center font-bold text-xl md:text-2xl border border-green-100 dark:border-green-800/50 flex-shrink-0">UACh</div>
                             <div>
-                                <h3 class="font-bold text-lg leading-tight">Universidad Autónoma Chapingo</h3>
-                                <span class="text-xs opacity-50 font-medium">Examen Propedéutico</span>
+                                <h3 class="font-bold text-xl md:text-2xl leading-tight">Univ. Autónoma Chapingo</h3>
+                                <span class="text-sm opacity-50 font-medium">Examen Propedéutico</span>
                             </div>
                         </div>
-                        <p class="text-sm opacity-60 leading-relaxed mb-8">
-                            Simulador web oficial de 130 reactivos enfocado en ciencias, matemáticas y agronomía, con cronómetro de 4 horas.
+                        <p class="text-base opacity-70 leading-relaxed mb-10">
+                            Simulador propedéutico enfocado en matemáticas avanzadas, ciencias naturales y agronomía.
                         </p>
                     </div>
-                    <div class="space-y-3">
-                        <div class="flex justify-between text-xs font-bold opacity-40 pb-2 border-b border-black/5 dark:border-white/5 transition-colors">
-                            <span>Áreas: 12 Oficiales</span>
-                            <span>Propedéutico</span>
-                        </div>
-                        <a href="simulador-chapingo.html" class="block w-full text-center bg-black dark:bg-white text-white dark:text-black py-3 rounded-xl text-sm font-bold hover:bg-green-700 dark:hover:bg-green-500 transition-colors shadow-sm">
-                            Iniciar Simulador UACh
-                        </a>
-                    </div>
-                </div>
-
-                <!-- BUAP -->
-                <div class="group bg-white dark:bg-neutral-900 border border-black/10 dark:border-white/10 p-8 rounded-3xl shadow-sm hover:shadow-md transition-all flex flex-col justify-between relative overflow-hidden">
-                    <div>
-                        <div class="flex items-center gap-3 mb-6">
-                            <div class="w-12 h-12 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold text-lg border border-indigo-100 dark:border-indigo-800/50">BUAP</div>
-                            <div>
-                                <h3 class="font-bold text-lg leading-tight">BUAP</h3>
-                                <span class="text-xs opacity-50 font-medium">Examen General de Admisión (EGA-I)</span>
-                            </div>
-                        </div>
-                        <p class="text-sm opacity-60 leading-relaxed mb-8">
-                            Evaluación diagnóstica y de selección estructurada en habilidades de pensamiento y lenguaje.
-                        </p>
-                    </div>
-                    <div class="space-y-3">
-                        <div class="flex justify-between text-xs font-bold opacity-40 pb-2 border-b border-black/5 dark:border-white/5 transition-colors">
-                            <span>Áreas: EGA-I Oficial</span>
+                    <div class="space-y-4">
+                        <div class="flex justify-between text-xs md:text-sm font-bold opacity-40 pb-3 border-b border-black/5 dark:border-white/5 transition-colors">
+                            <span>Estado: En desarrollo</span>
                             <span>Estructura 2026</span>
                         </div>
-                        <button onclick="alert('Simulador BUAP en preparación.')" class="w-full bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 py-3 rounded-xl text-sm font-bold hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black transition-colors">
-                            Acceder (Próximamente)
+                        <button disabled class="w-full bg-neutral-100 dark:bg-neutral-800 text-neutral-400 dark:text-neutral-500 py-4 rounded-2xl text-base font-bold cursor-not-allowed">
+                            Próximamente disponible
                         </button>
                     </div>
                 </div>
 
-                <!-- OTROS EXANI-II -->
-                <div class="group bg-white dark:bg-neutral-900 border border-black/10 dark:border-white/10 p-8 rounded-3xl shadow-sm hover:shadow-md transition-all flex flex-col justify-between relative overflow-hidden border-dashed border-2 bg-gradient-to-br from-transparent to-neutral-50 dark:to-neutral-800">
+                <!-- UPN -->
+                <div class="group relative bg-white dark:bg-neutral-900 border border-black/10 dark:border-white/10 p-8 md:p-12 rounded-[32px] shadow-sm hover:shadow-md transition-all flex flex-col justify-between overflow-hidden border-l-8 border-l-rose-600 opacity-75 hover:opacity-100">
+                    <div class="absolute top-0 right-0 bg-neutral-200 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 text-[10px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-bl-2xl shadow-sm">Próximamente</div>
                     <div>
-                        <div class="flex items-center gap-3 mb-6">
-                            <div class="w-12 h-12 rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 flex items-center justify-center font-bold">
-                                <span class="material-symbols-outlined">add</span>
-                            </div>
+                        <div class="flex items-center gap-4 mb-8">
+                            <div class="w-16 h-16 rounded-full bg-rose-50 dark:bg-rose-950/30 text-rose-600 dark:text-rose-400 flex items-center justify-center font-bold text-xl md:text-2xl border border-rose-100 dark:border-rose-900/50 flex-shrink-0">UPN</div>
                             <div>
-                                <h3 class="font-bold text-lg leading-tight">Otras Universidades</h3>
-                                <span class="text-xs opacity-50 font-medium">UADY, UAEMEX, UANL, etc.</span>
+                                <h3 class="font-bold text-xl md:text-2xl leading-tight">Univ. Pedagógica Nacional</h3>
+                                <span class="text-sm opacity-50 font-medium">Examen de Ingreso</span>
                             </div>
                         </div>
-                        <p class="text-sm opacity-60 leading-relaxed mb-8">
-                            ¿Tu universidad aplica EXANI-II u otro examen propio? El simulador UV te sirve perfectamente como base de entrenamiento global.
+                        <p class="text-base opacity-70 leading-relaxed mb-10">
+                            Examen enfocado en ciencias de la educación, habilidades pedagógicas y comprensión lectora.
                         </p>
                     </div>
-                    <a href="../index.html" class="block w-full text-center bg-white dark:bg-neutral-900 border border-black/20 dark:border-white/20 text-black dark:text-white py-3 rounded-xl text-sm font-bold hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black transition-colors shadow-sm">
-                        Entrenar con Base EXANI
-                    </a>
+                    <div class="space-y-4">
+                        <div class="flex justify-between text-xs md:text-sm font-bold opacity-40 pb-3 border-b border-black/5 dark:border-white/5 transition-colors">
+                            <span>Estado: En desarrollo</span>
+                            <span>Estructura 2026</span>
+                        </div>
+                        <button disabled class="w-full bg-neutral-100 dark:bg-neutral-800 text-neutral-400 dark:text-neutral-500 py-4 rounded-2xl text-base font-bold cursor-not-allowed">
+                            Próximamente disponible
+                        </button>
+                    </div>
                 </div>
 
-            </div>
-        </section>
-
-
-        <!-- PARTE 2: CHAT CON IA DE ASESORAMIENTO PERSONAL -->
-        <section class="space-y-8">
-            <div class="flex items-center justify-between">
-                <div>
-                    <h2 class="text-3xl text-serif font-bold italic">2. Asesor de Aprendizaje IA</h2>
-                    <p class="text-sm opacity-50 font-medium mt-1">Conversa con tu tutor inteligente para diseñar tu plan de estudio, resolver dudas del examen y analizar tus puntajes.</p>
-                </div>
-                <span class="bg-black text-white text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full hidden sm:inline-block">Conexión Segura</span>
-            </div>
-
-            <!-- Interfaz del Chat (Dark Premium Aesthetic) -->
-            <div class="bg-[#0A0A0A] text-white rounded-[40px] border border-white/10 shadow-2xl overflow-hidden flex flex-col lg:flex-row min-h-[700px] lg:h-[600px]">
-                
-                <!-- Sidebar de Contexto IA -->
-                <div class="w-full lg:w-1/4 bg-white/5 border-b lg:border-b-0 lg:border-r border-white/10 p-6 flex flex-col justify-between">
+                <!-- UAEMEX -->
+                <div class="group relative bg-white dark:bg-neutral-900 border border-black/10 dark:border-white/10 p-8 md:p-12 rounded-[32px] shadow-sm hover:shadow-md transition-all flex flex-col justify-between overflow-hidden border-l-8 border-l-[#0F5132] opacity-75 hover:opacity-100">
+                    <div class="absolute top-0 right-0 bg-neutral-200 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 text-[10px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-bl-2xl shadow-sm">Próximamente</div>
                     <div>
-                        <div class="flex items-center gap-3 mb-6">
-                            <div onclick="cycleMacExpression()" title="Haz clic para ver mis expresiones" class="relative w-12 h-12 rounded-full flex items-center justify-center overflow-hidden flex-shrink-0 shadow-lg cursor-pointer hover:scale-105 transition-all duration-300 group">
-                                <img id="mac-avatar" src="mac-greeting.png" alt="Mac IA" class="w-full h-full object-cover scale-105 transition-all duration-300 transform" onerror="this.onerror=null; this.src='https://api.dicebear.com/7.x/bottts/svg?seed=mac-white&baseColor=e2e8f0&mouth=smile01';">
-                                <div class="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                            </div>
+                        <div class="flex items-center gap-4 mb-8">
+                            <div class="w-16 h-16 rounded-full bg-green-50 dark:bg-green-950/30 text-[#0F5132] dark:text-green-400 flex items-center justify-center font-bold text-xl md:text-2xl border border-green-100 dark:border-green-900/50 flex-shrink-0">UAEMex</div>
                             <div>
-                                <h4 class="font-bold text-sm tracking-tight text-white flex items-center gap-1.5">
-                                    Mac <span class="text-[9px] bg-white/10 text-white border border-white/20 px-1.5 py-0.5 rounded font-bold uppercase tracking-wider">Tutor IA</span>
-                                </h4>
-                                <span class="text-[10px] text-white/80 flex items-center gap-1 font-medium"><span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span> Siempre en línea</span>
+                                <h3 class="font-bold text-xl md:text-2xl leading-tight">Univ. Aut. del Edo. de México</h3>
+                                <span class="text-sm opacity-50 font-medium">Formato EXANI-II</span>
                             </div>
                         </div>
-                        <p class="text-xs text-white/70 leading-relaxed mb-6 font-medium">
-                            Tu compañero virtual de estudio. Diseñado para apoyarte con paciencia, darte explicaciones sencillas y mantener tu motivación al máximo antes del examen real.
+                        <p class="text-base opacity-70 leading-relaxed mb-10">
+                            Pruebas de ingreso con cronómetro oficial y estructura EXANI-II adaptada a la UAEMEX.
                         </p>
-                        
-                        <!-- Sugerencias rápidas -->
-                        <div class="space-y-2">
-                            <p class="text-[10px] font-bold uppercase tracking-widest text-white/40 mb-3">Preguntas Frecuentes</p>
-                            <button onclick="sendQuickPrompt('¿Cuáles son los temas que más vienen en Pensamiento Matemático del EXANI-II?')" class="w-full text-left text-xs bg-white/5 hover:bg-white/10 border border-white/5 p-2.5 rounded-xl transition-colors text-white/80 line-clamp-1 block">
-                                📊 Temas clave en Matemáticas
-                            </button>
-                            <button onclick="sendQuickPrompt('¿Cómo distribuyo mi tiempo para responder 120 preguntas en 3 horas?')" class="w-full text-left text-xs bg-white/5 hover:bg-white/10 border border-white/5 p-2.5 rounded-xl transition-colors text-white/80 line-clamp-1 block">
-                                ⏱️ Estrategia de tiempo
-                            </button>
-                            <button onclick="sendQuickPrompt('He sacado 60% en Redacción Indirecta, ¿cómo puedo subir mi puntaje?')" class="w-full text-left text-xs bg-white/5 hover:bg-white/10 border border-white/5 p-2.5 rounded-xl transition-colors text-white/80 line-clamp-1 block">
-                                ✍️ Mejorar en Redacción
-                            </button>
-                        </div>
                     </div>
-
-                    <div class="mt-6 pt-4 border-t border-white/5 text-[11px] text-white/40 font-medium leading-relaxed">
-                        ⚠️ Al crear tu cuenta próximamente, Mac guardará tu progreso en los simuladores para darte consejos personalizados.
+                    <div class="space-y-4">
+                        <div class="flex justify-between text-xs md:text-sm font-bold opacity-40 pb-3 border-b border-black/5 dark:border-white/5 transition-colors">
+                            <span>Estado: En desarrollo</span>
+                            <span>Estructura 2026</span>
+                        </div>
+                        <button disabled class="w-full bg-neutral-100 dark:bg-neutral-800 text-neutral-400 dark:text-neutral-500 py-4 rounded-2xl text-base font-bold cursor-not-allowed">
+                            Próximamente disponible
+                        </button>
                     </div>
                 </div>
 
-                <!-- Ventana principal del Chat -->
-                <div class="flex-1 flex flex-col justify-between bg-[#0B141A] relative">
-                    
-                    <!-- Historial de mensajes -->
-                    <div id="chat-messages" class="flex-1 p-6 overflow-y-auto custom-scroll space-y-6">
-                        
-                        <!-- Mensaje IA de bienvenida -->
-                        <div class="flex gap-4 max-w-2xl fade-in">
-                            <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center shadow-md overflow-hidden">
-                                <img src="mac-greeting.png" alt="Mac" class="w-full h-full object-cover scale-105">
-                            </div>
-                            <div class="bg-[#202c33] border border-white/5 p-4 rounded-2xl text-sm leading-relaxed text-white/95 rounded-tl-none shadow-sm">
-                                <p class="font-bold mb-1 text-white flex items-center gap-1.5">¡Qué onda! 👋</p>
-                                <p class="mt-1">Soy <strong>Mac</strong>, tu compañero de estudio. Sé que prepararse para el examen de admisión puede llegar a ser estresante, pero no estás solo en esto.</p>
-                                <p class="mt-2 text-white/80">Cuéntame, ¿a qué carrera e institución aspiras entrar? O si prefieres, dime qué tema te está dando dolores de cabeza hoy y lo resolvemos juntos paso a paso.</p>
+                <!-- UAEH -->
+                <div class="group relative bg-white dark:bg-neutral-900 border border-black/10 dark:border-white/10 p-8 md:p-12 rounded-[32px] shadow-sm hover:shadow-md transition-all flex flex-col justify-between overflow-hidden border-l-8 border-l-[#8B0000] opacity-75 hover:opacity-100">
+                    <div class="absolute top-0 right-0 bg-neutral-200 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 text-[10px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-bl-2xl shadow-sm">Próximamente</div>
+                    <div>
+                        <div class="flex items-center gap-4 mb-8">
+                            <div class="w-16 h-16 rounded-full bg-red-50 dark:bg-red-950/20 text-[#8B0000] dark:text-red-400 flex items-center justify-center font-bold text-xl md:text-2xl border border-red-100 dark:border-red-900/50 flex-shrink-0">UAEH</div>
+                            <div>
+                                <h3 class="font-bold text-xl md:text-2xl leading-tight">Univ. Aut. del Edo. de Hidalgo</h3>
+                                <span class="text-sm opacity-50 font-medium">Examen de Admisión (Exani-II)</span>
                             </div>
                         </div>
-
+                        <p class="text-base opacity-70 leading-relaxed mb-10">
+                            Simulador web adaptado con módulos específicos para el examen de admisión de la UAEH.
+                        </p>
                     </div>
-
-                    <!-- Indicador de escribiendo (Oculto por defecto) -->
-                    <div id="typing-indicator" class="px-8 py-2 hidden items-center gap-1.5 text-white/40 text-xs">
-                        <span class="w-1.5 h-1.5 rounded-full bg-white/40 typing-dot"></span>
-                        <span class="w-1.5 h-1.5 rounded-full bg-white/40 typing-dot"></span>
-                        <span class="w-1.5 h-1.5 rounded-full bg-white/40 typing-dot"></span>
-                        <span class="ml-2 font-medium">Analizando base de datos...</span>
+                    <div class="space-y-4">
+                        <div class="flex justify-between text-xs md:text-sm font-bold opacity-40 pb-3 border-b border-black/5 dark:border-white/5 transition-colors">
+                            <span>Estado: En desarrollo</span>
+                            <span>Estructura 2026</span>
+                        </div>
+                        <button disabled class="w-full bg-neutral-100 dark:bg-neutral-800 text-neutral-400 dark:text-neutral-500 py-4 rounded-2xl text-base font-bold cursor-not-allowed">
+                            Próximamente disponible
+                        </button>
                     </div>
-
-                    <!-- Input del Chat -->
-                    <div class="p-4 border-t border-white/10 bg-[#0A0A0A]/80 backdrop-blur-md">
-                        <form id="chat-form" onsubmit="handleChatMessage(event)" class="flex gap-3">
-                            <input 
-                                type="text" 
-                                id="chat-input" 
-                                placeholder="Escribe tu consulta sobre el examen, guías o tu plan de estudio..." 
-                                class="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-white/30 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
-                            >
-                            <button type="submit" class="bg-white text-black hover:bg-blue-600 hover:text-white px-5 py-3 rounded-xl font-bold transition-all flex items-center justify-center shadow-md">
-                                <span class="material-symbols-outlined">send</span>
-                            </button>
-                        </form>
-                    </div>
-
                 </div>
 
-            </div>
-        </section>
-
-
-        <!-- PARTE 3: CANALES DE YOUTUBE RECOMENDADOS -->
-        <section class="space-y-8">
-            <div class="flex items-center justify-between border-b border-black/10 dark:border-white/10 pb-4 transition-colors">
-                <div>
-                    <h2 class="text-3xl text-serif font-bold italic">3. Creadores & Mentores Recomendados</h2>
-                    <p class="text-sm opacity-50 font-medium mt-1">Canales de YouTube con mayor índice de aprobación estudiantil para complementar tu preparación.</p>
+                <!-- TECNM -->
+                <div class="group relative bg-white dark:bg-neutral-900 border border-black/10 dark:border-white/10 p-8 md:p-12 rounded-[32px] shadow-sm hover:shadow-md transition-all flex flex-col justify-between overflow-hidden border-l-8 border-l-[#0047AB] opacity-75 hover:opacity-100">
+                    <div class="absolute top-0 right-0 bg-neutral-200 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 text-[10px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-bl-2xl shadow-sm">Próximamente</div>
+                    <div>
+                        <div class="flex items-center gap-4 mb-8">
+                            <div class="w-16 h-16 rounded-full bg-blue-50 dark:bg-blue-950/30 text-[#0047AB] dark:text-blue-400 flex items-center justify-center font-bold text-xl md:text-2xl border border-blue-100 dark:border-blue-900/50 flex-shrink-0">TecNM</div>
+                            <div>
+                                <h3 class="font-bold text-xl md:text-2xl leading-tight">Tecnológico Nac. de México</h3>
+                                <span class="text-sm opacity-50 font-medium">Examen de Admisión</span>
+                            </div>
+                        </div>
+                        <p class="text-base opacity-70 leading-relaxed mb-10">
+                            Banco de reactivos adaptados para el examen de ingreso a los campus del Tecnológico Nacional.
+                        </p>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex justify-between text-xs md:text-sm font-bold opacity-40 pb-3 border-b border-black/5 dark:border-white/5 transition-colors">
+                            <span>Estado: En desarrollo</span>
+                            <span>Estructura 2026</span>
+                        </div>
+                        <button disabled class="w-full bg-neutral-100 dark:bg-neutral-800 text-neutral-400 dark:text-neutral-500 py-4 rounded-2xl text-base font-bold cursor-not-allowed">
+                            Próximamente disponible
+                        </button>
+                    </div>
                 </div>
-                <span class="material-symbols-outlined text-3xl text-red-600 hidden sm:block">smart_display</span>
-            </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                
-                <!-- PROFE CRISTIAN -->
-                <a href="https://www.youtube.com/@profecristian" target="_blank" rel="noopener noreferrer" class="group bg-white dark:bg-neutral-900 border border-black/10 dark:border-white/10 p-6 rounded-2xl hover:shadow-lg transition-all flex flex-col justify-between block">
-                    <div class="flex items-center gap-4 mb-4">
-                        <img src="https://yt3.googleusercontent.com/ytc/AIdro_n-c-6W9Zq86W-yH_4oR9Y3Mh2p_kS2-fR5QzK1s4o=s176-c-k-c0x00ffffff-no-rj" alt="Profe Cristian" class="w-14 h-14 rounded-full object-cover border border-black/5 group-hover:scale-105 transition-transform" onerror="this.onerror=null; this.src='https://api.dicebear.com/7.x/initials/svg?seed=Profe+Cristian&backgroundColor=2563eb&textColor=ffffff';">
-                        <div>
-                            <h3 class="font-bold text-sm leading-tight group-hover:text-red-600 transition-colors">Profe Cristian</h3>
-                            <span class="text-[11px] text-blue-600 font-bold">Especialista EXANI-II</span>
+                <!-- EXANI II -->
+                <div class="group relative bg-white dark:bg-neutral-900 border border-black/10 dark:border-white/10 p-8 md:p-12 rounded-[32px] shadow-sm hover:shadow-md transition-all flex flex-col justify-between overflow-hidden border-l-8 border-l-orange-500 opacity-75 hover:opacity-100">
+                    <div class="absolute top-0 right-0 bg-neutral-200 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 text-[10px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-bl-2xl shadow-sm">Próximamente</div>
+                    <div>
+                        <div class="flex items-center gap-4 mb-8">
+                            <div class="w-16 h-16 rounded-full bg-orange-50 dark:bg-orange-950/30 text-orange-600 dark:text-orange-400 flex items-center justify-center font-bold text-xl md:text-2xl border border-orange-100 dark:border-orange-900/50 flex-shrink-0">EXANI</div>
+                            <div>
+                                <h3 class="font-bold text-xl md:text-2xl leading-tight">EXANI-II General</h3>
+                                <span class="text-sm opacity-50 font-medium">CENEVAL General</span>
+                            </div>
                         </div>
+                        <p class="text-base opacity-70 leading-relaxed mb-10">
+                            Simulador estandarizado oficial EXANI-II del Ceneval para autoevaluación global de ingreso.
+                        </p>
                     </div>
-                    <p class="text-xs opacity-60 leading-relaxed mb-4 line-clamp-3">
-                        Referente en Pensamiento Matemático y Redacción Indirecta para el EXANI-II. Explicaciones paso a paso con trucos rápidos y guías oficiales resueltas.
-                    </p>
-                    <div class="flex items-center justify-between text-[11px] font-bold opacity-40 pt-3 border-t border-black/5">
-                        <span>~120k Suscriptores</span>
-                        <span class="text-red-600 flex items-center gap-0.5"><span class="material-symbols-outlined text-[14px]">arrow_forward</span></span>
-                    </div>
-                </a>
-
-                <!-- IKNIUM UNAM -->
-                <a href="https://www.youtube.com/@Iknium" target="_blank" rel="noopener noreferrer" class="group bg-white dark:bg-neutral-900 border border-black/10 dark:border-white/10 p-6 rounded-2xl hover:shadow-lg transition-all flex flex-col justify-between block">
-                    <div class="flex items-center gap-4 mb-4">
-                        <img src="https://yt3.googleusercontent.com/ytc/AIdro_mD_9A7XhJ5U2I9Y9S5bJ8U0Z4x6v9G7w8x1w=s176-c-k-c0x00ffffff-no-rj" alt="Iknium Editorial" class="w-14 h-14 rounded-full object-cover border border-black/5 group-hover:scale-105 transition-transform" onerror="this.onerror=null; this.src='https://api.dicebear.com/7.x/initials/svg?seed=Iknium&backgroundColor=d97706&textColor=ffffff';">
-                        <div>
-                            <h3 class="font-bold text-sm leading-tight group-hover:text-red-600 transition-colors">Iknium Editorial</h3>
-                            <span class="text-[11px] text-amber-600 font-bold">UNAM / COMIPEMS</span>
+                    <div class="space-y-4">
+                        <div class="flex justify-between text-xs md:text-sm font-bold opacity-40 pb-3 border-b border-black/5 dark:border-white/5 transition-colors">
+                            <span>Estado: En desarrollo</span>
+                            <span>Estructura 2026</span>
                         </div>
+                        <button disabled class="w-full bg-neutral-100 dark:bg-neutral-800 text-neutral-400 dark:text-neutral-500 py-4 rounded-2xl text-base font-bold cursor-not-allowed">
+                            Próximamente disponible
+                        </button>
                     </div>
-                    <p class="text-xs opacity-60 leading-relaxed mb-4 line-clamp-3">
-                        El canal con mayor trayectoria preparando estudiantes para el ingreso a la UNAM y bachilleratos. Clases completas de historia, español, física y química.
-                    </p>
-                    <div class="flex items-center justify-between text-[11px] font-bold opacity-40 pt-3 border-t border-black/5">
-                        <span>~350k Suscriptores</span>
-                        <span class="text-red-600 flex items-center gap-0.5"><span class="material-symbols-outlined text-[14px]">arrow_forward</span></span>
-                    </div>
-                </a>
-
-                <!-- DE VOLADA -->
-                <a href="https://www.youtube.com/@cursosdevolada" target="_blank" rel="noopener noreferrer" class="group bg-white dark:bg-neutral-900 border border-black/10 dark:border-white/10 p-6 rounded-2xl hover:shadow-lg transition-all flex flex-col justify-between block">
-                    <div class="flex items-center gap-4 mb-4">
-                        <img src="https://yt3.googleusercontent.com/ytc/AIdro_l2U1G4zT6v3A8I9w2f7O6Q1q4r5t8u9z0x2y=s176-c-k-c0x00ffffff-no-rj" alt="Cursos De Volada" class="w-14 h-14 rounded-full object-cover border border-black/5 group-hover:scale-105 transition-transform" onerror="this.onerror=null; this.src='https://api.dicebear.com/7.x/initials/svg?seed=De+Volada&backgroundColor=059669&textColor=ffffff';">
-                        <div>
-                            <h3 class="font-bold text-sm leading-tight group-hover:text-red-600 transition-colors">Cursos De Volada</h3>
-                            <span class="text-[11px] text-emerald-600 font-bold">Explicaciones Rápidas</span>
-                        </div>
-                    </div>
-                    <p class="text-xs opacity-60 leading-relaxed mb-4 line-clamp-3">
-                        Aprende los temas más difíciles de tu examen de admisión en tiempo récord. Resúmenes directos al grano y bancos de preguntas filtradas.
-                    </p>
-                    <div class="flex items-center justify-between text-[11px] font-bold opacity-40 pt-3 border-t border-black/5">
-                        <span>~180k Suscriptores</span>
-                        <span class="text-red-600 flex items-center gap-0.5"><span class="material-symbols-outlined text-[14px]">arrow_forward</span></span>
-                    </div>
-                </a>
-
-                <!-- ANTONIO DÍAZ PROFE -->
-                <a href="https://www.youtube.com/@profeantoniodiaz" target="_blank" rel="noopener noreferrer" class="group bg-white dark:bg-neutral-900 border border-black/10 dark:border-white/10 p-6 rounded-2xl hover:shadow-lg transition-all flex flex-col justify-between block">
-                    <div class="flex items-center gap-4 mb-4">
-                        <img src="https://yt3.googleusercontent.com/ytc/AIdro_k4W8E9o2a6M1p3H7V5R9D4L2i8Q0t6w7v1y=s176-c-k-c0x00ffffff-no-rj" alt="Profe Antonio Díaz" class="w-14 h-14 rounded-full object-cover border border-black/5 group-hover:scale-105 transition-transform" onerror="this.onerror=null; this.src='https://api.dicebear.com/7.x/initials/svg?seed=Antonio+Diaz&backgroundColor=7c3aed&textColor=ffffff';">
-                        <div>
-                            <h3 class="font-bold text-sm leading-tight group-hover:text-red-600 transition-colors">Profe Antonio Díaz</h3>
-                            <span class="text-[11px] text-purple-600 font-bold">Módulos Específicos</span>
-                        </div>
-                    </div>
-                    <p class="text-xs opacity-60 leading-relaxed mb-4 line-clamp-3">
-                        Especialista enfocado en desglosar las áreas de estudio del nuevo EXANI-II. Estrategias comprobadas para asegurar un puntaje sobresaliente en tu universidad.
-                    </p>
-                    <div class="flex items-center justify-between text-[11px] font-bold opacity-40 pt-3 border-t border-black/5">
-                        <span>~90k Suscriptores</span>
-                        <span class="text-red-600 flex items-center gap-0.5"><span class="material-symbols-outlined text-[14px]">arrow_forward</span></span>
-                    </div>
-                </a>
+                </div>
 
             </div>
         </section>
@@ -486,7 +496,7 @@
 
     <!-- Footer -->
     <footer class="bg-white dark:bg-neutral-950 py-20 px-6 border-t border-black/5 dark:border-white/5 mt-auto transition-colors">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 border-t border-black/5 dark:border-white/5 pt-10 pb-20 md:pb-0 transition-colors">
+        <div class="max-w-[90%] 2xl:max-w-[1600px] mx-auto flex flex-col md:flex-row justify-between items-center gap-6 border-t border-black/5 dark:border-white/5 pt-10 pb-20 md:pb-0 transition-colors">
             <div class="font-black tracking-tighter text-4xl opacity-5">EstudiandoAndo</div>
             <p class="text-xs opacity-40 font-bold tracking-tight">© EstudiandoAndo 2026. Todos los derechos reservados.</p>
         </div>
@@ -510,162 +520,13 @@
             <span class="material-symbols-outlined text-[20px]">language</span>
             <span class="text-[9px] font-bold tracking-tight">Idiomas</span>
         </a>
-        <a href="noticias.html" class="flex flex-col items-center gap-0.5 opacity-40 hover:opacity-100 transition-opacity">
-            <span class="material-symbols-outlined text-[20px]">newspaper</span>
-            <span class="text-[9px] font-bold tracking-tight">Noticias</span>
+        <a href="blog.html" class="flex flex-col items-center gap-0.5 opacity-40 hover:opacity-100 transition-opacity">
+            <span class="material-symbols-outlined text-[20px]">feed</span>
+            <span class="text-[9px] font-bold tracking-tight">Blog</span>
         </a>
     </nav>
 
     <script>
-        // LÓGICA DEL CHAT SIMULADO CON IA
-        const chatMessages = document.getElementById('chat-messages');
-        const chatInput = document.getElementById('chat-input');
-        const typingIndicator = document.getElementById('typing-indicator');
-
-let chatHistory = [];
-
-        function handleChatMessage(e) { e.preventDefault(); const text = chatInput.value.trim(); if (!text) return; addUserMessage(text); chatInput.value = ''; fetchAiResponse(text); }
-        function sendQuickPrompt(promptText) { addUserMessage(promptText); fetchAiResponse(promptText); }
-        
-        function addUserMessage(text) {
-            const userMsgHtml = `
-                <div class="flex gap-4 max-w-2xl ml-auto justify-end fade-in">
-                    <div class="bg-white text-black font-medium p-4 rounded-2xl text-sm leading-relaxed rounded-tr-none shadow-sm relative pr-12">
-                        ${text}
-                        <span class="absolute bottom-2 right-3 text-[10px] text-blue-600 font-bold tracking-tighter">✓✓</span>
-                    </div>
-                    <div class="w-8 h-8 rounded-full bg-white text-black border border-black/10 flex-shrink-0 flex items-center justify-center text-xs font-bold shadow-md">
-                        TÚ
-                    </div>
-                </div>
-            `;
-            chatMessages.insertAdjacentHTML('beforeend', userMsgHtml);
-            scrollToBottom();
-        }
-
-        async function fetchAiResponse(userText) {
-            typingIndicator.classList.remove('hidden');
-            typingIndicator.classList.add('flex');
-            scrollToBottom();
-            setMacExpression('searching');
-
-            chatHistory.push({ role: 'user', content: userText });
-
-            try {
-                const response = await fetch('/api/chat', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ messages: chatHistory })
-                });
-                
-                const data = await response.json();
-                
-                typingIndicator.classList.remove('flex');
-                typingIndicator.classList.add('hidden');
-                
-                let replyText = "";
-                if (response.ok && data.reply) {
-                    replyText = data.reply;
-                    chatHistory.push({ role: 'assistant', content: replyText });
-                    setMacExpression('success');
-                } else if (response.status === 429) {
-                    replyText = data.reply || "¡Ups! Has hecho muchas preguntas seguidas. 😅 Déjame tomar un vasito de agua y volvemos a platicar en un rato.";
-                    setMacExpression('thinking');
-                } else {
-                    replyText = "Perdón, tuve un problema de conexión con el servidor. 😥 ¿Me lo repites en unos segundos?";
-                    setMacExpression('thinking');
-                }
-
-                const formattedText = replyText
-                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                    .replace(/\n\n/g, '</p><p class="mt-2">')
-                    .replace(/\n/g, '<br>');
-
-                const aiMsgHtml = `
-                    <div class="flex gap-4 max-w-2xl fade-in">
-                        <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center shadow-md overflow-hidden">
-                            <img src="mac-greeting.png" alt="Mac" class="w-full h-full object-cover scale-105">
-                        </div>
-                        <div class="bg-[#202c33] border border-white/5 p-4 rounded-2xl text-sm leading-relaxed text-white/95 rounded-tl-none shadow-sm">
-                            <p>${formattedText}</p>
-                        </div>
-                    </div>
-                `;
-                chatMessages.insertAdjacentHTML('beforeend', aiMsgHtml);
-                scrollToBottom();
-
-            } catch (error) {
-                typingIndicator.classList.remove('flex');
-                typingIndicator.classList.add('hidden');
-                setMacExpression('thinking');
-                console.error("Chat error:", error);
-                
-                const aiMsgHtml = `
-                    <div class="flex gap-4 max-w-2xl fade-in">
-                        <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center shadow-md overflow-hidden">
-                            <img src="mac-greeting.png" alt="Mac" class="w-full h-full object-cover scale-105">
-                        </div>
-                        <div class="bg-[#202c33] border border-white/5 p-4 rounded-2xl text-sm leading-relaxed text-white/95 rounded-tl-none shadow-sm">
-                            <p>¡Oops! Algo falló en la conexión. ¿Podemos intentarlo de nuevo más tarde?</p>
-                        </div>
-                    </div>
-                `;
-                chatMessages.insertAdjacentHTML('beforeend', aiMsgHtml);
-                scrollToBottom();
-            }
-        }
-
-        function scrollToBottom() {
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-
-        // --- Controlador Dinámico de Expresiones de Mac ---
-        const macExpressions = ['greeting', 'searching', 'thinking', 'success'];
-        let currentExpIdx = 0;
-
-        function setMacExpression(state) {
-            const avatar = document.getElementById('mac-avatar');
-            if (!avatar) return;
-            
-            // Efecto de desvanecimiento/escala suave para micro-animación premium
-            avatar.style.transform = 'scale(0.8)';
-            avatar.style.opacity = '0.2';
-            
-            setTimeout(() => {
-                // Nombres sugeridos para que el usuario coloque sus PNGs locales directamente
-                const localImages = {
-                    greeting: 'mac-greeting.png',
-                    searching: 'mac-searching.png',
-                    thinking: 'mac-thinking.png',
-                    success: 'mac-success.png'
-                };
-                
-                // Fallbacks SVG instantáneos en vivo por si las imágenes locales no se han copiado
-                const fallbacks = {
-                    greeting: 'https://api.dicebear.com/7.x/bottts/svg?seed=mac-smile&baseColor=6366f1&mouth=smile01',
-                    searching: 'https://api.dicebear.com/7.x/bottts/svg?seed=mac-search&baseColor=6366f1&eyes=sensor',
-                    thinking: 'https://api.dicebear.com/7.x/bottts/svg?seed=mac-think&baseColor=6366f1&mouth=square01',
-                    success: 'https://api.dicebear.com/7.x/bottts/svg?seed=mac-love&baseColor=6366f1&mouth=smile02'
-                };
-
-                avatar.src = localImages[state] || localImages.greeting;
-                
-                // Si la imagen local arroja error 404, entra automáticamente el fallback SVG
-                avatar.onerror = function() {
-                    this.onerror = null;
-                    this.src = fallbacks[state] || fallbacks.greeting;
-                };
-
-                avatar.style.transform = 'scale(1)';
-                avatar.style.opacity = '1';
-            }, 200);
-        }
-
-        function cycleMacExpression() {
-            currentExpIdx = (currentExpIdx + 1) % macExpressions.length;
-            setMacExpression(macExpressions[currentExpIdx]);
-        }
-        
         // Dark mode toggle listener
         document.getElementById('theme-toggle')?.addEventListener('click', () => {
             if (document.documentElement.classList.contains('dark')) {
